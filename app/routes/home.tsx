@@ -1,6 +1,6 @@
-import type { Route } from "./+types/home";
+import ThemeToggle from "~/components/ThemeToggle";
 
-export function meta({}: Route.MetaArgs) {
+export function meta() {
   return [
     { title: "New React Router App" },
     { name: "description", content: "Welcome to React Router!" },
@@ -8,14 +8,14 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  return <div>
-
-  {/* Theme toggle */}
-
-  {/* Background effects */}
-
-  {/* Navbar */}
-
-  {/* Main content */}
-  </div>;
+  return (
+    <div className="min-h-screen bg-background text-foreground overflow-hidden">
+      {/* Theme toggle */}
+      <ThemeToggle />
+      {/* Background effects */}
+      {/* Navbar */}
+      {/* Main content */}
+      {/* Footer */}
+    </div>
+  );
 }

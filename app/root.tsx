@@ -1,3 +1,7 @@
+// import NProgress from "nprogress";
+// import nProgressStyles from "nprogress/nprogress.css?url";
+import { ToastProvider } from "@radix-ui/react-toast";
+import React from "react";
 import {
   isRouteErrorResponse,
   Links,
@@ -5,12 +9,24 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useRouteLoaderData,
 } from "react-router";
+import {
+  PreventFlashOnWrongTheme,
+  ThemeProvider,
+  useTheme,
+} from "remix-themes";
 
 import type { Route } from "./+types/root";
+
 import "./app.css";
 
+import { themeSessionResolver } from "~/api/theme-session.server";
+import { cn } from "~/lib/helpers";
+
+{/* Remix-style) convention for defining which external resources */}
 export const links: Route.LinksFunction = () => [
+  { rel: "icon", href: "/favicon.ico" },
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
     rel: "preconnect",
@@ -19,27 +35,109 @@ export const links: Route.LinksFunction = () => [
   },
   {
     rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
+    href: "https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap",
   },
+  // { rel: "stylesheet", href: nProgressStyles },
 ];
 
+export async function loader({ request }: Route.LoaderArgs) {
+   const [{ getTheme }] = await Promise.all([
+    themeSessionResolver(request),
+  ]);
+
+  return {
+    theme: getTheme(),
+  };
+}
+
+/**
+ * Primary Layout Component
+ *
+ * This component wraps the entire application with the ThemeProvider
+ * to enable dark/light mode functionality. It retrieves theme preferences
+ * from the root loader data and provides a theme switching API endpoint.
+ *
+ * @param children - Child components to render within the layout
+ */
 export function Layout({ children }: { children: React.ReactNode }) {
+  const data = useRouteLoaderData("root");
+
   return (
-    <html lang="en">
+    <ThemeProvider
+      specifiedTheme={data?.theme ?? "dark"} // Default to dark theme if none is specified
+      themeAction="/api/settings/theme" // API endpoint for changing theme
+    >
+      <InnerLayout>{children}</InnerLayout>
+    </ThemeProvider>
+  );
+}
+
+/**
+ * Inner Layout Component
+ *
+ * This component handles the HTML structure of the application and applies:
+ * - Language direction (RTL/LTR) based on the current locale
+ * - Theme class to the HTML element
+ * - Special handling for pre-rendered routes (blog, legal pages)
+ * - Loading of analytics and customer support scripts
+ *
+ * @param children - Child components to render within the layout
+ */
+function InnerLayout({ children }: { children: React.ReactNode }) {
+  const [theme] = useTheme();
+  const data = useRouteLoaderData<typeof loader>("root");
+
+  return (
+    <html
+      className={cn(theme ?? "", "h-full")}
+    >
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
+        <PreventFlashOnWrongTheme ssrTheme={Boolean(data?.theme)} />
       </head>
-      <body>
+      <body className="bg-gradient h-fit">
         {children}
+        <ToastProvider/>
         <ScrollRestoration />
         <Scripts />
+        {import.meta.env.VITE_GOOGLE_TAG_ID &&
+          import.meta.env.VITE_GOOGLE_TAG_ID !== "" && (
+            <>
+              <script
+                async
+                src={`https://www.googletagmanager.com/gtag/js?id=${import.meta.env.VITE_GOOGLE_TAG_ID}`}
+              ></script>
+              <script
+                dangerouslySetInnerHTML={{
+                  __html: `window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${import.meta.env.VITE_GOOGLE_TAG_ID}');`,
+                }}
+              />
+            </>
+          )}
+        {import.meta.env.VITE_CHANNEL_PLUGIN_KEY &&
+          import.meta.env.VITE_CHANNEL_PLUGIN_KEY !== "" && (
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `(function(){var w=window;if(w.ChannelIO){return w.console.error("ChannelIO script included twice.");}var ch=function(){ch.c(arguments);};ch.q=[];ch.c=function(args){ch.q.push(args);};w.ChannelIO=ch;function l(){if(w.ChannelIOInitialized){return;}w.ChannelIOInitialized=true;var s=document.createElement("script");s.type="text/javascript";s.async=true;s.src="https://cdn.channel.io/plugin/ch-plugin-web.js";var x=document.getElementsByTagName("script")[0];if(x.parentNode){x.parentNode.insertBefore(s,x);}}if(document.readyState==="complete"){l();}else{w.addEventListener("DOMContentLoaded",l);w.addEventListener("load",l);}})();
+            ChannelIO('boot', {
+              "pluginKey": "${import.meta.env.VITE_CHANNEL_PLUGIN_KEY}"
+            });
+`,
+              }}
+            ></script>
+          )}
       </body>
     </html>
   );
 }
+
+
 
 export default function App() {
   return <Outlet />;
@@ -73,3 +171,4 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
     </main>
   );
 }
+

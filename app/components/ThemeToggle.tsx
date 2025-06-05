@@ -14,6 +14,8 @@
 import { Moon,Sun } from "lucide-react";
 import { Theme, useTheme } from "remix-themes";
 
+import { cn } from "~/lib/helpers";
+
 
 
 /**
@@ -38,7 +40,10 @@ export const ThemeToggle = () => {
   };
 
   return (
-    <button onClick={toggleTheme} aria-label="Toggle theme">
+    <button onClick={toggleTheme} aria-label="Toggle theme" 
+    className={cn("fixed max-md:hidden top-5 right-5 z-50 p-2 rounded-full transition-colors duration 300",
+      "focus:outline-hidden"
+    )}>
       {theme === Theme.DARK ? (
         <Sun className="h-6 w-6 text-yellow-300" />
       ) : (

@@ -2,10 +2,16 @@ import { Code, User } from "lucide-react";
 
 import FeatureCard from "~/components/ui/FeatureCard";
 import { cn } from "~/lib/helpers";
+import { useSectionTransition } from "../ui/SectionTransitionWrapper";
 
-const AboutSection = () => {
+interface SectionProps {
+  id: string;
+}
+
+const AboutSection: React.FC<SectionProps> = ({ id }) => {
+  const { scrollToSection } = useSectionTransition();
   return (
-    <section id="about" className="flex items-center justify-center min-h-screen">
+    <section id={id} className="flex items-center justify-center min-h-screen">
       {" "}
       <div className="container mx-auto max-w-5xl">
         <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
@@ -28,10 +34,13 @@ const AboutSection = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
-              <a href="#contact" className="star-button">
-                {" "}
+              <button
+                className="star-button"
+                onClick={() => scrollToSection("contact")}
+                type="button"
+              >
                 Get In Touch
-              </a>
+              </button>
 
               <a
                 href=""

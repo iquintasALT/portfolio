@@ -43,6 +43,10 @@ export default [
         },
       ],
     },
+    env: {
+      browser: true,
+      node: true,
+    },
   },
   {
     ignores: ['dist', '.eslintrc.cjs'],

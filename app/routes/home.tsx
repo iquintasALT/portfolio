@@ -6,6 +6,7 @@ import SkillsSection from "~/components/sections/SkillsSection";
 import ThemeToggle from "~/components/ThemeToggle";
 import Navbar from "~/components/ui/Navbar/Navbar";
 import StarBackground from "~/components/ui/StarBackground";
+import { SectionTransitionWrapper } from "~/components/ui/SectionTransitionWrapper";
 
 export function meta() {
   return [
@@ -25,11 +26,13 @@ export default function Home() {
       <Navbar/>
       {/* Main content */}
       <main>
-        <HeroSection/>
-        <AboutSection/>
-        <SkillsSection/>
-        <ProjectsSection/>
-        <ContactSection/>
+        <SectionTransitionWrapper>
+          <HeroSection id="me" />
+          <AboutSection id="about" />
+          <SkillsSection id="skills" />
+          <ProjectsSection id="projects" />
+          <ContactSection id="contact" />
+        </SectionTransitionWrapper>
       </main>
       {/* Footer */}
     </div>

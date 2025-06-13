@@ -1,9 +1,15 @@
 import { ChevronDown } from "lucide-react";
+import { useSectionTransition } from "../ui/SectionTransitionWrapper";
 
-const HeroSection = () => {
+interface SectionProps {
+  id: string;
+}
+
+const HeroSection: React.FC<SectionProps> = ({ id }) => {
+  const { scrollToSection } = useSectionTransition();
   return (
     <section
-      id="me"
+      id={id}
       className="relative min-h-screen flex flex-col items-center justify-center px-4"
     >
       <div className="container max-w-4xl mx-auto text-center z-10">
@@ -21,21 +27,25 @@ const HeroSection = () => {
           </h1>
 
           <p className="text-lg md:text-xl text-muted-foreground max-2-2xl mx-auto opacity-0 animate-fade-in-delay-3">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </p>
 
           <div className="pt-4 opacity-0 animate-fade-in-delay-4">
-            <a href="#projects" className="star-button">
+            <button
+              className="star-button"
+              onClick={() => scrollToSection("projects")}
+              type="button"
+            >
               View my work
-            </a>
+            </button>
           </div>
         </div>
       </div>
 
       <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce">
-      <span>PROJECTS</span>
-      <ChevronDown className="h-40 w-40 text-primary"/>
+        <span>PROJECTS</span>
+        <ChevronDown className="h-40 w-40 text-primary" />
       </div>
     </section>
   );

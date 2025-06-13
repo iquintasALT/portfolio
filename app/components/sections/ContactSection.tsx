@@ -34,12 +34,13 @@ const ContactInfoItem = ({
   </div>
 );
 
-const ContactSection = () => {
+interface SectionProps {
+  id: string;
+}
+
+const ContactSection: React.FC<SectionProps> = ({ id }) => {
   return (
-    <section
-      className="flex items-center justify-center min-h-screen"
-      id="contact"
-    >
+    <section className="flex items-center justify-center min-h-screen" id={id}>
       <div className="container mx-auto max-w-5xl">
         <div className="py-24 px-4 relative bg-secondary/30">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">

@@ -18,13 +18,6 @@ const ProjectsSection: React.FC<SectionProps> = ({ id }) => {
       <div className="flex flex-col items-center gap-4 w-full">
         <h2 className="text-2xl font-bold mb-4">Projects</h2>
         <ProjectsGrid />
-        <button
-          className="star-button mt-6"
-          onClick={() => scrollToSection("contact")}
-          type="button"
-        >
-          Contact Me
-        </button>
       </div>
     </section>
   );

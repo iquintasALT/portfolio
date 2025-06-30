@@ -16,13 +16,15 @@ import {
   ThemeProvider,
   useTheme,
 } from "remix-themes";
+import { Provider } from "react-redux";
 
 import type { Route } from "./+types/root";
 
-import "./app.css";
+import "~/app.css";
 
 import { themeSessionResolver } from "~/api/theme-session.server";
 import { cn } from "~/lib/helpers";
+import { store } from "~/store/store";
 
 {/* Remix-style) convention for defining which external resources */}
 export const links: Route.LinksFunction = () => [
@@ -140,7 +142,11 @@ function InnerLayout({ children }: { children: React.ReactNode }) {
 
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <Provider store={store}>
+      <Outlet />
+    </Provider>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {

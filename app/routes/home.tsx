@@ -7,6 +7,8 @@ import ThemeToggle from "~/components/ThemeToggle";
 import Navbar from "~/components/ui/Navbar/Navbar";
 import StarBackground from "~/components/ui/StarBackground";
 import { SectionTransitionWrapper } from "~/components/ui/SectionTransitionWrapper";
+import { PetCompanion } from "~/components/PetCompanion";
+import { useParams } from "react-router-dom";
 
 export function meta() {
   return [
@@ -16,6 +18,7 @@ export function meta() {
 }
 
 export default function Home() {
+  const { id } = useParams();
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       {/* Theme toggle */}
@@ -34,6 +37,8 @@ export default function Home() {
           <ContactSection id="contact" />
         </SectionTransitionWrapper>
       </main>
+      {/* Pet Companion */}
+      <PetCompanion route={id || "home"} />
       {/* Footer */}
     </div>
   );

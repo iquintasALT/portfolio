@@ -5,7 +5,7 @@
     "description": "Chilling horror—every shadow hides a secret.",
     "image": "/dome.png",
     "language": "C++",
-    "libraries": ["Three.js", "React", "Vite"]
+    "libraries": ["Videogame"]
   },
   {
     "id": 2,
@@ -13,7 +13,7 @@
     "description": "Platformer where speed is of the essence.",
     "image": "/gungcho.jpg",
     "language": "C#",
-    "libraries": ["React", "Framer Motion", "Styled Components"]
+    "libraries": ["Videogame"]
   },
   {
     "id": 3,
@@ -21,7 +21,7 @@
     "description": "State-of-the-art portfolio using React best practices.",
     "image": "/portfolio.png",
     "language": "TypeScript",
-    "libraries": ["React", "Vite", "TailwindCSS", "GSAP"]
+    "libraries": ["Frontend"]
   },
   {
     "id": 4,
@@ -29,7 +29,7 @@
     "description": "Fast engine for pixelated chaos and creativity.",
     "image": "/triturados_game.gif",
     "language": "C++, Lua",
-    "libraries": ["Phaser", "Howler.js"]
+    "libraries": ["Backend"]
   },
   {
     "id": 5,
@@ -37,6 +37,6 @@
     "description": "Browser RPG where mystery and magic collide.",
     "image": "/veiled.gif",
     "language": "JavaScript",
-    "libraries": ["PixiJS", "GSAP"]
+    "libraries": ["Videogame"]
   }
 ]

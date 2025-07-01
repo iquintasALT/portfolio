@@ -28,6 +28,7 @@ const LAYOUTS = [
 ];
 
 export const ProjectsGrid: React.FC = () => {
+  console.log('ProjectsGrid render');
   const { search, tags } = useSelector((state: RootState) => state.filters);
   const [selected, setSelected] = useState<Project | null>(null);
   const [flipped, setFlipped] = useState(false);
@@ -109,114 +110,77 @@ export const ProjectsGrid: React.FC = () => {
     setSelected(visibleProjects[newIndex]);
   };
 
-  const Carousel = () => (
-    <div className="flex flex-col items-center justify-center w-full max-w-[900px] mx-auto h-[80vh] relative">
-      {/* Main image and arrows */}
-      <div className="flex items-center justify-center w-full mb-6 relative">
+  const Carousel = () => {
+    console.log('Carousel render');
+    return (
+      <div className="flex flex-col items-center justify-center w-full max-w-[900px] mx-auto h-[80vh] relative">
+        {/* Left Arrow: fixed to left edge of carousel container */}
         <button
-          className="absolute left-0 top-1/2 -translate-y-1/2 bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700 rounded-full p-2 shadow-lg z-10"
+          className="absolute left-0 top-1/2 -translate-y-1/2 bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700 rounded-full p-2 shadow-lg z-20"
+          style={{
+            width: 44, height: 44, display: 'flex', alignItems: 'center', justifyContent: 'center',
+            marginLeft: 16, // Increased margin for edge spacing
+          }}
           onClick={handlePrev}
           aria-label="Previous project"
         >
           <span className="sr-only">Previous</span>
-          <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-left"><path d="m15 18-6-6 6-6"/></svg>
+          <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-left"><path d="m15 18-6-6 6-6"/></svg>
         </button>
-        {currentProject && (
-          <img
-            src={currentProject.image}
-            alt={currentProject.title}
-            className="w-64 h-64 sm:w-80 sm:h-80 object-cover rounded-2xl shadow-xl border-2 border-indigo-500 mx-8"
-          />
-        )}
+        {/* Right Arrow: fixed to right edge of carousel container */}
         <button
-          className="absolute right-0 top-1/2 -translate-y-1/2 bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700 rounded-full p-2 shadow-lg z-10"
+          className="absolute right-0 top-1/2 -translate-y-1/2 bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700 rounded-full p-2 shadow-lg z-20"
+          style={{
+            width: 44, height: 44, display: 'flex', alignItems: 'center', justifyContent: 'center',
+            marginRight: 16, // Increased margin for edge spacing
+          }}
           onClick={handleNext}
           aria-label="Next project"
         >
           <span className="sr-only">Next</span>
-          <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6"/></svg>
+          <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6"/></svg>
         </button>
-      </div>
-      {/* Thumbnails */}
-      <div className="flex items-center gap-4 mb-6 overflow-x-auto w-full justify-center">
-        {visibleProjects.map((project, idx) => (
-          <img
-            key={project.id}
-            src={project.image}
-            alt={project.title}
-            className={clsx(
-              "w-20 h-20 sm:w-28 sm:h-28 object-cover rounded-xl shadow cursor-pointer border-2 transition-all duration-300",
-              (currentProject?.id === project.id) ? "border-indigo-500 scale-110 z-10" : "border-zinc-700 opacity-60 hover:opacity-100 z-0"
-            )}
-            onClick={() => handleSelect(project, idx)}
-            style={{ minWidth: '5rem', minHeight: '5rem' }}
-          />
-        ))}
-      </div>
-      {currentProject && (
-        <div className="bg-zinc-950 rounded-3xl shadow-2xl border border-zinc-800 p-8 flex flex-col items-center animate-flip-expand w-full max-w-2xl">
-          <h2 className="text-3xl font-bold text-zinc-100 mb-2 text-center">
-            {currentProject.title}
-          </h2>
-          <p className="text-zinc-300 text-lg mb-4 text-center">
-            {currentProject.description}
-          </p>
-          <div className="flex flex-wrap gap-2 mb-6 justify-center">
-            {currentProject.libraries.map((lib) => (
-              <span
-                key={lib}
-                className="bg-zinc-800 text-zinc-300 px-3 py-1 rounded-full text-xs shadow border border-zinc-700"
-              >
-                {lib}
-              </span>
-            ))}
-          </div>
-          <button
-            className="mt-2 px-6 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-full shadow-lg font-semibold text-lg hover:scale-105 transition-transform"
-            onClick={() => navigate(`/projects/${slugify(currentProject.title)}`)}
-          >
-            More about this project
-          </button>
-        </div>
-      )}
-    </div>
-  );
-
-  // Grid + Persistent Side Panel (with bigger image)
-  const SidePanel = () => (
-    <div className="flex h-[80vh] w-full max-w-[1200px] mx-auto rounded-2xl shadow-2xl bg-zinc-950/80 backdrop-blur-lg border border-zinc-800 overflow-hidden relative">
-      <div className="w-2/3 overflow-y-auto p-4 border-r border-zinc-800">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {filteredProjects.map((project) => (
-            <div
-              key={project.id}
-              className={clsx(
-                "cursor-pointer group transition-transform duration-300",
-                selected?.id === project.id && "ring-2 ring-indigo-500"
-              )}
-              onClick={() => setSelected(project)}
-            >
-              <ProjectCard {...project} />
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="w-1/3 flex flex-col items-center justify-center p-8 relative">
-        {selected ? (
-          <>
+        {/* Main image and arrows */}
+        <div className="flex items-center justify-center w-full mb-6 relative min-h-[260px]">
+          {/* Main image: fixed size for all breakpoints */}
+          {currentProject && (
             <img
-              src={selected.image}
-              alt={selected.title}
-              className="w-64 h-64 sm:w-80 sm:h-80 object-cover rounded-2xl shadow-xl mb-6 border-2 border-indigo-500"
+              src={currentProject.image}
+              alt={currentProject.title}
+              className="object-cover rounded-2xl shadow-xl border-2 border-indigo-500 mx-8"
+              style={{ width: '18rem', height: '18rem', maxWidth: '80vw', maxHeight: '40vh' }}
             />
-            <h2 className="text-3xl font-bold text-zinc-100 mb-2 text-center">
-              {selected.title}
+          )}
+        </div>
+        {/* Thumbnails: always visible, horizontally scrollable on mobile */}
+        <div className="flex items-center gap-2 mb-6 overflow-x-auto w-full justify-center px-2 scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-transparent" style={{ WebkitOverflowScrolling: 'touch' }}>
+          {visibleProjects.map((project, idx) => {
+            console.log('Thumbnail render', project.title);
+            return (
+              <img
+                key={project.id}
+                src={project.image}
+                alt={project.title}
+                className={clsx(
+                  "w-16 h-16 sm:w-20 sm:h-20 md:w-28 md:h-28 object-cover rounded-xl shadow cursor-pointer border-2 transition-all duration-300",
+                  (currentProject?.id === project.id) ? "border-indigo-500 scale-110 z-10" : "border-zinc-700 opacity-60 hover:opacity-100 z-0"
+                )}
+                onClick={() => handleSelect(project, idx)}
+                style={{ minWidth: '4rem', minHeight: '4rem', maxWidth: '20vw', maxHeight: '20vw' }}
+              />
+            );
+          })}
+        </div>
+        {currentProject && (
+          <div className="bg-zinc-950 rounded-3xl shadow-2xl border border-zinc-800 p-4 sm:p-8 flex flex-col items-center animate-flip-expand w-full max-w-2xl">
+            <h2 className="text-2xl sm:text-3xl font-bold text-zinc-100 mb-2 text-center">
+              {currentProject.title}
             </h2>
-            <p className="text-zinc-300 text-lg mb-4 text-center">
-              {selected.description}
+            <p className="text-zinc-300 text-base sm:text-lg mb-4 text-center">
+              {currentProject.description}
             </p>
             <div className="flex flex-wrap gap-2 mb-6 justify-center">
-              {selected.libraries.map((lib) => (
+              {currentProject.libraries.map((lib) => (
                 <span
                   key={lib}
                   className="bg-zinc-800 text-zinc-300 px-3 py-1 rounded-full text-xs shadow border border-zinc-700"
@@ -227,20 +191,81 @@ export const ProjectsGrid: React.FC = () => {
             </div>
             <button
               className="mt-2 px-6 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-full shadow-lg font-semibold text-lg hover:scale-105 transition-transform"
-              onClick={() => navigate(`/projects/${slugify(selected.title)}`)}
+              onClick={() => navigate(`/projects/${slugify(currentProject.title)}`)}
             >
               More about this project
             </button>
-          </>
-        ) : (
-          <div className="text-zinc-400 text-lg text-center opacity-60">
-            Select a project to see details
           </div>
         )}
       </div>
-      {/* Layout switch button removed from inside grid */}
-    </div>
-  );
+    );
+  };
+
+  // Grid + Persistent Side Panel (with bigger image)
+  const SidePanel = () => {
+    console.log('SidePanel render');
+    return (
+      <div className="flex h-[80vh] w-full max-w-[1200px] mx-auto rounded-2xl shadow-2xl bg-zinc-950/80 backdrop-blur-lg border border-zinc-800 overflow-hidden relative">
+        <div className="w-2/3 overflow-y-auto p-4 border-r border-zinc-800">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {filteredProjects.map((project) => {
+              console.log('Grid item render', project.title);
+              return (
+                <div
+                  key={project.id}
+                  className={clsx(
+                    "cursor-pointer group transition-transform duration-300",
+                    selected?.id === project.id && "ring-2 ring-indigo-500"
+                  )}
+                  onClick={() => setSelected(project)}
+                >
+                  <ProjectCard {...project} />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <div className="w-1/3 flex flex-col items-center justify-center p-8 relative">
+          {selected ? (
+            <>
+              <img
+                src={selected.image}
+                alt={selected.title}
+                className="w-64 h-64 sm:w-80 sm:h-80 object-cover rounded-2xl shadow-xl mb-6 border-2 border-indigo-500"
+              />
+              <h2 className="text-3xl font-bold text-zinc-100 mb-2 text-center">
+                {selected.title}
+              </h2>
+              <p className="text-zinc-300 text-lg mb-4 text-center">
+                {selected.description}
+              </p>
+              <div className="flex flex-wrap gap-2 mb-6 justify-center">
+                {selected.libraries.map((lib) => (
+                  <span
+                    key={lib}
+                    className="bg-zinc-800 text-zinc-300 px-3 py-1 rounded-full text-xs shadow border border-zinc-700"
+                  >
+                    {lib}
+                  </span>
+                ))}
+              </div>
+              <button
+                className="mt-2 px-6 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-full shadow-lg font-semibold text-lg hover:scale-105 transition-transform"
+                onClick={() => navigate(`/projects/${slugify(selected.title)}`)}
+              >
+                More about this project
+              </button>
+            </>
+          ) : (
+            <div className="text-zinc-400 text-lg text-center opacity-60">
+              Select a project to see details
+            </div>
+          )}
+        </div>
+        {/* Layout switch button removed from inside grid */}
+      </div>
+    );
+  };
 
   // --- Render selected layout ---
   let LayoutComponent = null;
@@ -322,9 +347,9 @@ export const ProjectsGrid: React.FC = () => {
       {/* Main content below filter bar */}
       <div className="pt-28">
         <div className="flex items-center gap-4 mb-4 justify-end">
-          {/* Layout switch button (top right of grid) */}
+          {/* Layout switch button (top right of grid) - hide on mobile */}
           <button
-            className="bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700 rounded-full p-2 shadow-lg flex items-center justify-center transition-all"
+            className="hidden sm:flex bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700 rounded-full p-2 shadow-lg items-center justify-center transition-all"
             onClick={() => setLayout(layout === "carousel" ? "sidepanel" : "carousel")}
             aria-label="Switch layout"
           >

@@ -1,5 +1,5 @@
-import { ChevronDown } from "lucide-react";
 import { useSectionTransition } from "../ui/SectionTransitionWrapper";
+import { Typewriter } from "react-simple-typewriter";
 
 interface SectionProps {
   id: string;
@@ -26,6 +26,28 @@ const HeroSection: React.FC<SectionProps> = ({ id }) => {
             </span>
           </h1>
 
+          <h2 className="text-2xl md:text-3xl font-semibold mt-4 opacity-0 animate-fade-in-delay-2">
+            I build{" "}
+            <span className="text-primary font-bold">
+              <Typewriter
+                words={[
+                  "Websites",
+                  "Games",
+                  "APIs",
+                  "Experiences",
+                  "Tools",
+                  "Apps",
+                ]}
+                loop={0}
+                cursor
+                cursorStyle="|"
+                typeSpeed={100}
+                deleteSpeed={50}
+                delaySpeed={2000}
+              />
+            </span>
+          </h2>
+
           <p className="text-lg md:text-xl text-muted-foreground max-2-2xl mx-auto opacity-0 animate-fade-in-delay-3">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -43,10 +65,7 @@ const HeroSection: React.FC<SectionProps> = ({ id }) => {
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce">
-        <span>PROJECTS</span>
-        <ChevronDown className="h-40 w-40 text-primary" />
-      </div>
+      {/* Removed the old arrow/label, now handled by SectionTransitionWrapper */}
     </section>
   );
 };

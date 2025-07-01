@@ -7,6 +7,7 @@ import React, {
   useRef,
   useState,
 } from "react";
+import { ChevronDown } from "lucide-react";
 
 // Context to allow programmatic section change (e.g., from Navbar)
 interface SectionTransitionContextType {
@@ -287,6 +288,71 @@ export const SectionTransitionWrapper: React.FC<SectionTransitionWrapperProps> =
         <AnimatePresence initial={false} mode="wait">
           {renderedSections}
         </AnimatePresence>
+        {/* Modern Next Section Arrow - compact, inline layout */}
+        {activeSectionRaw < maxSection && (
+          <div
+            style={{
+              position: "fixed",
+              left: "50%",
+              bottom: "1.5rem",
+              transform: "translateX(-50%)",
+              zIndex: 20,
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: "0.75rem",
+              pointerEvents: "auto",
+            }}
+          >
+            <span
+              style={{
+                background: "rgba(30, 32, 48, 0.55)",
+                borderRadius: "1.5rem",
+                boxShadow: "0 4px 32px 0 rgba(0,0,0,0.18)",
+                padding: "0.35rem 1.1rem 0.35rem 1.1rem",
+                backdropFilter: "blur(8px)",
+                color: "#fff",
+                fontWeight: 500,
+                fontSize: "1rem",
+                letterSpacing: "0.04em",
+                textShadow: "0 2px 8px rgba(10,12,24,0.7)",
+                border: "1px solid rgba(255,255,255,0.08)",
+                userSelect: "none",
+                margin: 0,
+              }}
+            >
+              {Object.keys(sectionIdToIndex).find(
+                key => sectionIdToIndex[key] === activeSectionRaw + 1
+              )?.toUpperCase()}
+            </span>
+            <button
+              aria-label="Scroll to next section"
+              onClick={() => setActiveSection(activeSectionRaw + 1)}
+              style={{
+                background: "rgba(30, 32, 48, 0.45)",
+                borderRadius: "50%",
+                boxShadow: "0 2px 16px 0 rgba(0,0,0,0.18)",
+                border: "1px solid rgba(255,255,255,0.08)",
+                padding: "0.35rem",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                transition: "background 0.2s, box-shadow 0.2s, transform 0.2s",
+                cursor: "pointer",
+                outline: "none",
+                animation: "arrow-float 2.2s ease-in-out infinite",
+              }}
+            >
+              <ChevronDown size={36} color="#a5b4fc" strokeWidth={2.2} />
+            </button>
+            <style>{`
+              @keyframes arrow-float {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(8px); }
+              }
+            `}</style>
+          </div>
+        )}
       </div>
     </SectionTransitionContext.Provider>
   );

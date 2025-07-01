@@ -63,7 +63,7 @@ const StarBackground = () => {
       // Draw semi-transparent black for trails
       ctx.fillStyle = `rgba(10, 12, 24, 0.25)`; // Increase trail opacity for more dimming
       ctx.fillRect(0, 0, width, height);
-      ctx.globalAlpha = 0.3; // Set globalAlpha for all stars
+      ctx.globalAlpha = 0.5; // Set globalAlpha for all stars
       const cx = width / 2;
       const cy = height / 2;
       for (const star of starsRef.current) {

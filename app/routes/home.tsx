@@ -38,7 +38,7 @@ export default function Home() {
         </SectionTransitionWrapper>
       </main>
       {/* Pet Companion */}
-      <PetCompanion route={id || "home"} />
+      {/* <PetCompanion route={id || "home"} /> */}
       {/* Footer */}
     </div>
   );

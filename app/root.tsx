@@ -1,7 +1,7 @@
 // import NProgress from "nprogress";
 // import nProgressStyles from "nprogress/nprogress.css?url";
 import { ToastProvider } from "@radix-ui/react-toast";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   isRouteErrorResponse,
   Links,
@@ -88,6 +88,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
 function InnerLayout({ children }: { children: React.ReactNode }) {
   const [theme] = useTheme();
   const data = useRouteLoaderData<typeof loader>("root");
+
+  useEffect(() => {
+    // Prevent pull-to-refresh on mobile when at top
+    const maybePrevent = (e: TouchEvent) => {
+      if (window.scrollY === 0 && e.touches[0].clientY > 0) {
+        e.preventDefault();
+      }
+    };
+    document.addEventListener('touchmove', maybePrevent, { passive: false });
+    return () => {
+      document.removeEventListener('touchmove', maybePrevent);
+    };
+  }, []);
 
   return (
     <html

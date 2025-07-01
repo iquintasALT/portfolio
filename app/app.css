@@ -114,6 +114,7 @@
 
   html {
     @apply scroll-smooth;
+    overscroll-behavior-y: contain;
   }
 
   body {

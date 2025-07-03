@@ -1,0 +1,34 @@
+[
+  {
+    "category": "Languages",
+    "skills": [
+      { "name": "TypeScript", "icon": "/icons/typescript.svg", "level": 5, "description": "Strongly typed JavaScript for scalable apps." },
+      { "name": "JavaScript", "icon": "/icons/javascript.svg", "level": 5, "description": "Core web language, ES6+ experience." },
+      { "name": "Python", "icon": "/icons/python.svg", "level": 4, "description": "Scripting, automation, and data science." }
+    ]
+  },
+  {
+    "category": "Frameworks",
+    "skills": [
+      { "name": "React", "icon": "/icons/react.svg", "level": 5, "description": "Modern UI with hooks, context, and animation." },
+      { "name": "Redux", "icon": "/icons/redux.svg", "level": 4, "description": "State management for complex apps." },
+      { "name": "Next.js", "icon": "/icons/nextjs.svg", "level": 3, "description": "SSR, SSG, and API routes." }
+    ]
+  },
+  {
+    "category": "Tools",
+    "skills": [
+      { "name": "Git", "icon": "/icons/git.svg", "level": 5, "description": "Version control and collaboration." },
+      { "name": "Docker", "icon": "/icons/docker.svg", "level": 3, "description": "Containerization for dev and prod." },
+      { "name": "Figma", "icon": "/icons/figma.svg", "level": 2, "description": "UI/UX design and prototyping." }
+    ]
+  },
+  {
+    "category": "Soft Skills",
+    "skills": [
+      { "name": "Teamwork", "icon": "/icons/teamwork.svg", "level": 5, "description": "Collaborative and communicative." },
+      { "name": "Problem Solving", "icon": "/icons/problem-solving.svg", "level": 5, "description": "Creative and analytical thinking." },
+      { "name": "Adaptability", "icon": "/icons/adaptability.svg", "level": 4, "description": "Quick to learn and adjust." }
+    ]
+  }
+]

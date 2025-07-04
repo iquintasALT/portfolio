@@ -14,20 +14,11 @@ export const FiltersPanel: React.FC<FiltersPanelProps> = ({ allLanguages, allTag
   const { tags } = useSelector((state: RootState) => state.filters);
 
   return (
-    <>
-      {/* Toggle Button */}
-      <button
-        className="fixed left-1/2 top-17 z-40 -translate-x-1/2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-full shadow-lg px-6 py-2 font-bold text-lg focus:outline-none transition-all duration-300"
-        style={{ boxShadow: "0 0 24px 4px rgba(99,102,241,0.3)" }}
-        onClick={() => dispatch(setFiltersOpen(!filtersOpen))}
-        aria-label="Toggle filters"
-      >
-        {filtersOpen ? "Hide Filters" : "Show Filters"}
-      </button>
-      {/* Filters Bar */}
+    <div className="relative inline-block">
+      {/* Filters Bar: absolutely positioned below the button (button removed, handled in ProjectsSection) */}
       <div
-        className={`fixed left-1/2 top-20 z-30 w-full max-w-2xl -translate-x-1/2 flex flex-col items-center transition-all duration-500 ${filtersOpen ? "opacity-100 scale-y-100 pointer-events-auto" : "opacity-0 scale-y-0 pointer-events-none"}`}
-        style={{ transformOrigin: "top center" }}
+        className={`absolute left-1/2 z-30 w-[90vw] max-w-2xl -translate-x-1/2 flex flex-col items-center transition-all duration-500 ${filtersOpen ? "opacity-100 scale-y-100 pointer-events-auto" : "opacity-0 scale-y-0 pointer-events-none"}`}
+        style={{ transformOrigin: "top center", top: 'calc(100% + 8px)' }}
       >
         <div className="w-full bg-zinc-950/90 rounded-2xl shadow-2xl border border-zinc-800 p-4 backdrop-blur-lg flex flex-col gap-4">
           {/* Language Dropdown */}
@@ -65,6 +56,6 @@ export const FiltersPanel: React.FC<FiltersPanelProps> = ({ allLanguages, allTag
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };

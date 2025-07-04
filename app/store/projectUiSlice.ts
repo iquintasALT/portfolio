@@ -1,8 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { Project } from '~/components/ProjectsGrid';
+import projectsData from "~/../public/data/projects.json";
 
 interface ProjectUiState {
+  projects: Project[];
   selected: Project | null;
   carouselIndex: number;
   layout: 'carousel' | 'sidepanel';
@@ -12,18 +14,23 @@ interface ProjectUiState {
 }
 
 const initialState: ProjectUiState = {
+  projects: projectsData as Project[],
   selected: null,
   carouselIndex: 0,
   layout: 'carousel',
   filtersOpen: false,
   selectedCategory: null,
   selectedLanguage: null,
+
 };
 
 const projectUiSlice = createSlice({
   name: 'projectUi',
   initialState,
   reducers: {
+    setProjects(state, action: PayloadAction<Project[]>) {
+      state.projects = action.payload;
+    },
     setSelected(state, action: PayloadAction<Project | null>) {
       state.selected = action.payload;
     },
@@ -45,7 +52,9 @@ const projectUiSlice = createSlice({
   },
 });
 
+
 export const {
+  setProjects,
   setSelected,
   setCarouselIndex,
   setLayout,

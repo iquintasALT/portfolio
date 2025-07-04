@@ -176,19 +176,10 @@ export const ProjectsGrid: React.FC = () => {
 
   return (
     <div className="relative">
-      <FiltersPanel allLanguages={allLanguages} allTags={allTags} />
+      {/* <FiltersPanel allLanguages={allLanguages} allTags={allTags} /> */}
       {/* Main content below filter bar */}
       <div className="pt-28">
-        <div className="flex items-center gap-4 mb-4 justify-end">
-          {/* Layout switch button (top right of grid) - hide on mobile */}
-          <button
-            className="hidden sm:flex bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700 rounded-full p-2 shadow-lg items-center justify-center transition-all"
-            onClick={() => dispatch(setLayout(layout === "carousel" ? "sidepanel" : "carousel"))}
-            aria-label="Switch layout"
-          >
-            {layout === "carousel" ? LAYOUTS[1].icon : LAYOUTS[0].icon}
-          </button>
-        </div>
+        {/* ...existing code... (removed layout switch button, now in ProjectsSection) */}
         <div className="mt-2">{LayoutComponent}</div>
       </div>
       {/* Animations */}

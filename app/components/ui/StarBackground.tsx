@@ -8,8 +8,12 @@ interface Star {
   color: string; // star color
 }
 
-const STAR_COUNT = 200;
+
+const STAR_COUNT = 150;
 const TRAIL_OPACITY = 0.15;
+
+// Speed multiplier for all stars (1 = normal, 2 = double speed, etc)
+export let STAR_SPEED = 0.8;
 
 function randomColor() {
   // Subtle blue/white/yellow
@@ -68,7 +72,7 @@ const StarBackground = () => {
       const cy = height / 2;
       for (const star of starsRef.current) {
         // Update angle
-        star.angle += star.speed * 16; // speed up for fast-forward effect
+        star.angle += star.speed * 16 * STAR_SPEED; // speed up for fast-forward effect, multiplied by STAR_SPEED
         // Calculate position
         const x = cx + Math.cos(star.angle) * star.radius;
         const y = cy + Math.sin(star.angle) * star.radius;

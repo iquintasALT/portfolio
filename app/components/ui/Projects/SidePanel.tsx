@@ -1,13 +1,13 @@
 import React from "react";
 import clsx from "clsx";
 import { useNavigate } from "react-router-dom";
-import type { Project } from "~/components/ProjectsGrid";
+// import type { Project } from "~/components/ProjectsGrid";
 import { ProjectCard } from "~/components/ProjectCard";
 
 interface SidePanelProps {
-  filteredProjects: Project[];
-  selected: Project | null;
-  setSelected: (project: Project) => void;
+  filteredProjects: any[];
+  selected: any;
+  setSelected: (project: any) => void;
   slugify: (str: string) => string;
 }
 

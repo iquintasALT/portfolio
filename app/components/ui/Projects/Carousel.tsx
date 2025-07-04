@@ -1,47 +1,18 @@
 import React from "react";
 import clsx from "clsx";
-import { useSelector, useDispatch } from "react-redux";
-import type { RootState } from "~/store/store";
-import { setSelected, setCarouselIndex } from '~/store/projectUiSlice';
-import projectsData from '~/../public/data/projects.json';
 
-export function Carousel() {
-  const dispatch = useDispatch();
-  const {
-    selected,
-    carouselIndex,
-  } = useSelector((state: RootState) => state.projectUi);
-  const { search, tags } = useSelector((state: RootState) => state.filters);
-  const projectList = projectsData as any[];
+interface CarouselProps {
+  projects: any[];
+  selected: any;
+  carouselIndex: number;
+  onSelect: (project: any, idx: number) => void;
+  onPrev: () => void;
+  onNext: () => void;
+}
 
-  // Filtering logic (should match ProjectsGrid)
-  const filteredProjects = projectList.filter((project) => {
-    const matchesSearch = project.title
-      .toLowerCase()
-      .includes(search.toLowerCase());
-    const matchesTags =
-      tags.length === 0 ||
-      tags.every((tag: string) => project.libraries.includes(tag));
-    // You can add category/language filters here if needed
-    return matchesSearch && matchesTags;
-  });
-  const visibleProjects = filteredProjects.length > 0 ? filteredProjects : projectList;
+export function Carousel({ projects, selected, carouselIndex, onSelect, onPrev, onNext }: CarouselProps) {
+  const visibleProjects = projects;
   const currentProject = selected || visibleProjects[carouselIndex] || null;
-
-  const handleSelect = (project: any, idx: number) => {
-    dispatch(setSelected(project));
-    dispatch(setCarouselIndex(idx));
-  };
-  const handlePrev = () => {
-    const newIndex = (carouselIndex - 1 + visibleProjects.length) % visibleProjects.length;
-    dispatch(setCarouselIndex(newIndex));
-    dispatch(setSelected(visibleProjects[newIndex]));
-  };
-  const handleNext = () => {
-    const newIndex = (carouselIndex + 1) % visibleProjects.length;
-    dispatch(setCarouselIndex(newIndex));
-    dispatch(setSelected(visibleProjects[newIndex]));
-  };
 
   // Render project card
   const renderProjectCard = (project: any) => (
@@ -87,7 +58,7 @@ export function Carousel() {
       {/* Left Arrow */}
       <button
         className="absolute left-0 top-1/2 -translate-y-1/2 bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700 rounded-full p-2 shadow-lg z-20 flex items-center justify-center ml-4 w-11 h-11"
-        onClick={handlePrev}
+        onClick={onPrev}
         aria-label="Previous item"
       >
         <span className="sr-only">Previous</span>
@@ -96,7 +67,7 @@ export function Carousel() {
       {/* Right Arrow */}
       <button
         className="absolute right-0 top-1/2 -translate-y-1/2 bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700 rounded-full p-2 shadow-lg z-20 flex items-center justify-center mr-4 w-11 h-11"
-        onClick={handleNext}
+        onClick={onNext}
         aria-label="Next item"
       >
         <span className="sr-only">Next</span>
@@ -112,7 +83,7 @@ export function Carousel() {
           <div
             key={project.id}
             className={clsx("cursor-pointer", idx === carouselIndex ? "scale-110 z-10" : "opacity-60 hover:opacity-100 z-0")}
-            onClick={() => handleSelect(project, idx)}
+            onClick={() => onSelect(project, idx)}
             style={{ minWidth: '4rem', minHeight: '4rem', maxWidth: '20vw', maxHeight: '20vw' }}
           >
             {renderProjectThumb(project, idx === carouselIndex)}

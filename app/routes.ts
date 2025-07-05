@@ -7,6 +7,6 @@ export default [
       route("/theme", "api/set-theme.tsx"),
     ]),
   ]),
-  route("/projects/:projectName", "routes/ProjectDetail.tsx"),
+  route("/projects/:projectName", "routes/ProjectDetailsPage.tsx"),
   route("*", "routes/NotFound.tsx"),
 ] satisfies RouteConfig;

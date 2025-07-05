@@ -1,6 +1,5 @@
 'use client'
 import React from "react";
-import './carousel-animations.css';
 import clsx from "clsx";
 
 import { useRouter } from "next/navigation";

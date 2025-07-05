@@ -18,13 +18,27 @@ const ContactMeForm: React.FC = () => {
     handleSubmit,
     register,
     reset,
+    setError,
   } = useForm<ContactFormValues>({
     resolver: zodResolver(contactFormSchema),
   });
 
-  const onSubmit = async () => {
-    // TODO: Implement form submission logic
-    reset();
+  const onSubmit = async (data: ContactFormValues) => {
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      const result = await res.json();
+      if (!res.ok || !result.success) {
+        throw new Error(result.error || 'Failed to send message.');
+      }
+      reset();
+      alert('Message sent!');
+    } catch (err: any) {
+      setError('root', { message: err.message || 'Failed to send message.' });
+    }
   };
 
   return (

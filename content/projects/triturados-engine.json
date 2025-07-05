@@ -1,0 +1,34 @@
+{
+  "sections": [
+    {
+      "id": "introduction",
+      "title": "Introduction",
+      "content": "Triturados Engine is a high-performance engine for pixel art games, optimized for LED matrix displays and real-time effects."
+    },
+    {
+      "id": "features",
+      "title": "Features",
+      "content": "- Pixel-perfect rendering\n- Lua scripting support\n- Real-time LED output"
+    },
+    {
+      "id": "hardware",
+      "title": "Hardware Used",
+      "content": "- Raspberry Pi 4 Model B\n- RGB LED Matrix Panel"
+    },
+    {
+      "id": "how-it-works",
+      "title": "How it Works",
+      "content": "The engine streams game frames to the LED matrix using a custom Node.js backend and the `node-pixel-pusher` library."
+    },
+    {
+      "id": "gallery",
+      "title": "Gallery",
+      "content": "![Triturados Engine](https://cdn.sanity.io/images/kecg41hi/production/ea97bc64bcf7e5c38dbd2cb4f8422d5d1cfa7be1-3840x2160.png?w=828&q=85&fit=max&auto=format)"
+    },
+    {
+      "id": "conclusion",
+      "title": "Conclusion",
+      "content": "Triturados Engine brings fast, creative pixel art to hardware displays."
+    }
+  ]
+}

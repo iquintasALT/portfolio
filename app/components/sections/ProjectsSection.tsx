@@ -77,6 +77,7 @@ const ProjectsSection: React.FC<SectionProps> = ({ id }) => {
           onSelect={handleSelect}
           onPrev={handlePrev}
           onNext={handleNext}
+          slugify={slugify}
         />
       );
       break;

@@ -1,0 +1,34 @@
+{
+  "sections": [
+    {
+      "id": "introduction",
+      "title": "Introduction",
+      "content": "Dome is a chilling horror experience where every shadow hides a secret. Built for the RGB LED matrix, it brings a unique low-res aesthetic to life."
+    },
+    {
+      "id": "features",
+      "title": "Features",
+      "content": "- Real-time stats and notifications\n- Pixel art and video game rendering\n- Unique low-resolution style"
+    },
+    {
+      "id": "hardware",
+      "title": "Hardware Used",
+      "content": "- Raspberry Pi 4 Model B\n- 64x64 RGB LED Matrix Panel\n- Electrodragon Active-3 Breakout Board"
+    },
+    {
+      "id": "how-it-works",
+      "title": "How it Works",
+      "content": "```js\nconst PixelPusher = require('node-pixel-pusher')\nconst nodeCanvas = require('canvas')\n\nconst MAX_FPS = 30\n\nconst service = new PixelPusher.Service()\n\nservice.on('discover', (device) => {\n  createRenderer(device)\n})\n\nfunction createRenderer(device) {\n  const width = device.deviceData.pixelsPerStrip\n  const height = device.deviceData.numberStrips\n  const canvas = nodeCanvas.createCanvas(width, height)\n  const ctx = canvas.getContext('2d')\n\n  device.startRendering(() => {\n    ctx.fillStyle = 'green'\n    ctx.fillRect(0, 0, width, height)\n    const ImageData = ctx.getImageData(0, 0, width, height)\n    device.setRGBABuffer(ImageData.data)\n  }, MAX_FPS)\n}\n```"
+    },
+    {
+      "id": "gallery",
+      "title": "Gallery",
+      "content": "![Dome LED Matrix](https://cdn.sanity.io/images/kecg41hi/production/9a8ac4b44e89c8a9acb80379472915bdf7f01923-3840x2160.png?w=828&q=85&fit=max&auto=format)"
+    },
+    {
+      "id": "conclusion",
+      "title": "Conclusion",
+      "content": "Dome demonstrates how you can bring web technologies and hardware together for creative, real-time LED displays."
+    }
+  ]
+}

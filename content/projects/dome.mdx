@@ -1,0 +1,63 @@
+---
+title: "Dome"
+image: "/dome.png"
+libraries:
+  - Videogame
+description: "Chilling horror—every shadow hides a secret."
+language: "C++"
+---
+
+## Introduction
+
+Dome is a chilling horror experience where every shadow hides a secret. Built for the RGB LED matrix, it brings a unique low-res aesthetic to life.
+
+## Features
+
+- Real-time stats and notifications
+- Pixel art and video game rendering
+- Unique low-resolution style
+
+## Hardware Used
+
+- Raspberry Pi 4 Model B
+- 64x64 RGB LED Matrix Panel
+- Electrodragon Active-3 Breakout Board
+
+## How it Works
+
+The project streams a canvas to the LED matrix using Node.js and the `node-pixel-pusher` library. The rendering loop draws to a virtual canvas, then sends the pixel data to the LEDs in real time.
+
+```js
+const PixelPusher = require('node-pixel-pusher')
+const nodeCanvas = require('canvas')
+
+const MAX_FPS = 30
+
+const service = new PixelPusher.Service()
+
+service.on('discover', (device) => {
+  createRenderer(device)
+})
+
+function createRenderer(device) {
+  const width = device.deviceData.pixelsPerStrip
+  const height = device.deviceData.numberStrips
+  const canvas = nodeCanvas.createCanvas(width, height)
+  const ctx = canvas.getContext('2d')
+
+  device.startRendering(() => {
+    ctx.fillStyle = 'green'
+    ctx.fillRect(0, 0, width, height)
+    const ImageData = ctx.getImageData(0, 0, width, height)
+    device.setRGBABuffer(ImageData.data)
+  }, MAX_FPS)
+}
+```
+
+## Gallery
+
+![Dome LED Matrix](https://cdn.sanity.io/images/kecg41hi/production/9a8ac4b44e89c8a9acb80379472915bdf7f01923-3840x2160.png?w=828&q=85&fit=max&auto=format)
+
+## Conclusion
+
+Dome demonstrates how you can bring web technologies and hardware together for creative, real-time LED displays.

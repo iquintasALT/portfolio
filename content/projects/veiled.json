@@ -1,0 +1,34 @@
+{
+  "sections": [
+    {
+      "id": "introduction",
+      "title": "Introduction",
+      "content": "Veiled is a browser-based RPG that brings mystery and magic to the LED matrix, with real-time rendering and interactive gameplay."
+    },
+    {
+      "id": "features",
+      "title": "Features",
+      "content": "- RPG gameplay\n- Real-time LED matrix rendering\n- Unique visual effects"
+    },
+    {
+      "id": "hardware",
+      "title": "Hardware Used",
+      "content": "- Raspberry Pi 4 Model B\n- RGB LED Matrix Panel"
+    },
+    {
+      "id": "how-it-works",
+      "title": "How it Works",
+      "content": "Veiled streams game frames to the LED matrix using Node.js and the `node-pixel-pusher` library, allowing for interactive, real-time visuals."
+    },
+    {
+      "id": "gallery",
+      "title": "Gallery",
+      "content": "![Veiled LED Matrix](https://cdn.sanity.io/images/kecg41hi/production/e3c5bc72adf785405a476df1db11cbdf9a28c8c6-3840x2160.png?w=828&q=85&fit=max&auto=format)"
+    },
+    {
+      "id": "conclusion",
+      "title": "Conclusion",
+      "content": "Veiled combines browser-based RPG mechanics with creative hardware display."
+    }
+  ]
+}

@@ -1,6 +1,8 @@
 import React from "react";
 import clsx from "clsx";
 
+import { useNavigate } from "react-router-dom";
+
 interface CarouselProps {
   projects: any[];
   selected: any;
@@ -8,11 +10,13 @@ interface CarouselProps {
   onSelect: (project: any, idx: number) => void;
   onPrev: () => void;
   onNext: () => void;
+  slugify: (str: string) => string;
 }
 
-export function Carousel({ projects, selected, carouselIndex, onSelect, onPrev, onNext }: CarouselProps) {
+export function Carousel({ projects, selected, carouselIndex, onSelect, onPrev, onNext, slugify }: CarouselProps) {
   const visibleProjects = projects;
   const currentProject = selected || visibleProjects[carouselIndex] || null;
+  const navigate = useNavigate();
 
   // Render project card
   const renderProjectCard = (project: any) => (
@@ -22,22 +26,30 @@ export function Carousel({ projects, selected, carouselIndex, onSelect, onPrev, 
         alt={project.title}
         className="object-cover rounded-2xl shadow-xl border-2 border-indigo-500 mx-8 w-72 h-72 max-w-[80vw] max-h-[40vh] mb-4"
       />
-      <h2 className="text-2xl sm:text-3xl font-bold text-zinc-100 mb-2 text-center">
-        {project.title}
-      </h2>
-      <p className="text-zinc-300 text-base sm:text-lg mb-4 text-center">
-        {project.description}
-      </p>
-      <div className="flex flex-wrap gap-2 mb-2 justify-center">
+      <div className="flex flex-row flex-wrap items-center justify-center gap-2 w-full mb-2">
+        <h2 className="text-2xl sm:text-3xl font-bold text-zinc-100 text-center m-0">
+          {project.title}
+        </h2>
         {project.libraries.map((lib: string) => (
           <span
             key={lib}
-            className="bg-zinc-800 text-zinc-300 px-3 py-1 rounded-full text-xs shadow border border-zinc-700"
+            className="bg-zinc-800 text-zinc-300 px-2 py-1 rounded-full text-xs shadow border border-zinc-700 ml-1"
+            style={{ whiteSpace: 'nowrap' }}
           >
             {lib}
           </span>
         ))}
       </div>
+      <p className="text-zinc-300 text-base sm:text-lg mb-4 text-center">
+        {project.description}
+      </p>
+      <button
+        className="mt-2 px-4 py-1 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-full shadow text-sm font-medium hover:scale-105 transition-transform"
+        style={{ minWidth: 120 }}
+        onClick={() => navigate(`/projects/${slugify(project.title)}`)}
+      >
+        More about this project
+      </button>
     </div>
   );
   const renderProjectThumb = (project: any, isActive: boolean) => (

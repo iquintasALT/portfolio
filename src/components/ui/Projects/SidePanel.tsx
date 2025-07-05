@@ -1,6 +1,6 @@
 import React from "react";
 import clsx from "clsx";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 // import type { Project } from "~/components/ProjectsGrid";
 import { ProjectCard } from "~/components/ProjectCard";
 

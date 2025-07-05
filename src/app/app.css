@@ -213,3 +213,7 @@ body {
   padding: 0;
   /* text-align: center; */
 }
+/* Offset anchor scroll for sticky headers (adjust 6rem as needed) */
+:target {
+  scroll-margin-top: 6rem;
+}

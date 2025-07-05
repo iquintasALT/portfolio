@@ -38,5 +38,21 @@
     "image": "/veiled.gif",
     "language": "JavaScript",
     "libraries": ["Videogame"]
+  },
+  {
+    "id": 6,
+    "title": "Veiled",
+    "description": "Browser RPG where mystery and magic collide.",
+    "image": "/veiled.gif",
+    "language": "JavaScript",
+    "libraries": ["Videogame"]
+  },
+  {
+    "id": 7,
+    "title": "Veiled",
+    "description": "Browser RPG where mystery and magic collide.",
+    "image": "/veiled.gif",
+    "language": "JavaScript",
+    "libraries": ["Videogame"]
   }
 ]

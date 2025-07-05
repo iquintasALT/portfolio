@@ -1,5 +1,6 @@
 'use client'
 import React from "react";
+import './carousel-animations.css';
 import clsx from "clsx";
 
 import { useRouter } from "next/navigation";
@@ -15,9 +16,123 @@ interface CarouselProps {
 }
 
 export function Carousel({ projects, selected, carouselIndex, onSelect, onPrev, onNext, slugify }: CarouselProps) {
+  // Animation state for slide direction
+  const [slideDirection, setSlideDirection] = React.useState<'left' | 'right' | null>(null);
+  const prevIndex = React.useRef(carouselIndex);
+
+  // Detect direction on index change
+  React.useEffect(() => {
+    if (carouselIndex > prevIndex.current) setSlideDirection('left');
+    else if (carouselIndex < prevIndex.current) setSlideDirection('right');
+    prevIndex.current = carouselIndex;
+    // Reset direction after animation
+    const timeout = setTimeout(() => setSlideDirection(null), 250);
+    return () => clearTimeout(timeout);
+  }, [carouselIndex]);
+  // --- Swipe/drag handlers for thumbnails ---
+  const touchData = React.useRef({ x: 0, y: 0, dragging: false, moved: false, lastIndex: 0, startIndex: 0 });
+  const mouseData = React.useRef({ x: 0, y: 0, dragging: false, moved: false, lastIndex: 0, startIndex: 0 });
+
+  function handleThumbsTouchStart(e: React.TouchEvent) {
+    if (e.touches.length === 1) {
+      touchData.current.x = e.touches[0].clientX;
+      touchData.current.y = e.touches[0].clientY;
+      touchData.current.dragging = true;
+      touchData.current.moved = false;
+      touchData.current.lastIndex = carouselIndex;
+      touchData.current.startIndex = carouselIndex;
+    }
+  }
+  function handleThumbsTouchMove(e: React.TouchEvent) {
+    if (!touchData.current.dragging) return;
+    const dx = e.touches[0].clientX - touchData.current.x;
+    const dy = e.touches[0].clientY - touchData.current.y;
+    const threshold = 30; // px per project (default sensitivity)
+    if (Math.abs(dx) > threshold && Math.abs(dx) > Math.abs(dy)) {
+      const moveBy = Math.round(dx / threshold);
+      let newIndex = touchData.current.startIndex - moveBy;
+      newIndex = Math.max(0, Math.min(projects.length - 1, newIndex));
+      if (newIndex !== touchData.current.lastIndex) {
+        onSelect(projects[newIndex], newIndex);
+        touchData.current.lastIndex = newIndex;
+      }
+    }
+  }
+  function handleThumbsTouchEnd(e: React.TouchEvent) {
+    touchData.current.dragging = false;
+    touchData.current.moved = false;
+  }
+
+  function handleThumbsMouseDown(e: React.MouseEvent) {
+    mouseData.current.x = e.clientX;
+    mouseData.current.y = e.clientY;
+    mouseData.current.dragging = true;
+    mouseData.current.moved = false;
+    mouseData.current.lastIndex = carouselIndex;
+    mouseData.current.startIndex = carouselIndex;
+    const handleMouseMove = (moveEvent: MouseEvent) => {
+      if (!mouseData.current.dragging) return;
+      const dx = moveEvent.clientX - mouseData.current.x;
+      const dy = moveEvent.clientY - mouseData.current.y;
+      const threshold = 30; // px per project (default sensitivity)
+      if (Math.abs(dx) > threshold && Math.abs(dx) > Math.abs(dy)) {
+        const moveBy = Math.round(dx / threshold);
+        let newIndex = mouseData.current.startIndex - moveBy;
+        newIndex = Math.max(0, Math.min(projects.length - 1, newIndex));
+        if (newIndex !== mouseData.current.lastIndex) {
+          onSelect(projects[newIndex], newIndex);
+          mouseData.current.lastIndex = newIndex;
+        }
+      }
+    };
+    const handleMouseUp = () => {
+      mouseData.current.dragging = false;
+      mouseData.current.moved = false;
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleMouseUp);
+  }
+  const [isMobile, setIsMobile] = React.useState(false);
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 640);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Calculate visible thumbnails window for mobile
+  let thumbStart = 0, thumbEnd = projects.length;
+  if (isMobile && projects.length > 5) {
+    thumbStart = Math.max(0, Math.min(carouselIndex - 2, projects.length - 5));
+    thumbEnd = thumbStart + 5;
+  }
+  const visibleThumbs = projects.slice(thumbStart, thumbEnd);
   const visibleProjects = projects;
   const currentProject = selected || visibleProjects[carouselIndex] || null;
   const router = useRouter();
+
+  // --- Carousel thumbnail centering logic ---
+  const thumbsContainerRef = React.useRef<HTMLDivElement>(null);
+  const thumbRefs = React.useRef<(HTMLDivElement | null)[]>([]);
+
+  React.useEffect(() => {
+    // Find the index of the current project in the visibleThumbs array
+    let localIndex = carouselIndex;
+    if (isMobile && projects.length > 5) {
+      localIndex = carouselIndex - thumbStart;
+    }
+    if (!thumbRefs.current[localIndex] || !thumbsContainerRef.current) return;
+    const thumb = thumbRefs.current[localIndex];
+    const container = thumbsContainerRef.current;
+    if (thumb && container) {
+      const thumbCenter = thumb.offsetLeft + thumb.offsetWidth / 2;
+      const containerCenter = container.clientWidth / 2;
+      const scrollTo = thumbCenter - containerCenter;
+      container.scrollTo({ left: scrollTo, behavior: "smooth" });
+    }
+  }, [carouselIndex, visibleThumbs.length, isMobile]);
 
   // Render project card
   const renderProjectCard = (project: any) => (
@@ -91,17 +206,37 @@ export function Carousel({ projects, selected, carouselIndex, onSelect, onPrev, 
         {currentProject && renderProjectCard(currentProject)}
       </div>
       {/* Thumbnails */}
-      <div className="flex items-center gap-2 mb-6 overflow-x-auto w-full justify-center px-2 scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-transparent" style={{ WebkitOverflowScrolling: 'touch' }}>
-        {visibleProjects.map((project, idx) => (
-          <div
-            key={project.id}
-            className={clsx("cursor-pointer", idx === carouselIndex ? "scale-110 z-10" : "opacity-60 hover:opacity-100 z-0")}
-            onClick={() => onSelect(project, idx)}
-            style={{ minWidth: '4rem', minHeight: '4rem', maxWidth: '20vw', maxHeight: '20vw' }}
-          >
-            {renderProjectThumb(project, idx === carouselIndex)}
-          </div>
-        ))}
+      <div
+        ref={thumbsContainerRef}
+        className={
+          "flex items-center gap-2 mb-6 overflow-x-auto overflow-y-hidden w-full justify-center px-2 scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-transparent " +
+          (slideDirection === 'left'
+            ? 'animate-slide-left'
+            : slideDirection === 'right'
+            ? 'animate-slide-right'
+            : '')
+        }
+        style={{ WebkitOverflowScrolling: 'touch' }}
+        onTouchStart={handleThumbsTouchStart}
+        onTouchMove={handleThumbsTouchMove}
+        onTouchEnd={handleThumbsTouchEnd}
+        onMouseDown={handleThumbsMouseDown}
+      >
+        {visibleThumbs.map((project, idx) => {
+          // The real index in the projects array
+          const realIdx = isMobile && projects.length > 5 ? thumbStart + idx : idx;
+          return (
+            <div
+              key={project.id}
+              ref={el => { thumbRefs.current[idx] = el; }}
+              className={clsx("cursor-pointer", realIdx === carouselIndex ? "scale-110 z-10" : "opacity-60 hover:opacity-100 z-0")}
+              onClick={() => onSelect(project, realIdx)}
+              style={{ minWidth: '4rem', minHeight: '4rem', maxWidth: '20vw', maxHeight: '20vw' }}
+            >
+              {renderProjectThumb(project, realIdx === carouselIndex)}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

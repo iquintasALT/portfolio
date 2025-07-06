@@ -1,0 +1,58 @@
+[
+  {
+    "category": "Languages",
+    "skills": [
+      { "name": "TypeScript", "icon": "/icons/typescript.svg", "description": "Strongly typed JavaScript for scalable apps." },
+      { "name": "JavaScript", "icon": "/icons/javascript.svg", "description": "Core web language, ES6+ experience." },
+      { "name": "HTML", "icon": "/icons/html.svg", "description": "Semantic, accessible markup for the web." },
+      { "name": "CSS", "icon": "/icons/css.svg", "description": "Responsive, modern layouts and styles." },
+      { "name": "Tailwind CSS", "icon": "/icons/tailwind.svg", "description": "Utility-first CSS framework for rapid UI development." },
+      { "name": "Python", "icon": "/icons/python.svg", "description": "Scripting, automation, and data science." },
+      { "name": "Java", "icon": "/icons/java.svg", "description": "Enterprise applications, Android, and cross-platform development." },
+      { "name": "C++", "icon": "/icons/cpp.svg", "description": "High-performance systems and game development." },
+      { "name": "C#", "icon": "/icons/csharp.svg", "description": ".NET, Unity, and application development." },
+      { "name": "REST", "icon": "/icons/rest.svg", "description": "Design and consumption of RESTful APIs." }
+    ]
+  },
+  {
+    "category": "Frameworks",
+    "skills": [
+      { "name": "React", "icon": "/icons/react.svg", "description": "Modern UI with hooks, context, and animation." },
+      { "name": "Redux", "icon": "/icons/redux.svg", "description": "State management for complex apps." },
+      { "name": "Next.js", "icon": "/icons/nextjs.svg", "description": "SSR, SSG, and API routes." },
+      { "name": "Phaser", "icon": "/icons/phaser.png", "description": "2D game framework for the web." },
+      { "name": "PyTorch", "icon": "/icons/pytorch.svg", "description": "Deep learning and AI research." },
+      { "name": "OpenCV", "icon": "/icons/opencv.svg", "description": "Computer vision and image processing." },
+      { "name": "Selenium", "icon": "/icons/selenium.svg", "description": "Automated browser testing." },
+      { "name": "Jest", "icon": "/icons/jest.svg", "description": "JavaScript testing framework with a focus on simplicity." },
+      { "name": "SDL", "icon": "/icons/sdl.svg", "description": "Cross-platform multimedia/game dev." },
+      { "name": "OGRE", "icon": "/icons/ogre.svg", "description": "3D rendering engine." },
+      { "name": "FMOD", "icon": "/icons/fmod.svg", "description": "Audio engine for games and apps." },
+      { "name": "OpenGL", "icon": "/icons/opengl.svg", "description": "Cross-platform graphics API for 2D and 3D rendering." },
+      { "name": "WebAssembly", "icon": "/icons/webassembly.svg", "description": "Binary instruction format for high-performance web apps." }
+    ]
+  },
+  {
+    "category": "Tools",
+    "skills": [
+      { "name": "Git", "icon": "/icons/git.svg", "description": "Version control and collaboration." },
+      { "name": "Jira", "icon": "/icons/jira.svg", "description": "Project management and issue tracking." },
+      { "name": "Docker", "icon": "/icons/docker.svg", "description": "Containerization for dev and prod." },
+      { "name": "Android Studio", "icon": "/icons/androidstudio.svg", "description": "Android app development IDE." },
+      { "name": "Visual Studio", "icon": "/icons/visualstudio.svg", "description": "IDE for C#, C++, and more." },
+      { "name": "AWS", "icon": "/icons/aws.svg", "description": "Cloud computing and deployment." },
+      { "name": "CI/CD", "icon": "/icons/cicd.svg", "description": "Continuous integration and deployment." },
+      { "name": "Figma", "icon": "/icons/figma.svg", "description": "UI/UX design and prototyping." }
+    ]
+  },
+  {
+    "category": "Soft Skills",
+    "skills": [
+      { "name": "Teamwork", "icon": "/icons/teamwork.svg", "description": "Collaborative and communicative." },
+      { "name": "Problem Solving", "icon": "/icons/problem-solving.svg", "description": "Creative and analytical thinking." },
+      { "name": "Adaptability", "icon": "/icons/adaptability.svg", "description": "Quick to learn and adjust." },
+      { "name": "Agile", "icon": "/icons/agile.svg", "description": "Agile methodologies and workflows." },
+      { "name": "Scrum", "icon": "/icons/scrum.svg", "description": "Scrum team experience." }
+    ]
+  }
+]

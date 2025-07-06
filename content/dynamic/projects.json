@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "title": "Dome",
+    "description": "Chilling horror—every shadow hides a secret.",
+    "image": "/dome.png",
+    "language": "C++",
+    "libraries": ["Videogame"]
+  },
+  {
+    "id": 2,
+    "title": "Gungcho",
+    "description": "Platformer where speed is of the essence.",
+    "image": "/gungcho.jpg",
+    "language": "C#",
+    "libraries": ["Videogame"]
+  },
+  {
+    "id": 3,
+    "title": "Portfolio Website",
+    "description": "State-of-the-art portfolio using React best practices.",
+    "image": "/portfolio.png",
+    "language": "TypeScript",
+    "libraries": ["Frontend"]
+  },
+  {
+    "id": 4,
+    "title": "Triturados Engine",
+    "description": "Fast engine for pixelated chaos and creativity.",
+    "image": "/triturados_game.gif",
+    "language": "C++, Lua",
+    "libraries": ["Backend"]
+  },
+  {
+    "id": 5,
+    "title": "Veiled",
+    "description": "Browser RPG where mystery and magic collide.",
+    "image": "/veiled.gif",
+    "language": "JavaScript",
+    "libraries": ["Videogame"]
+  },
+  {
+    "id": 6,
+    "title": "Veiled",
+    "description": "Browser RPG where mystery and magic collide.",
+    "image": "/veiled.gif",
+    "language": "JavaScript",
+    "libraries": ["Videogame"]
+  },
+  {
+    "id": 7,
+    "title": "Veiled",
+    "description": "Browser RPG where mystery and magic collide.",
+    "image": "/veiled.gif",
+    "language": "JavaScript",
+    "libraries": ["Videogame"]
+  }
+]

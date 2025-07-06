@@ -4,11 +4,12 @@ import React from "react";
 import * as Toast from '@radix-ui/react-toast';
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import texts from "@content/texts.json";
 
 const contactFormSchema = z.object({
-  name: z.string().min(2, "Name is required"),
-  email: z.string().email("Invalid email address"),
-  message: z.string().min(10, "Message must be at least 10 characters"),
+  name: z.string().min(2, texts.contactForm.fields.name.error),
+  email: z.string().email(texts.contactForm.fields.email.error),
+  message: z.string().min(10, texts.contactForm.fields.message.error),
 });
 
 type ContactFormValues = z.infer<typeof contactFormSchema>;
@@ -41,12 +42,12 @@ const ContactMeForm: React.FC = () => {
       }
       reset();
       setToastType('success');
-      setToastMsg('Message sent successfully!');
+      setToastMsg(texts.contactForm.success);
       setToastOpen(true);
     } catch (err: any) {
-      setError('root', { message: err.message || 'Failed to send message.' });
+      setError('root', { message: err.message || texts.contactForm.error });
       setToastType('error');
-      setToastMsg(err.message || 'Failed to send message.');
+      setToastMsg(err.message || texts.contactForm.error);
       setToastOpen(true);
     }
   };
@@ -55,18 +56,18 @@ const ContactMeForm: React.FC = () => {
     <>
       <div className="mx-auto w-full max-w-md rounded-2xl p-8 shadow-lg bg-background/90 dark:bg-secondary/90">
         <h2 className="mb-6 text-center text-2xl font-bold text-primary">
-          Send a Message
+          {texts.contactForm.title}
         </h2>
         <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
           <div>
             <label className="mb-2 block text-sm font-medium text-foreground text-center">
-              Your Name
+              {texts.contactForm.fields.name.label}
             </label>
             <input
               {...register("name")}
               className="w-full rounded-lg border border-foreground/20 bg-background px-4 py-2 text-base text-foreground shadow-sm
               placeholder:text-muted-foreground outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 dark:bg-background"
-              placeholder="Your Name"
+              placeholder={texts.contactForm.fields.name.placeholder}
               autoComplete="name"
             />
             {errors.name && (
@@ -77,13 +78,13 @@ const ContactMeForm: React.FC = () => {
           </div>
           <div>
             <label className="mb-2 block text-sm font-medium text-foreground text-center">
-              Your Email
+              {texts.contactForm.fields.email.label}
             </label>
             <input
               {...register("email")}
               className="w-full rounded-lg border border-foreground/20 bg-background px-4 py-2 text-base text-foreground shadow-sm
               placeholder:text-muted-foreground outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 dark:bg-background"
-              placeholder="you@email.com"
+              placeholder={texts.contactForm.fields.email.placeholder}
               autoComplete="email"
               type="email"
             />
@@ -95,13 +96,13 @@ const ContactMeForm: React.FC = () => {
           </div>
           <div>
             <label className="mb-2 block text-sm font-medium text-foreground text-center">
-              Your Message
+              {texts.contactForm.fields.message.label}
             </label>
             <textarea
               {...register("message")}
               className="min-h-[60px] w-full resize-vertical rounded-lg border border-foreground/20 bg-background px-4 py-2 text-base text-foreground shadow-sm
               placeholder:text-muted-foreground outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 dark:bg-background"
-              placeholder="Your Message"
+              placeholder={texts.contactForm.fields.message.placeholder}
               rows={5}
             />
             {errors.message && (
@@ -115,7 +116,7 @@ const ContactMeForm: React.FC = () => {
             disabled={isSubmitting}
             className="mt-2 flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 py-2 px-6 font-semibold text-white shadow-lg transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-60 hover:from-indigo-600 hover:to-purple-700 hover:scale-[1.03]"
           >
-            Send Message
+            {texts.contactForm.submit}
             <Send className="ml-2 h-5 w-5" />
           </button>
           {errors.root && (
@@ -129,7 +130,7 @@ const ContactMeForm: React.FC = () => {
         `pointer-events-auto z-[9999] rounded-xl px-6 py-4 shadow-2xl border-2 ${toastType === 'success' ? 'border-green-400 bg-gradient-to-r from-green-500/90 to-emerald-500/90 text-white' : 'border-red-400 bg-gradient-to-r from-red-500/90 to-pink-500/90 text-white'} flex items-center gap-3 animate-fade-in-up`
       }>
         <Toast.Title className="font-semibold text-lg tracking-wide">
-          {toastType === 'success' ? 'Success' : 'Error'}
+          {toastType === 'success' ? texts.contactForm.successTitle : texts.contactForm.errorTitle}
         </Toast.Title>
         <Toast.Description className="text-base">
           {toastMsg}

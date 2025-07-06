@@ -25,8 +25,8 @@
       "@/*": [
         "./src/*"
       ],
-      "#app/*": [
-        "./pages/*"
+      "@content/*": [
+        "./content/*"
       ]
     },
     "types": [

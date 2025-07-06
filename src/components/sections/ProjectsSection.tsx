@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useSectionTransition } from "../ui/SectionTransitionWrapper";
 import { FiltersPanel } from "../FiltersPanel";
 import { LayoutGrid, PanelRight, Filter } from "lucide-react";
-import projectsData from "~/../public/data/projects.json";
+import texts from "@content/texts.json";
 import { Carousel } from "~/components/ui/Projects/Carousel";
 import { SidePanel } from "~/components/ui/Projects/SidePanel";
 
@@ -23,7 +23,7 @@ const ProjectsSection: React.FC<SectionProps> = ({ id }) => {
   const [carouselIndex, setCarouselIndex] = useState(0);
 
   // --- Data ---
-  const projectList = projectsData as any[];
+  const projectList = (texts.projects ?? []) as any[];
   const allTags = useMemo(() => Array.from(new Set(projectList.flatMap((p) => p.libraries))), [projectList]);
   const allLanguages = useMemo(() => Array.from(new Set(projectList.map((p) => p.language))), [projectList]);
 

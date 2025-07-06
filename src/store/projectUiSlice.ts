@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { Project } from '~/components/ProjectsGrid';
-import projectsData from "~/../public/data/projects.json";
+import texts from "@content/texts.json";
 
 interface ProjectUiState {
   projects: Project[];
@@ -14,7 +14,7 @@ interface ProjectUiState {
 }
 
 const initialState: ProjectUiState = {
-  projects: projectsData as Project[],
+  projects: (texts.projects ?? []) as Project[],
   selected: null,
   carouselIndex: 0,
   layout: 'carousel',

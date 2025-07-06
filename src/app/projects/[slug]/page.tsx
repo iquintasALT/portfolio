@@ -5,10 +5,6 @@ import rehypeSlug from "rehype-slug";
 import CustomMDXComponents from "@/components/mdx/CustomMDXComponents";
 import MdxSectionNav from "@/components/ui/MdxSectionNav";
 import ProjectDetail from "~/components/ui/ProjectDetail";
-import { MDXRemoteProps } from "next-mdx-remote/rsc";
-
-
-import ProjectPageClient from "./ProjectPageClient";
 
 interface ProjectMeta {
   title: string;

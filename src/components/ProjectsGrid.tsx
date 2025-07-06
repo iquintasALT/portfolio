@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { ProjectCard } from "~/components/ProjectCard";
-import projectsData from "~/../public/data/projects.json";
+import texts from "@content/texts.json";
 import { FiltersPanel } from "~/components/FiltersPanel";
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "~/store/store";
@@ -28,7 +28,7 @@ export interface Project {
 }
 
 // Type assertion for the imported JSON data
-const projectList: Project[] = projectsData as Project[];
+const projectList: Project[] = (texts.projects ?? []) as Project[];
 
 // Layout showcase options
 const LAYOUTS = [

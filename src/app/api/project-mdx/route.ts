@@ -10,7 +10,7 @@ export async function GET(req: NextRequest) {
   if (!slug) {
     return NextResponse.json({ error: 'Missing slug' }, { status: 400 });
   }
-  const filePath = path.join(process.cwd(), 'projects', `${slug}.mdx`);
+  const filePath = path.join(process.cwd(), 'content', 'projects', `${slug}.mdx`);
   try {
     const source = await fs.readFile(filePath, 'utf8');
     const { content, data } = matter(source);

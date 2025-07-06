@@ -1,6 +1,7 @@
 'use client'
 import React from "react";
 import { Mail, Phone, MapPin, Linkedin, Github } from "lucide-react";
+import texts from "@content/texts.json";
 import ContactMeForm from "../ContactMeForm";
 import { useSwipeableCarousel, SwipeIndicator } from "../ui/useSwipeableCarousel";
 
@@ -48,45 +49,44 @@ const ContactSection: React.FC<SectionProps> = ({ id }) => {
       <div className="container mx-auto max-w-5xl hidden md:block">
         <div className="py-24 px-4 relative bg-secondary/30">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-            Get in <span className="text-primary">Touch</span>
+            {texts.contact.title} <span className="text-primary">{texts.contact.titleHighlight}</span>
           </h2>
 
           <div className="grid grid-cols-2 gap-12">
             <div className="space-y-8">
               <h3 className="text-2xl font-semibold mb-6">
-                Contact Information
+                {texts.contact.infoTitle}
               </h3>
 
               <div className="space-y-6 justify-center">
                 <ContactInfoItem
                   icon={Mail}
-                  label="Email"
-                  value="dummymail@gmail.com"
-                  href="mailto:dummymail@gmail.com"
+                  label={texts.contact.info[0].label}
+                  value={texts.contact.info[0].value}
+                  href={texts.contact.info[0].href}
                 />
                 <ContactInfoItem
                   icon={Phone}
-                  label="Phone"
-                  value="+34 000 000 000"
-                  href="tel:1234567890"
+                  label={texts.contact.info[1].label}
+                  value={texts.contact.info[1].value}
+                  href={texts.contact.info[1].href}
                 />
                 <ContactInfoItem
                   icon={MapPin}
-                  label="Location"
-                  value="Spain"
+                  label={texts.contact.info[2].label}
+                  value={texts.contact.info[2].value}
                 />
               </div>
 
               <div className="pt-8">
-                <h4 className="font-medium mb-4">Connect With Me</h4>
+                <h4 className="font-medium mb-4">{texts.contact.connectTitle}</h4>
                 <div className="flex space-x-4 justify-center">
-                  <a href="dummylink" target="_blank">
+                  <a href={texts.contact.links[0].href} target="_blank">
                     <Linkedin/>
                   </a>
-                  <a href="dummylink" target="_blank">
+                  <a href={texts.contact.links[1].href} target="_blank">
                     <Github/>
                   </a>
-
                 </div>
               </div>
             </div>
@@ -112,34 +112,34 @@ const ContactSection: React.FC<SectionProps> = ({ id }) => {
           <div style={{ width: "100vw", minWidth: 0, boxSizing: "border-box", display: "flex", justifyContent: "center", padding: "0 20px" }}>
             <div className="space-y-8" style={{ width: "100%", maxWidth: 400 }}>
               <h3 className="text-2xl font-semibold mb-6">
-                Contact Information
+                {texts.contact.infoTitle}
               </h3>
               <div className="space-y-6 justify-center">
                 <ContactInfoItem
                   icon={Mail}
-                  label="Email"
-                  value="dummymail@gmail.com"
-                  href="mailto:dummymail@gmail.com"
+                  label={texts.contact.info[0].label}
+                  value={texts.contact.info[0].value}
+                  href={texts.contact.info[0].href}
                 />
                 <ContactInfoItem
                   icon={Phone}
-                  label="Phone"
-                  value="+34 000 000 000"
-                  href="tel:1234567890"
+                  label={texts.contact.info[1].label}
+                  value={texts.contact.info[1].value}
+                  href={texts.contact.info[1].href}
                 />
                 <ContactInfoItem
                   icon={MapPin}
-                  label="Location"
-                  value="Spain"
+                  label={texts.contact.info[2].label}
+                  value={texts.contact.info[2].value}
                 />
               </div>
               <div className="pt-8">
-                <h4 className="font-medium mb-4">Connect With Me</h4>
+                <h4 className="font-medium mb-4">{texts.contact.connectTitle}</h4>
                 <div className="flex space-x-4 justify-center">
-                  <a href="dummylink" target="_blank">
+                  <a href={texts.contact.links[0].href} target="_blank">
                     <Linkedin/>
                   </a>
-                  <a href="dummylink" target="_blank">
+                  <a href={texts.contact.links[1].href} target="_blank">
                     <Github/>
                   </a>
                 </div>

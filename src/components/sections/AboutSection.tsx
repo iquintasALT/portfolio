@@ -5,6 +5,7 @@ import { cn } from "~/lib/helpers";
 import { useSectionTransition } from "../ui/SectionTransitionWrapper";
 import { useSwipeableCarousel, SwipeIndicator } from "../ui/useSwipeableCarousel";
 import FeatureCard from "~/components/ui/FeatureCard";
+import texts from "@content/texts.json";
 
 interface SectionProps {
   id: string;
@@ -19,30 +20,25 @@ const AboutSection: React.FC<SectionProps> = ({ id }) => {
     <section id={id} className="flex items-center justify-center min-h-screen">
       <div className="container mx-auto max-w-5xl hidden md:block">
         <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
-          About <span className="text-primary"> Me</span>
+          {texts.about.title} <span className="text-primary">{texts.about.titleHighlight}</span>
         </h2>
 
         {/* Desktop: grid, Mobile: carousel */}
         <div className="hidden md:grid grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
             <h3 className="text-2xl font-semibold">
-              Passionate Web & Game Developer
+              {texts.about.subtitle}
             </h3>
-            <p className="text-muted-foreground">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-            <p className="text-muted-foreground">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
+            {texts.about.paragraphs.map((p, i) => (
+              <p className="text-muted-foreground" key={i}>{p}</p>
+            ))}
             <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
               <button
                 className="star-button"
                 onClick={() => scrollToSection("contact")}
                 type="button"
               >
-                Get In Touch
+                {texts.about.cta}
               </button>
               <a
                 href=""
@@ -51,25 +47,25 @@ const AboutSection: React.FC<SectionProps> = ({ id }) => {
                   "hover:bg-primary/50 transition-colors duration-300"
                 )}
               >
-                Download CV
+                {texts.about.cv}
               </a>
             </div>
           </div>
           <div className="grid grid-cols-1 gap-6">
             <FeatureCard
               icon={Code}
-              title="Web Development"
-              description="Using React, Redux and the most efficient best practices"
+              title={texts.about.features[0].title}
+              description={texts.about.features[0].description}
             />
             <FeatureCard
               icon={User}
-              title="Game Development"
-              description="Worked on 3 big projects in the first 3 years of my career"
+              title={texts.about.features[1].title}
+              description={texts.about.features[1].description}
             />
             <FeatureCard
               icon={Code}
-              title="Still Learning"
-              description="Keeping myself updated with newer courses and state of the art tools"
+              title={texts.about.features[2].title}
+              description={texts.about.features[2].description}
             />
           </div>
         </div>
@@ -87,23 +83,18 @@ const AboutSection: React.FC<SectionProps> = ({ id }) => {
           <div style={{ width: "100vw", minWidth: 0, boxSizing: "border-box", display: "flex", justifyContent: "center", padding: "0 20px" }}>
             <div className="space-y-6" style={{ width: "100%", maxWidth: 400 }}>
               <h3 className="text-2xl font-semibold">
-                Passionate Web & Game Developer
+                {texts.about.subtitle}
               </h3>
-              <p className="text-muted-foreground">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </p>
-              <p className="text-muted-foreground">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </p>
+              {texts.about.paragraphs.map((p, i) => (
+                <p className="text-muted-foreground" key={i}>{p}</p>
+              ))}
               <div className="flex flex-col gap-4 pt-4 justify-center items-center w-full">
                 <button
                   className="star-button w-full"
                   onClick={() => scrollToSection("contact")}
                   type="button"
                 >
-                  Get In Touch
+                  {texts.about.cta}
                 </button>
                 <a
                   href=""
@@ -113,7 +104,7 @@ const AboutSection: React.FC<SectionProps> = ({ id }) => {
                   )}
                   style={{ textAlign: "center" }}
                 >
-                  Download CV
+                  {texts.about.cv}
                 </a>
               </div>
             </div>
@@ -122,18 +113,18 @@ const AboutSection: React.FC<SectionProps> = ({ id }) => {
             <div className="grid grid-cols-1 gap-6" style={{ width: "100%", maxWidth: 400 }}>
               <FeatureCard
                 icon={Code}
-                title="Web Development"
-                description="Using React, Redux and the most efficient best practices"
+                title={texts.about.features[0].title}
+                description={texts.about.features[0].description}
               />
               <FeatureCard
                 icon={User}
-                title="Game Development"
-                description="Worked on 3 big projects in the first 3 years of my career"
+                title={texts.about.features[1].title}
+                description={texts.about.features[1].description}
               />
               <FeatureCard
                 icon={Code}
-                title="Still Learning"
-                description="Keeping myself updated with newer courses and state of the art tools"
+                title={texts.about.features[2].title}
+                description={texts.about.features[2].description}
               />
             </div>
           </div>

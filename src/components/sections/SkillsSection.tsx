@@ -1,5 +1,6 @@
 'use client'
 import React, { useEffect, useState } from "react";
+import texts from "@content/texts.json";
 import { AnimatePresence, motion } from "framer-motion";
 import { useSectionTransition } from "../ui/SectionTransitionWrapper";
 import SkillsGrid from "../SkillsGrid";
@@ -22,10 +23,7 @@ interface SkillCategory {
 
 
 
-const fetchSkills = async (): Promise<SkillCategory[]> => {
-  const res = await fetch("/data/skills.json");
-  return res.json();
-};
+
 
 const getSizeClass = (count: number) => {
   if (count <= 3) return "text-3xl sm:text-5xl";
@@ -42,16 +40,9 @@ const SkillsSection: React.FC<SectionProps> = ({ id }) => {
 
 
   useEffect(() => {
-    fetchSkills().then((data) => {
-      if (Array.isArray(data)) {
-        setSkills(data);
-      } else if (data && typeof data === 'object') {
-        setSkills([data]);
-      } else {
-        setSkills([]);
-      }
-      setLoading(false);
-    });
+    // Simulate async for future API, but use static import for now
+    setSkills(texts.skills ?? []);
+    setLoading(false);
   }, []);
 
 

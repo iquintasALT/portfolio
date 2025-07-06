@@ -16,23 +16,31 @@ interface SkillCategory {
 }
 
 async function getSkills(): Promise<SkillCategory[]> {
-  const h = await headers();
-  const host = h.get("host");
-  const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
-  const res = await fetch(`${protocol}://${host}/api/skills`, { next: { revalidate: 60 } });
-  if (!res.ok) return [];
-  return res.json();
+  try {
+    const h = await headers();
+    const host = h.get("host");
+    const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
+    const res = await fetch(`${protocol}://${host}/api/skills`, { next: { revalidate: 60 } });
+    if (!res.ok) {
+      console.error("[SkillsSectionServer] Failed to fetch /api/skills:", res.status, res.statusText);
+      return [];
+    }
+    const data = await res.json();
+    console.log(`[SkillsSectionServer] Successfully fetched skills: count = ${Array.isArray(data) ? data.length : 0}`);
+    return data;
+  } catch (err) {
+    console.error("[SkillsSectionServer] Error fetching skills:", err);
+    return [];
+  }
 }
 
 const SkillsSection = async ({ id }: SectionProps) => {
   const skills = await getSkills();
-  return (
-    <section className="flex flex-col items-center overflow-hidden justify-start pt-20 min-h-screen px-2" id={id}>
-      <div className="w-full max-w-6xl mx-auto flex flex-col items-center gap-8">
-        <SkillsSectionClient skills={skills} />
-      </div>
-    </section>
-  );
+  if (!skills || skills.length === 0) {
+    return <section id={id} style={{ color: 'red', padding: 32 }}>Skills data could not be loaded.</section>;
+  }
+  // Pass id to client component so it renders the section with the id
+  return <SkillsSectionClient id={id} skills={skills} />;
 };
 
 export default SkillsSection;

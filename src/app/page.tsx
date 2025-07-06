@@ -15,8 +15,12 @@ export default function Page() {
       <SectionTransitionWrapper>
         <HeroSection id="me" />
         <AboutSection id="about" />
+        <section id="skills">
         <SkillsSection id="skills" />
+        </section>
+        <section id="projects">
         <ProjectsSection id="projects" />
+        </section>
         <ContactSection id="contact" />
       </SectionTransitionWrapper>
       {/* Pet Companion */}

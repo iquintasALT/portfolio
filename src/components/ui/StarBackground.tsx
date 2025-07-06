@@ -65,10 +65,9 @@ const StarBackground = () => {
     function draw() {
       const ctx = canvasRef.current?.getContext("2d");
       if (!ctx) return;
-      // Draw semi-transparent black for trails
-      ctx.fillStyle = `rgba(10, 12, 24, 0.25)`; // Increase trail opacity for more dimming
-      ctx.fillRect(0, 0, width, height);
-      ctx.globalAlpha = 0.5; // Set globalAlpha for all stars
+      // Clear for transparency
+      ctx.clearRect(0, 0, width, height);
+      ctx.globalAlpha = 0.5;
       const cx = width / 2;
       const cy = height / 2;
       for (const star of starsRef.current) {
@@ -91,9 +90,8 @@ const StarBackground = () => {
       animationRef.current = window.requestAnimationFrame(draw);
     }
 
-    // Initial fill (opaque background)
-    ctx.fillStyle = "#0a0c18";
-    ctx.fillRect(0, 0, width, height);
+    // Initial fill: clear for transparency
+    ctx.clearRect(0, 0, width, height);
     draw();
 
     return () => {
@@ -123,5 +121,18 @@ const StarBackground = () => {
     />
   );
 };
+
+// Add this helper at the top-level (outside the component)
+function hexToRgba(hex: string, alpha: number) {
+  // Remove whitespace and hash
+  hex = hex.trim().replace('#', '');
+  // Expand shorthand
+  if (hex.length === 3) hex = hex.split('').map(x => x + x).join('');
+  const num = parseInt(hex, 16);
+  const r = (num >> 16) & 255;
+  const g = (num >> 8) & 255;
+  const b = num & 255;
+  return `rgba(${r},${g},${b},${alpha})`;
+}
 
 export default StarBackground;

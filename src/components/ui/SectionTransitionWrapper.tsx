@@ -48,9 +48,6 @@ export const SectionTransitionWrapper: React.FC<SectionTransitionWrapperProps> =
 }) => {
   const [activeSectionRaw, setActiveSectionRaw] = useState(initialSection);
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      console.log("[SectionTransitionWrapper] MOUNTED. Initial section:", initialSection);
-    }
   }, []);
   const sectionRefs = useRef<(HTMLElement | null)[]>([]);
   const isThrottled = useRef(false);
@@ -64,9 +61,6 @@ export const SectionTransitionWrapper: React.FC<SectionTransitionWrapperProps> =
     setActiveSectionRaw(prev => {
       const next = typeof updater === 'function' ? (updater as (n: number) => number)(prev) : updater;
       const clamped = Math.max(0, Math.min(next, maxSection));
-      if (typeof window !== "undefined") {
-        console.log("[SectionTransitionWrapper] setActiveSection: prev=", prev, "next=", next, "clamped=", clamped);
-      }
       return clamped;
     });
   };
@@ -211,9 +205,7 @@ export const SectionTransitionWrapper: React.FC<SectionTransitionWrapperProps> =
     if (typeof window === "undefined") return;
     const handleHashChange = () => {
       const hash = window.location.hash.replace(/^#/, "");
-      console.log("[SectionTransitionWrapper] hashchange event. hash=", hash, "sectionIdToIndex:", sectionIdToIndex);
       if (hash && sectionIdToIndex[hash] !== undefined) {
-        console.log("[SectionTransitionWrapper] hashchange: setting active section to", sectionIdToIndex[hash]);
         setActiveSection(sectionIdToIndex[hash]);
       }
     };
@@ -231,7 +223,6 @@ export const SectionTransitionWrapper: React.FC<SectionTransitionWrapperProps> =
       key => sectionIdToIndex[key] === activeSectionRaw
     );
     if (id && window.location.hash.replace(/^#/, "") !== id) {
-      console.log("[SectionTransitionWrapper] Updating URL hash to #" + id + " for section index " + activeSectionRaw);
       window.history.replaceState(null, "", `#${id}`);
     }
   }, [activeSectionRaw, sectionIdToIndex]);

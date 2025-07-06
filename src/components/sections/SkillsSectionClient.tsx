@@ -19,9 +19,8 @@ interface SkillsSectionClientProps {
   skills: SkillCategory[];
 }
 
+
 export default function SkillsSectionClient({ id, skills }: SkillsSectionClientProps) {
-  console.log("[SkillsSectionClient] received props:", { id, skills });
-  console.log("[SkillsSectionClient] section id:", id);
 
   const [layout, setLayout] = useState<'micro' | 'orbit'>('micro');
   const prevSlideRef = useRef(0);

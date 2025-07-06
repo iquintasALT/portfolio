@@ -2,15 +2,14 @@
 /**
  * Theme Switcher Component
  *
- * A dropdown menu component that allows users to switch between light, dark, and system themes.
+ * A dropdown menu component that allows users to switch between light and dark themes.
  * This component provides a consistent interface for theme switching throughout the application.
  *
  * Features:
- * - Visual indication of the current theme (sun, moon, or monitor icon)
- * - Dropdown menu with theme options
- * - Integration with remix-themes for theme persistence
- * - Support for light, dark, and system themes
+ * - Visual indication of the current theme (sun or moon icon)
  * - Accessible button with appropriate aria attributes
+ * - Integration with Next.js and Tailwind for theme persistence
+ * - Support for light and dark themes (optionally extend to system theme)
  */
 import { Moon, Sun } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -19,13 +18,12 @@ import { cn } from "~/lib/helpers";
 
 
 /**
- * ThemeSwitcher component for toggling between light, dark, and system themes
- * 
- * This component uses the remix-themes hook to access and modify the current theme.
- * It displays a dropdown menu with options for light, dark, and system themes,
- * with the current theme indicated by the appropriate icon on the trigger button.
- * 
- * @returns A dropdown menu component for switching themes
+ * ThemeToggle component for toggling between light and dark themes
+ *
+ * This component manages the theme using React state, localStorage, and the Tailwind dark class.
+ * It displays a button with an icon indicating the current theme.
+ *
+ * @returns A button for switching themes
  */
 const ThemeToggle = () => {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');

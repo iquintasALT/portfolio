@@ -22,14 +22,11 @@ async function getSkills(): Promise<SkillCategory[]> {
     const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
     const res = await fetch(`${protocol}://${host}/api/skills`, { next: { revalidate: 60 } });
     if (!res.ok) {
-      console.error("[SkillsSectionServer] Failed to fetch /api/skills:", res.status, res.statusText);
       return [];
     }
     const data = await res.json();
-    console.log(`[SkillsSectionServer] Successfully fetched skills: count = ${Array.isArray(data) ? data.length : 0}`);
     return data;
   } catch (err) {
-    console.error("[SkillsSectionServer] Error fetching skills:", err);
     return [];
   }
 }

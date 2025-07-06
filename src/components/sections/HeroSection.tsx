@@ -22,7 +22,7 @@ const HeroSection: React.FC<SectionProps> = ({ id }) => {
               {" "}
               {texts.hero.firstName}
             </span>
-            <span className="text-gradient ml-2 opacity-0 animate-fade-in-delay-1">
+            <span className="ml-2 opacity-0 animate-fade-in-delay-1">
               {" "}
               {texts.hero.lastName}
             </span>

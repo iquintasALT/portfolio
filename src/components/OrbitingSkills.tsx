@@ -38,6 +38,8 @@ const OrbitingSkills: React.FC<OrbitingSkillsProps> = ({ category }) => {
     });
   });
 
+  // No need to track hovered/touched skill for z-index; always use high z-index
+
   // Animate orbit: all skills on 3 orbits, evenly spaced
   return (
     <div className="relative w-full max-w-md h-[400px] mx-auto flex items-center justify-center overflow-visible select-none" style={{paddingTop: '3.5rem'}}>
@@ -100,7 +102,7 @@ const OrbitingSkills: React.FC<OrbitingSkillsProps> = ({ category }) => {
             key={skill.name}
             ref={skillRef}
             className={
-              `absolute flex flex-col items-center transition-[z-index] duration-100 z-30`
+              `absolute flex flex-col items-center z-`
             }
             style={{ left: '50%', top: '50%' }}
           >

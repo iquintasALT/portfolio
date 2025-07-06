@@ -18,7 +18,7 @@ async function getProjects(): Promise<Project[]> {
   const h = await headers();
   const host = h.get("host");
   const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
-  const res = await fetch(`${protocol}://${host}/api/projects`, { next: { revalidate: 60 } });
+  const res = await fetch(`${protocol}://${host}/api/projects`, { next: { revalidate: 180 } });
   if (!res.ok) return [];
   return res.json();
 }

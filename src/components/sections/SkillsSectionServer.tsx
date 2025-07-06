@@ -20,7 +20,7 @@ async function getSkills(): Promise<SkillCategory[]> {
     const h = await headers();
     const host = h.get("host");
     const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
-    const res = await fetch(`${protocol}://${host}/api/skills`, { next: { revalidate: 60 } });
+    const res = await fetch(`${protocol}://${host}/api/skills`, { next: { revalidate: 180 } });
     if (!res.ok) {
       return [];
     }

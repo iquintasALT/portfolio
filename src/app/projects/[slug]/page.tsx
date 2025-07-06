@@ -29,8 +29,7 @@ export default async function ProjectPage({
   const host = hdrs.get("host");
   const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
   const baseUrl = `${protocol}://${host}`;
-  const res = await fetch(`${baseUrl}/api/project-mdx?slug=${slug}`, {
-    cache: "no-store",
+  const res = await fetch(`${baseUrl}/api/project-mdx?slug=${slug}`, { next: { revalidate: 180 } 
   });
   if (!res.ok) return notFound();
   const data: ProjectData = await res.json();

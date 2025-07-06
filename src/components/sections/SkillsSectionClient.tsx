@@ -19,9 +19,7 @@ interface SkillsSectionClientProps {
   skills: SkillCategory[];
 }
 
-
 export default function SkillsSectionClient({ id, skills }: SkillsSectionClientProps) {
-
   const [layout, setLayout] = useState<'micro' | 'orbit'>('micro');
   const prevSlideRef = useRef(0);
   const { activeSlide, setActiveSlide, handlers } = useSwipeableCarousel(skills.length);
@@ -76,7 +74,6 @@ export default function SkillsSectionClient({ id, skills }: SkillsSectionClientP
                       animate={{ x: 0, opacity: 1 }}
                       exit={{ x: direction === 'left' ? -100 : 100, opacity: 0 }}
                       transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                      className="absolute left-0 top-0 w-full"
                     >
                       <div className="flex flex-col items-center w-full">
                         <div className="w-full flex items-center gap-2 mb-3">
@@ -90,7 +87,10 @@ export default function SkillsSectionClient({ id, skills }: SkillsSectionClientP
                     </motion.div>
                   </AnimatePresence>
                 </div>
-                <SwipeIndicator activeSlide={activeSlide} slideCount={skills.length} />
+                {/* SwipeIndicator moved below the container */}
+                <div className="mt-2 flex justify-center">
+                  <SwipeIndicator activeSlide={activeSlide} slideCount={skills.length} />
+                </div>
                 <div className="flex justify-center gap-4 mt-2">
                   <button
                     className="bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700 rounded-full p-2 shadow-lg z-20 flex items-center justify-center w-11 h-11 disabled:opacity-40 disabled:cursor-not-allowed"
@@ -136,7 +136,10 @@ export default function SkillsSectionClient({ id, skills }: SkillsSectionClientP
                     </motion.div>
                   </AnimatePresence>
                 </div>
-                <SwipeIndicator activeSlide={activeSlide} slideCount={skills.length} />
+                {/* SwipeIndicator moved below the container */}
+                <div className="mt-2 flex justify-center">
+                  <SwipeIndicator activeSlide={activeSlide} slideCount={skills.length} />
+                </div>
                 <div className="flex justify-center gap-4 mt-2">
                   <button
                     className="bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700 rounded-full p-2 shadow-lg z-20 flex items-center justify-center w-11 h-11 disabled:opacity-40 disabled:cursor-not-allowed"

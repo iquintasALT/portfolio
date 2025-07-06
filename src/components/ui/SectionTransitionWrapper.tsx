@@ -47,6 +47,11 @@ export const SectionTransitionWrapper: React.FC<SectionTransitionWrapperProps> =
   initialSection = 0,
 }) => {
   const [activeSectionRaw, setActiveSectionRaw] = useState(initialSection);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      console.log("[SectionTransitionWrapper] MOUNTED. Initial section:", initialSection);
+    }
+  }, []);
   const sectionRefs = useRef<(HTMLElement | null)[]>([]);
   const isThrottled = useRef(false);
 
@@ -58,34 +63,14 @@ export const SectionTransitionWrapper: React.FC<SectionTransitionWrapperProps> =
   const setActiveSection = (updater: number | ((prev: number) => number)) => {
     setActiveSectionRaw(prev => {
       const next = typeof updater === 'function' ? (updater as (n: number) => number)(prev) : updater;
-      return Math.max(0, Math.min(next, maxSection));
+      const clamped = Math.max(0, Math.min(next, maxSection));
+      if (typeof window !== "undefined") {
+        console.log("[SectionTransitionWrapper] setActiveSection: prev=", prev, "next=", next, "clamped=", clamped);
+      }
+      return clamped;
     });
   };
 
-  // Scroll/keyboard navigation detection (for programmatic scroll, not for normal scroll)
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const handleScroll = () => {
-      // Find the section closest to the top
-      let minDist = Infinity;
-      let idx = activeSectionRaw;
-      sectionRefs.current.forEach((el, i) => {
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          const dist = Math.abs(rect.top);
-          if (dist < minDist) {
-            minDist = dist;
-            idx = i;
-          }
-        }
-      });
-      if (idx !== activeSectionRaw) setActiveSection(idx);
-    };
-    if (typeof window !== "undefined") {
-      window.addEventListener("scroll", handleScroll, { passive: true });
-      return () => window.removeEventListener("scroll", handleScroll);
-    }
-  }, [activeSectionRaw]);
 
   // Helper: is input currently locked (transitioning)?
   const [inputLocked, setInputLocked] = useState(false);
@@ -226,7 +211,9 @@ export const SectionTransitionWrapper: React.FC<SectionTransitionWrapperProps> =
     if (typeof window === "undefined") return;
     const handleHashChange = () => {
       const hash = window.location.hash.replace(/^#/, "");
+      console.log("[SectionTransitionWrapper] hashchange event. hash=", hash, "sectionIdToIndex:", sectionIdToIndex);
       if (hash && sectionIdToIndex[hash] !== undefined) {
+        console.log("[SectionTransitionWrapper] hashchange: setting active section to", sectionIdToIndex[hash]);
         setActiveSection(sectionIdToIndex[hash]);
       }
     };
@@ -244,6 +231,7 @@ export const SectionTransitionWrapper: React.FC<SectionTransitionWrapperProps> =
       key => sectionIdToIndex[key] === activeSectionRaw
     );
     if (id && window.location.hash.replace(/^#/, "") !== id) {
+      console.log("[SectionTransitionWrapper] Updating URL hash to #" + id + " for section index " + activeSectionRaw);
       window.history.replaceState(null, "", `#${id}`);
     }
   }, [activeSectionRaw, sectionIdToIndex]);
@@ -278,11 +266,12 @@ export const SectionTransitionWrapper: React.FC<SectionTransitionWrapperProps> =
               exit={isActive ? { opacity: 0, y: -40 } : false}
               transition={{ duration: throttleDuration / 1000, ease: "easeInOut" }}
               style={{
-                position: "absolute",
+                position: isActive ? "absolute" : "static",
                 width: "100%",
                 pointerEvents: isActive ? "auto" : "none",
                 zIndex: isActive ? 2 : 1,
                 opacity: isActive ? 1 : 0,
+                display: isActive ? undefined : "none",
                 // Optionally, you can use display: none for inactive, but opacity: 0 keeps in DOM for SEO
               }}
               aria-hidden={!isActive}

@@ -1,6 +1,6 @@
 import React from "react";
 import clsx from "clsx";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 // import type { Project } from "~/components/ProjectsGrid";
 import { ProjectCard } from "~/components/ProjectCard";
 
@@ -19,7 +19,6 @@ export const SidePanel: React.FC<SidePanelProps> = ({
   setSelected,
   slugify,
 }) => {
-  const router = useRouter();
   return (
     <div className="flex h-[80vh] w-full max-w-[1200px] mx-auto rounded-2xl shadow-2xl bg-zinc-950/80 backdrop-blur-lg border border-zinc-800 overflow-hidden relative">
       <div className="w-2/3 overflow-y-auto p-4 border-r border-zinc-800">
@@ -62,12 +61,13 @@ export const SidePanel: React.FC<SidePanelProps> = ({
                 </span>
               ))}
             </div>
-            <button
-              className="mt-2 px-6 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-full shadow-lg font-semibold text-lg hover:scale-105 transition-transform"
-              onClick={() => router.push(`/projects/${slugify(selected.title)}`)}
+            <Link
+              href={`/projects/${slugify(selected.title)}`}
+              className="mt-2 px-6 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-full shadow-lg font-semibold text-lg hover:scale-105 transition-transform inline-block text-center"
+              prefetch={true}
             >
               More about this project
-            </button>
+            </Link>
           </>
         ) : (
           <div className="text-zinc-400 text-lg text-center opacity-60">

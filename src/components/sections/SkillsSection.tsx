@@ -34,16 +34,13 @@ const getSizeClass = (count: number) => {
 
 const SkillsSection: React.FC<SectionProps> = ({ id }) => {
   const { scrollToSection } = useSectionTransition();
-  const [skills, setSkills] = useState<SkillCategory[]>([]);
-  const [loading, setLoading] = useState(true);
+  // Get skills from static import at module scope for SSR/SEO
+  const skills: SkillCategory[] = texts.skills ?? [];
+  const loading = false;
   const [layout, setLayout] = useState<'micro' | 'orbit'>('micro');
 
 
-  useEffect(() => {
-    // Simulate async for future API, but use static import for now
-    setSkills(texts.skills ?? []);
-    setLoading(false);
-  }, []);
+  // useEffect removed: skills are now loaded at module scope for SEO/SSR
 
 
   // --- Main render ---

@@ -263,32 +263,35 @@ export const SectionTransitionWrapper: React.FC<SectionTransitionWrapperProps> =
     setActiveSectionRaw(prev => Math.max(0, Math.min(idx, maxSection)));
   };
 
-  // AnimatePresence for smooth transitions
-  const renderedSections = React.useMemo(() =>
-    children.map((child, idx) => (
-      idx === activeSectionRaw ? (
-        <motion.section
-          key={idx}
-          ref={setSectionRef(idx)}
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -40 }}
-          transition={{ duration: throttleDuration / 1000, ease: "easeInOut" }}
-          style={{ position: "absolute", width: "100%" }}
-          aria-hidden={idx !== activeSectionRaw}
-        >
-          {child}
-        </motion.section>
-      ) : null
-    ))
-  , [children, activeSectionRaw, setSectionRef, throttleDuration]);
-
+  // Render all sections, only animate the active one, hide others visually but keep in DOM for SEO
   return (
     <SectionTransitionContext.Provider value={{ activeSection: activeSectionRaw, setActiveSection: setActiveSectionContext, scrollToSection }}>
       <div style={{ position: "relative", width: "100%" }} aria-busy={inputLocked}>
-        <AnimatePresence initial={false} mode="wait">
-          {renderedSections}
-        </AnimatePresence>
+        {children.map((child, idx) => {
+          const isActive = idx === activeSectionRaw;
+          return (
+            <motion.section
+              key={idx}
+              ref={setSectionRef(idx)}
+              initial={isActive ? { opacity: 0, y: 40 } : false}
+              animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 0 }}
+              exit={isActive ? { opacity: 0, y: -40 } : false}
+              transition={{ duration: throttleDuration / 1000, ease: "easeInOut" }}
+              style={{
+                position: "absolute",
+                width: "100%",
+                pointerEvents: isActive ? "auto" : "none",
+                zIndex: isActive ? 2 : 1,
+                opacity: isActive ? 1 : 0,
+                // Optionally, you can use display: none for inactive, but opacity: 0 keeps in DOM for SEO
+              }}
+              aria-hidden={!isActive}
+              tabIndex={isActive ? 0 : -1}
+            >
+              {child}
+            </motion.section>
+          );
+        })}
         {/* Modern Next Section Arrow - compact, inline layout */}
         {activeSectionRaw < maxSection && (
           <div

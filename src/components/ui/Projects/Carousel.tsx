@@ -2,7 +2,7 @@
 import React from "react";
 import clsx from "clsx";
 
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface CarouselProps {
   projects: any[];
@@ -110,7 +110,6 @@ export function Carousel({ projects, selected, carouselIndex, onSelect, onPrev, 
   const visibleThumbs = projects.slice(thumbStart, thumbEnd);
   const visibleProjects = projects;
   const currentProject = selected || visibleProjects[carouselIndex] || null;
-  const router = useRouter();
 
   // --- Carousel thumbnail centering logic ---
   const thumbsContainerRef = React.useRef<HTMLDivElement>(null);
@@ -158,13 +157,20 @@ export function Carousel({ projects, selected, carouselIndex, onSelect, onPrev, 
       <p className="text-zinc-300 text-base sm:text-lg mb-4 text-center">
         {project.description}
       </p>
-      <button
-        className="mt-2 px-4 py-1 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-full shadow text-sm font-medium hover:scale-105 transition-transform"
+      <Link
+        href={`/projects/${slugify(project.title)}`}
+        className="mt-2 px-4 py-1 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-full shadow text-sm font-medium hover:scale-105 transition-transform inline-block text-center"
         style={{ minWidth: 120 }}
-        onClick={() => router.push(`/projects/${slugify(project.title)}`)}
+        prefetch={true}
       >
         More about this project
-      </button>
+      </Link>
+      {/* Hidden links for SEO: all project detail pages */}
+      <div style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden', pointerEvents: 'none' }} aria-hidden="true">
+        {projects.map((p) => (
+          <Link key={p.id} href={`/projects/${slugify(p.title)}`}>{p.title}</Link>
+        ))}
+      </div>
     </div>
   );
   const renderProjectThumb = (project: any, isActive: boolean) => (

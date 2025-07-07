@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
-import matter from "gray-matter";
 import fs from "fs/promises";
 import path from "path";
+import { NextRequest, NextResponse } from "next/server";
+import matter from "gray-matter";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);

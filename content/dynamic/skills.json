@@ -84,7 +84,8 @@
       { "name": "Android Studio", "icon": "/icons/androidstudio.svg", "description": "Android app development IDE." },
       { "name": "Visual Studio", "icon": "/icons/visualstudio.svg", "description": "IDE for C#, C++, and more." },
       { "name": "AWS", "icon": "/icons/aws.svg", "description": "Cloud computing and deployment." },
-      { "name": "Jira", "icon": "/icons/jira.svg", "description": "Project management and issue tracking." }
+      { "name": "Jira", "icon": "/icons/jira.svg", "description": "Project management and issue tracking." },
+      { "name": "Trello", "icon": "/icons/trello.svg", "description": "Visual project management and collaboration." }
     ]
   },
   {

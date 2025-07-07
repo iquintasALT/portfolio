@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import texts from "@content/texts.json";
 import { Typewriter } from "react-simple-typewriter";
 
@@ -39,6 +40,32 @@ const HeroSection: React.FC<SectionProps> = ({ id }) => {
           <p className="text-lg md:text-xl text-muted-foreground max-2-2xl mx-auto opacity-0 animate-fade-in-delay-3">
             {texts.hero.description}
           </p>
+
+          {/* WIP Warning Box */}
+          <div className="mt-6 flex flex-col items-center">
+            <div className="relative w-full max-w-xl rounded-xl border border-yellow-300 bg-yellow-50/90 dark:bg-yellow-900/40 px-6 py-4 shadow-lg flex items-center gap-3 animate-fade-in-delay-4">
+              <svg
+                className="w-6 h-6 text-yellow-500 shrink-0"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4m0 4h.01" />
+              </svg>
+              <div className="flex-1 text-left">
+                <span className="font-semibold text-yellow-800 dark:text-yellow-200">Work in Progress:</span>
+                <span className="ml-2 text-yellow-900 dark:text-yellow-100">
+                  This site is under active development. Not all features are implemented yet.
+                </span>
+              </div>
+            </div>
+            <Link href="/projects/portfolio-website" className="star-button mt-4 text-base px-6 py-2">
+              Learn more about development & future steps
+            </Link>
+          </div>
 
           <div className="pt-4 opacity-0 animate-fade-in-delay-4">
             <button className="star-button" onClick={() => scrollToSection("projects")} type="button">

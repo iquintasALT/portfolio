@@ -1,28 +1,18 @@
-import { NextRequest, NextResponse } from "next/server";
-import nodemailer from "nodemailer";
+import { NextResponse } from "next/server";
+import { Resend } from "resend";
 
-export async function POST(req: NextRequest) {
-  const { name, email, message } = await req.json();
-
-  // Configure your SMTP transport (use environment variables for credentials)
-  const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: 465,
-    secure: true,
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
-    },
-  });
-
+export async function POST(request: Request) {
+  const { name, email, message } = await request.json();
+  const resend = new Resend(process.env.RESEND_API_KEY);
   try {
-    await transporter.sendMail({
-      from: `"Contact Form" <${process.env.SMTP_USER}>`,
-      to: process.env.CONTACT_RECEIVER || process.env.SMTP_USER,
+    const data = await resend.emails.send({
+      from: "Contact Form <onboarding@resend.dev>",
+      to: [process.env.CONTACT_RECEIVER || email],
       subject: `New Contact Form Submission from ${name}`,
+      replyTo: email,
       text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
     });
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true, data });
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }

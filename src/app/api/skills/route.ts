@@ -1,12 +1,12 @@
-import { promises as fs } from "fs";
-import path from "path";
 import { NextResponse } from "next/server";
 
 export async function GET() {
-  const filePath = path.join(process.cwd(), "content", "dynamic", "skills.json");
+  const blobBaseUrl = process.env.BLOB_BASE_URL;
+  const blobUrl = `${blobBaseUrl}/dynamic/skills.json`;
   try {
-    const data = await fs.readFile(filePath, "utf-8");
-    const skills = JSON.parse(data);
+    const res = await fetch(blobUrl);
+    if (!res.ok) throw new Error("Failed to fetch skills.json from Blob");
+    const skills = await res.json();
     return NextResponse.json(skills);
   } catch {
     return NextResponse.json({ error: "Failed to load skills." }, { status: 500 });

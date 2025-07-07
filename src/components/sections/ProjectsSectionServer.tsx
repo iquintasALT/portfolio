@@ -1,5 +1,6 @@
-import ProjectsSectionClient from "./ProjectsSectionClient";
 import { headers } from "next/headers";
+
+import ProjectsSectionClient from "./ProjectsSectionClient";
 
 interface SectionProps {
   id: string;

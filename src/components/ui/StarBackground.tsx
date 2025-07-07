@@ -1,5 +1,6 @@
-'use client'
-import { useRef, useEffect } from "react";
+"use client";
+
+import { useEffect, useRef } from "react";
 
 interface Star {
   radius: number; // distance from center
@@ -9,12 +10,10 @@ interface Star {
   color: string; // star color
 }
 
-
 const STAR_COUNT = 150;
-const TRAIL_OPACITY = 0.15;
 
 // Speed multiplier for all stars (1 = normal, 2 = double speed, etc)
-export let STAR_SPEED = 0.8;
+export const STAR_SPEED = 0.8;
 
 function randomColor() {
   // Subtle blue/white/yellow
@@ -107,9 +106,9 @@ const StarBackground = () => {
         e.preventDefault();
       }
     };
-    document.addEventListener('touchmove', maybePrevent, { passive: false });
+    document.addEventListener("touchmove", maybePrevent, { passive: false });
     return () => {
-      document.removeEventListener('touchmove', maybePrevent);
+      document.removeEventListener("touchmove", maybePrevent);
     };
   }, []);
 
@@ -121,18 +120,5 @@ const StarBackground = () => {
     />
   );
 };
-
-// Add this helper at the top-level (outside the component)
-function hexToRgba(hex: string, alpha: number) {
-  // Remove whitespace and hash
-  hex = hex.trim().replace('#', '');
-  // Expand shorthand
-  if (hex.length === 3) hex = hex.split('').map(x => x + x).join('');
-  const num = parseInt(hex, 16);
-  const r = (num >> 16) & 255;
-  const g = (num >> 8) & 255;
-  const b = num & 255;
-  return `rgba(${r},${g},${b},${alpha})`;
-}
 
 export default StarBackground;

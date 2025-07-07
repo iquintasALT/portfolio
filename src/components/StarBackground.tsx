@@ -13,10 +13,10 @@ const StarBackground = () => {
   const [stars, setStars] = useState<Star[]>([]);
 
   useEffect(() => {
-    const win = (typeof window !== "undefined") ? (globalThis as any).window : undefined;
+    const win = typeof window !== "undefined" ? (globalThis as any).window : undefined;
     if (!win) return;
     const generateStars = () => {
-      const numberOfStars = Math.floor(win.innerWidth * win.innerHeight / 10000);
+      const numberOfStars = Math.floor((win.innerWidth * win.innerHeight) / 10000);
       const newStars: Star[] = [];
       for (let i = 0; i < numberOfStars; ++i) {
         newStars.push({

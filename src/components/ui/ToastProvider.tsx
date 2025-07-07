@@ -1,6 +1,7 @@
 "use client";
-import * as Toast from '@radix-ui/react-toast';
-import React from 'react';
+
+import React from "react";
+import * as Toast from "@radix-ui/react-toast";
 
 export default function RadixToastProvider({ children }: { children: React.ReactNode }) {
   return (

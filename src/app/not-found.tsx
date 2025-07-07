@@ -1,7 +1,6 @@
-
 import Link from "next/link";
-import { Home } from "lucide-react";
 import texts from "@content/texts.json";
+import { Home } from "lucide-react";
 
 export default function NotFound() {
   return (
@@ -10,16 +9,9 @@ export default function NotFound() {
         <h1 className="text-5xl font-extrabold text-indigo-400 mb-4 tracking-tight drop-shadow-lg">
           {texts.notFound.title}
         </h1>
-        <h2 className="text-2xl font-semibold text-zinc-100 mb-2">
-          {texts.notFound.subtitle}
-        </h2>
-        <p className="text-zinc-400 mb-8">
-          {texts.notFound.description}
-        </p>
-        <Link
-          href="/"
-          className="star-button inline-flex items-center gap-2"
-        >
+        <h2 className="text-2xl font-semibold text-zinc-100 mb-2">{texts.notFound.subtitle}</h2>
+        <p className="text-zinc-400 mb-8">{texts.notFound.description}</p>
+        <Link href="/" className="star-button inline-flex items-center gap-2">
           <Home className="w-5 h-5" />
           {texts.notFound.cta}
         </Link>

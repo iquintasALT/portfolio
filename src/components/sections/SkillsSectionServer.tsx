@@ -1,5 +1,6 @@
-import SkillsSectionClient from "./SkillsSectionClient";
 import { headers } from "next/headers";
+
+import SkillsSectionClient from "./SkillsSectionClient";
 
 interface SectionProps {
   id: string;
@@ -26,7 +27,7 @@ async function getSkills(): Promise<SkillCategory[]> {
     }
     const data = await res.json();
     return data;
-  } catch (err) {
+  } catch {
     return [];
   }
 }
@@ -34,7 +35,11 @@ async function getSkills(): Promise<SkillCategory[]> {
 const SkillsSection = async ({ id }: SectionProps) => {
   const skills = await getSkills();
   if (!skills || skills.length === 0) {
-    return <section id={id} style={{ color: 'red', padding: 32 }}>Skills data could not be loaded.</section>;
+    return (
+      <section id={id} style={{ color: "red", padding: 32 }}>
+        Skills data could not be loaded.
+      </section>
+    );
   }
   // Pass id to client component so it renders the section with the id
   return <SkillsSectionClient id={id} skills={skills} />;

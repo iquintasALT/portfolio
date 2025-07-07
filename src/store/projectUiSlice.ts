@@ -1,13 +1,14 @@
-import { createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
-import type { Project } from '~/components/ProjectsGrid';
 import texts from "@content/texts.json";
+import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
+
+import type { Project } from "@/types/project";
 
 interface ProjectUiState {
   projects: Project[];
   selected: Project | null;
   carouselIndex: number;
-  layout: 'carousel' | 'sidepanel';
+  layout: "carousel" | "sidepanel";
   filtersOpen: boolean;
   selectedCategory: string | null;
   selectedLanguage: string | null;
@@ -17,15 +18,14 @@ const initialState: ProjectUiState = {
   projects: (texts.projects ?? []) as Project[],
   selected: null,
   carouselIndex: 0,
-  layout: 'carousel',
+  layout: "carousel",
   filtersOpen: false,
   selectedCategory: null,
   selectedLanguage: null,
-
 };
 
 const projectUiSlice = createSlice({
-  name: 'projectUi',
+  name: "projectUi",
   initialState,
   reducers: {
     setProjects(state, action: PayloadAction<Project[]>) {
@@ -37,7 +37,7 @@ const projectUiSlice = createSlice({
     setCarouselIndex(state, action: PayloadAction<number>) {
       state.carouselIndex = action.payload;
     },
-    setLayout(state, action: PayloadAction<'carousel' | 'sidepanel'>) {
+    setLayout(state, action: PayloadAction<"carousel" | "sidepanel">) {
       state.layout = action.payload;
     },
     setFiltersOpen(state, action: PayloadAction<boolean>) {
@@ -51,7 +51,6 @@ const projectUiSlice = createSlice({
     },
   },
 });
-
 
 export const {
   setProjects,

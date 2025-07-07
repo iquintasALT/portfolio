@@ -74,16 +74,15 @@
 
 @layer base {
   :root {
-  --background: 220 40% 95%
-  --foreground: 222 47% 11%;
+    --background: 220 40% 95% --foreground: 222 47% 11%;
 
-  --card: 220 40% 98%;
+    --card: 220 40% 98%;
 
-  --primary: 250 47% 60%;
-  --primary-foreground: 220 40% 95%;
+    --primary: 250 47% 60%;
+    --primary-foreground: 220 40% 95%;
 
-  --border: 214 32% 91%;
-}
+    --border: 214 32% 91%;
+  }
 
   .dark {
     --background: 222 47% 4%;
@@ -105,13 +104,15 @@
     @apply scroll-smooth;
     overscroll-behavior-y: contain;
     @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
+      color-scheme: dark;
     }
   }
 
   body {
     @apply text-foreground transition-colors duration-300;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
   }
 }
 
@@ -180,7 +181,7 @@
   position: relative;
   width: 100%;
   height: 100%;
-  transition: transform 0.5s cubic-bezier(.4,2,.6,1);
+  transition: transform 0.5s cubic-bezier(0.4, 2, 0.6, 1);
   transform-style: preserve-3d;
 }
 .card-3d.flipped .card-inner-3d {

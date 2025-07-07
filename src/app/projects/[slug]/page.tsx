@@ -1,10 +1,11 @@
-import { notFound } from "next/navigation";
 import { headers } from "next/headers";
+import { notFound } from "next/navigation";
+import ProjectDetail from "~/components/ui/ProjectDetail";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypeSlug from "rehype-slug";
+
 import CustomMDXComponents from "@/components/mdx/CustomMDXComponents";
 import MdxSectionNav from "@/components/ui/MdxSectionNav";
-import ProjectDetail from "~/components/ui/ProjectDetail";
 
 interface ProjectMeta {
   title: string;
@@ -21,18 +22,13 @@ interface ProjectData {
   meta: ProjectMeta;
 }
 
-export default async function ProjectPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const hdrs = await headers();
   const host = hdrs.get("host");
   const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
   const baseUrl = `${protocol}://${host}`;
-  const res = await fetch(`${baseUrl}/api/project-mdx?slug=${slug}`, { next: { revalidate: 180 } 
-  });
+  const res = await fetch(`${baseUrl}/api/project-mdx?slug=${slug}`, { next: { revalidate: 180 } });
   if (!res.ok) return notFound();
   const data: ProjectData = await res.json();
 

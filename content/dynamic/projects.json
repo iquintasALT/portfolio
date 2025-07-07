@@ -45,8 +45,6 @@
     "description": "A modern booking platform client built with React, Tailwind, Vite and Axios with a mock backend.",
     "image": "/project-react-screenshot.png",
     "language": "JavaScript",
-    "libraries": [
-      "Frontend"
-    ]
+    "libraries": ["Frontend"]
   }
 ]

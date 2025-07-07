@@ -1,5 +1,5 @@
-import type { LucideIcon } from "lucide-react";
 import React from "react";
+import type { LucideIcon } from "lucide-react";
 
 interface FeatureCardProps {
   icon: LucideIcon;
@@ -7,11 +7,7 @@ interface FeatureCardProps {
   description: string;
 }
 
-const FeatureCard: React.FC<FeatureCardProps> = ({
-  icon: Icon,
-  title,
-  description,
-}) => (
+const FeatureCard: React.FC<FeatureCardProps> = ({ icon: Icon, title, description }) => (
   <div className="gradient-border p-6 card-hover">
     <div className="flex items-start gap-4">
       <div className="p-3 rounded-full bg-primary-/10">

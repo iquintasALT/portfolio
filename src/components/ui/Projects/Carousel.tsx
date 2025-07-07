@@ -1,14 +1,17 @@
-'use client'
+"use client";
+
 import React from "react";
+import Image from "next/image";
+import Link from "next/link";
 import clsx from "clsx";
 
-import Link from "next/link";
+import type { Project } from "@/types/project";
 
 interface CarouselProps {
-  projects: any[];
-  selected: any;
+  projects: Project[];
+  selected: Project | null;
   carouselIndex: number;
-  onSelect: (project: any, idx: number) => void;
+  onSelect: (project: Project, idx: number) => void;
   onPrev: () => void;
   onNext: () => void;
   slugify: (str: string) => string;
@@ -16,13 +19,13 @@ interface CarouselProps {
 
 export function Carousel({ projects, selected, carouselIndex, onSelect, onPrev, onNext, slugify }: CarouselProps) {
   // Animation state for slide direction
-  const [slideDirection, setSlideDirection] = React.useState<'left' | 'right' | null>(null);
+  const [slideDirection, setSlideDirection] = React.useState<"left" | "right" | null>(null);
   const prevIndex = React.useRef(carouselIndex);
 
   // Detect direction on index change
   React.useEffect(() => {
-    if (carouselIndex > prevIndex.current) setSlideDirection('left');
-    else if (carouselIndex < prevIndex.current) setSlideDirection('right');
+    if (carouselIndex > prevIndex.current) setSlideDirection("left");
+    else if (carouselIndex < prevIndex.current) setSlideDirection("right");
     prevIndex.current = carouselIndex;
     // Reset direction after animation
     const timeout = setTimeout(() => setSlideDirection(null), 250);
@@ -57,7 +60,7 @@ export function Carousel({ projects, selected, carouselIndex, onSelect, onPrev, 
       }
     }
   }
-  function handleThumbsTouchEnd(e: React.TouchEvent) {
+  function handleThumbsTouchEnd() {
     touchData.current.dragging = false;
     touchData.current.moved = false;
   }
@@ -87,22 +90,23 @@ export function Carousel({ projects, selected, carouselIndex, onSelect, onPrev, 
     const handleMouseUp = () => {
       mouseData.current.dragging = false;
       mouseData.current.moved = false;
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
     };
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseup', handleMouseUp);
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseup", handleMouseUp);
   }
   const [isMobile, setIsMobile] = React.useState(false);
   React.useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 640);
     checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   // Calculate visible thumbnails window for mobile
-  let thumbStart = 0, thumbEnd = projects.length;
+  let thumbStart = 0,
+    thumbEnd = projects.length;
   if (isMobile && projects.length > 5) {
     thumbStart = Math.max(0, Math.min(carouselIndex - 2, projects.length - 5));
     thumbEnd = thumbStart + 5;
@@ -130,33 +134,31 @@ export function Carousel({ projects, selected, carouselIndex, onSelect, onPrev, 
       const scrollTo = thumbCenter - containerCenter;
       container.scrollTo({ left: scrollTo, behavior: "smooth" });
     }
-  }, [carouselIndex, visibleThumbs.length, isMobile]);
+  }, [carouselIndex, visibleThumbs.length, isMobile, projects.length, thumbStart]);
 
   // Render project card
   const renderProjectCard = (project: any) => (
     <div className="flex flex-col items-center w-full">
-      <img
+      <Image
         src={project.image}
         alt={project.title}
         className="object-cover rounded-2xl shadow-xl border-2 border-indigo-500 mx-8 w-72 h-72 max-w-[80vw] max-h-[40vh] mb-4"
+        width={300}
+        height={300}
       />
       <div className="flex flex-row flex-wrap items-center justify-center gap-2 w-full mb-2">
-        <h2 className="text-2xl sm:text-3xl font-bold text-zinc-100 text-center m-0">
-          {project.title}
-        </h2>
+        <h2 className="text-2xl sm:text-3xl font-bold text-zinc-100 text-center m-0">{project.title}</h2>
         {project.libraries.map((lib: string) => (
           <span
             key={lib}
             className="bg-zinc-800 text-zinc-300 px-2 py-1 rounded-full text-xs shadow border border-zinc-700 ml-1"
-            style={{ whiteSpace: 'nowrap' }}
+            style={{ whiteSpace: "nowrap" }}
           >
             {lib}
           </span>
         ))}
       </div>
-      <p className="text-zinc-300 text-base sm:text-lg mb-4 text-center">
-        {project.description}
-      </p>
+      <p className="text-zinc-300 text-base sm:text-lg mb-4 text-center">{project.description}</p>
       <Link
         href={`/projects/${slugify(project.title)}`}
         className="mt-2 px-4 py-1 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-full shadow text-sm font-medium hover:scale-105 transition-transform inline-block text-center"
@@ -166,21 +168,28 @@ export function Carousel({ projects, selected, carouselIndex, onSelect, onPrev, 
         More about this project
       </Link>
       {/* Hidden links for SEO: all project detail pages */}
-      <div style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden', pointerEvents: 'none' }} aria-hidden="true">
+      <div
+        style={{ position: "absolute", width: 0, height: 0, overflow: "hidden", pointerEvents: "none" }}
+        aria-hidden="true"
+      >
         {projects.map((p) => (
-          <Link key={p.id} href={`/projects/${slugify(p.title)}`}>{p.title}</Link>
+          <Link key={p.id} href={`/projects/${slugify(p.title)}`}>
+            {p.title}
+          </Link>
         ))}
       </div>
     </div>
   );
   const renderProjectThumb = (project: any, isActive: boolean) => (
-    <img
+    <Image
       src={project.image}
       alt={project.title}
       className={clsx(
         "w-16 h-16 sm:w-20 sm:h-20 md:w-28 md:h-28 object-cover rounded-xl shadow border-2 transition-all duration-300",
         isActive ? "border-indigo-500 scale-110 z-10" : "border-zinc-700 opacity-60 hover:opacity-100 z-0"
       )}
+      width={64}
+      height={64}
     />
   );
 
@@ -189,23 +198,49 @@ export function Carousel({ projects, selected, carouselIndex, onSelect, onPrev, 
   return (
     <div className="flex flex-col items-center justify-start w-full max-w-[900px] mx-auto h-[80vh] relative">
       {/* Left Arrow */}
-      <button
-        className="absolute left-0 top-1/2 -translate-y-1/2 bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700 rounded-full p-2 shadow-lg z-20 flex items-center justify-center ml-4 w-11 h-11"
-        onClick={onPrev}
-        aria-label="Previous item"
-      >
-        <span className="sr-only">Previous</span>
-        <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-left"><path d="m15 18-6-6 6-6"/></svg>
-      </button>
+      {!isMobile && (
+        <button
+          className="absolute left-0 top-1/2 -translate-y-1/2 bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700 rounded-full p-2 shadow-lg z-20 flex items-center justify-center ml-4 w-11 h-11"
+          onClick={onPrev}
+          aria-label="Previous item"
+        >
+          <span className="sr-only">Previous</span>
+          <svg
+            width="28"
+            height="28"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="lucide lucide-chevron-left"
+          >
+            <path d="m15 18-6-6 6-6" />
+          </svg>
+        </button>
+      )}
       {/* Right Arrow */}
-      <button
-        className="absolute right-0 top-1/2 -translate-y-1/2 bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700 rounded-full p-2 shadow-lg z-20 flex items-center justify-center mr-4 w-11 h-11"
-        onClick={onNext}
-        aria-label="Next item"
-      >
-        <span className="sr-only">Next</span>
-        <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6"/></svg>
-      </button>
+      {!isMobile && (
+        <button
+          className="absolute right-0 top-1/2 -translate-y-1/2 bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700 rounded-full p-2 shadow-lg z-20 flex items-center justify-center mr-4 w-11 h-11"
+          onClick={onNext}
+          aria-label="Next item"
+        >
+          <span className="sr-only">Next</span>
+          <svg
+            width="28"
+            height="28"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="lucide lucide-chevron-right"
+          >
+            <path d="m9 18 6-6-6-6" />
+          </svg>
+        </button>
+      )}
       {/* Main item */}
       <div className="flex items-center justify-center w-full mb-6 relative min-h-[260px]">
         {currentProject && renderProjectCard(currentProject)}
@@ -215,13 +250,9 @@ export function Carousel({ projects, selected, carouselIndex, onSelect, onPrev, 
         ref={thumbsContainerRef}
         className={
           "flex items-center gap-2 mb-6 overflow-x-auto overflow-y-hidden w-full justify-center px-2 scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-transparent " +
-          (slideDirection === 'left'
-            ? 'animate-slide-left'
-            : slideDirection === 'right'
-            ? 'animate-slide-right'
-            : '')
+          (slideDirection === "left" ? "animate-slide-left" : slideDirection === "right" ? "animate-slide-right" : "")
         }
-        style={{ WebkitOverflowScrolling: 'touch' }}
+        style={{ WebkitOverflowScrolling: "touch" }}
         onTouchStart={handleThumbsTouchStart}
         onTouchMove={handleThumbsTouchMove}
         onTouchEnd={handleThumbsTouchEnd}
@@ -233,10 +264,15 @@ export function Carousel({ projects, selected, carouselIndex, onSelect, onPrev, 
           return (
             <div
               key={project.id}
-              ref={el => { thumbRefs.current[idx] = el; }}
-              className={clsx("cursor-pointer", realIdx === carouselIndex ? "scale-110 z-10" : "opacity-60 hover:opacity-100 z-0")}
+              ref={(el) => {
+                thumbRefs.current[idx] = el;
+              }}
+              className={clsx(
+                "cursor-pointer",
+                realIdx === carouselIndex ? "scale-110 z-10" : "opacity-60 hover:opacity-100 z-0"
+              )}
               onClick={() => onSelect(project, realIdx)}
-              style={{ minWidth: '4rem', minHeight: '4rem', maxWidth: '20vw', maxHeight: '20vw' }}
+              style={{ minWidth: "4rem", minHeight: "4rem", maxWidth: "20vw", maxHeight: "20vw" }}
             >
               {renderProjectThumb(project, realIdx === carouselIndex)}
             </div>

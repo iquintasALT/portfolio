@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { Menu, X } from "lucide-react";
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import { cn } from "~/lib/helpers";
+import { Menu, X } from "lucide-react";
 
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
 import { navItems } from "./navItems";
-
-import { cn } from "~/lib/helpers";
 
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
@@ -30,14 +30,11 @@ const Navbar: React.FC = () => {
       )}
     >
       <div className="container flex items-center justify-between">
-        <a
-          className="text-xl font-bold text-primary flex items-center"
-          href="/#me"
-        >
+        <Link className="text-xl font-bold text-primary flex items-center" href="/#me">
           <span className="relative z-10">
             <span className="text-glow text-foreground"> iquintasALT </span> Portfolio
           </span>
-        </a>
+        </Link>
         <DesktopNav navItems={navItems} />
         <button
           onClick={() => setIsMenuOpen((prev) => !prev)}

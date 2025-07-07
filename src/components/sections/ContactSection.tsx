@@ -1,9 +1,11 @@
-'use client'
+"use client";
+
 import React from "react";
-import { Mail, Phone, MapPin, Linkedin, Github } from "lucide-react";
 import texts from "@content/texts.json";
+import { Github, Linkedin, Mail, MapPin, Phone } from "lucide-react";
+
 import ContactMeForm from "../ContactMeForm";
-import { useSwipeableCarousel, SwipeIndicator } from "../ui/useSwipeableCarousel";
+import { SwipeIndicator, useSwipeableCarousel } from "../ui/useSwipeableCarousel";
 
 const ContactInfoItem = ({
   icon: Icon,
@@ -24,10 +26,7 @@ const ContactInfoItem = ({
     <div className="flex flex-col items-center justify-center w-full">
       <h4 className="font-medium w-full text-center">{label}</h4>
       {href ? (
-        <a
-          href={href}
-          className="text-muted-foreground hover:text-primary transition-colors w-full text-center"
-        >
+        <a href={href} className="text-muted-foreground hover:text-primary transition-colors w-full text-center">
           {value}
         </a>
       ) : (
@@ -54,9 +53,7 @@ const ContactSection: React.FC<SectionProps> = ({ id }) => {
 
           <div className="grid grid-cols-2 gap-12">
             <div className="space-y-8">
-              <h3 className="text-2xl font-semibold mb-6">
-                {texts.contact.infoTitle}
-              </h3>
+              <h3 className="text-2xl font-semibold mb-6">{texts.contact.infoTitle}</h3>
 
               <div className="space-y-6 justify-center">
                 <ContactInfoItem
@@ -82,19 +79,18 @@ const ContactSection: React.FC<SectionProps> = ({ id }) => {
                 <h4 className="font-medium mb-4">{texts.contact.connectTitle}</h4>
                 <div className="flex space-x-4 justify-center">
                   <a href={texts.contact.links[0].href} target="_blank">
-                    <Linkedin/>
+                    <Linkedin />
                   </a>
                   <a href={texts.contact.links[1].href} target="_blank">
-                    <Github/>
+                    <Github />
                   </a>
                 </div>
               </div>
             </div>
 
             <div className="bg-card p-8 rounded-lg shadow-xs">
-              <ContactMeForm/>
+              <ContactMeForm />
             </div>
-
           </div>
         </div>
       </div>
@@ -109,11 +105,18 @@ const ContactSection: React.FC<SectionProps> = ({ id }) => {
             width: "200vw",
           }}
         >
-          <div style={{ width: "100vw", minWidth: 0, boxSizing: "border-box", display: "flex", justifyContent: "center", padding: "0 20px" }}>
+          <div
+            style={{
+              width: "100vw",
+              minWidth: 0,
+              boxSizing: "border-box",
+              display: "flex",
+              justifyContent: "center",
+              padding: "0 20px",
+            }}
+          >
             <div className="space-y-8" style={{ width: "100%", maxWidth: 400 }}>
-              <h3 className="text-2xl font-semibold mb-6">
-                {texts.contact.infoTitle}
-              </h3>
+              <h3 className="text-2xl font-semibold mb-6">{texts.contact.infoTitle}</h3>
               <div className="space-y-6 justify-center">
                 <ContactInfoItem
                   icon={Mail}
@@ -137,18 +140,27 @@ const ContactSection: React.FC<SectionProps> = ({ id }) => {
                 <h4 className="font-medium mb-4">{texts.contact.connectTitle}</h4>
                 <div className="flex space-x-4 justify-center">
                   <a href={texts.contact.links[0].href} target="_blank">
-                    <Linkedin/>
+                    <Linkedin />
                   </a>
                   <a href={texts.contact.links[1].href} target="_blank">
-                    <Github/>
+                    <Github />
                   </a>
                 </div>
               </div>
             </div>
           </div>
-          <div style={{ width: "100vw", minWidth: 0, boxSizing: "border-box", display: "flex", justifyContent: "center", padding: "0 20px" }}>
+          <div
+            style={{
+              width: "100vw",
+              minWidth: 0,
+              boxSizing: "border-box",
+              display: "flex",
+              justifyContent: "center",
+              padding: "0 20px",
+            }}
+          >
             <div className="bg-card p-8 rounded-lg shadow-xs" style={{ width: "100%", maxWidth: 400 }}>
-              <ContactMeForm/>
+              <ContactMeForm />
             </div>
           </div>
         </div>

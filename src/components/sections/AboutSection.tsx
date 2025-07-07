@@ -1,11 +1,13 @@
-'use client'
+"use client";
+
 import React from "react";
-import { Code, User } from "lucide-react";
-import { cn } from "~/lib/helpers";
-import { useSectionTransition } from "../ui/SectionTransitionWrapper";
-import { useSwipeableCarousel, SwipeIndicator } from "../ui/useSwipeableCarousel";
-import FeatureCard from "~/components/ui/FeatureCard";
 import texts from "@content/texts.json";
+import FeatureCard from "~/components/ui/FeatureCard";
+import { cn } from "~/lib/helpers";
+import { Code, User } from "lucide-react";
+
+import { useSectionTransition } from "../ui/SectionTransitionWrapper";
+import { SwipeIndicator, useSwipeableCarousel } from "../ui/useSwipeableCarousel";
 
 interface SectionProps {
   id: string;
@@ -13,7 +15,7 @@ interface SectionProps {
 
 const AboutSection: React.FC<SectionProps> = ({ id }) => {
   const { scrollToSection } = useSectionTransition();
-  const { activeSlide, setActiveSlide, handlers } = useSwipeableCarousel(2);
+  const { activeSlide, handlers } = useSwipeableCarousel(2);
 
   // Responsive: use grid on md+, carousel on mobile
   return (
@@ -26,18 +28,14 @@ const AboutSection: React.FC<SectionProps> = ({ id }) => {
         {/* Desktop: grid, Mobile: carousel */}
         <div className="hidden md:grid grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
-            <h3 className="text-2xl font-semibold">
-              {texts.about.subtitle}
-            </h3>
+            <h3 className="text-2xl font-semibold">{texts.about.subtitle}</h3>
             {texts.about.paragraphs.map((p, i) => (
-              <p className="text-muted-foreground" key={i}>{p}</p>
+              <p className="text-muted-foreground" key={i}>
+                {p}
+              </p>
             ))}
             <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
-              <button
-                className="star-button"
-                onClick={() => scrollToSection("contact")}
-                type="button"
-              >
+              <button className="star-button" onClick={() => scrollToSection("contact")} type="button">
                 {texts.about.cta}
               </button>
               <a
@@ -80,20 +78,25 @@ const AboutSection: React.FC<SectionProps> = ({ id }) => {
             width: "200vw",
           }}
         >
-          <div style={{ width: "100vw", minWidth: 0, boxSizing: "border-box", display: "flex", justifyContent: "center", padding: "0 20px" }}>
+          <div
+            style={{
+              width: "100vw",
+              minWidth: 0,
+              boxSizing: "border-box",
+              display: "flex",
+              justifyContent: "center",
+              padding: "0 20px",
+            }}
+          >
             <div className="space-y-6" style={{ width: "100%", maxWidth: 400 }}>
-              <h3 className="text-2xl font-semibold">
-                {texts.about.subtitle}
-              </h3>
+              <h3 className="text-2xl font-semibold">{texts.about.subtitle}</h3>
               {texts.about.paragraphs.map((p, i) => (
-                <p className="text-muted-foreground" key={i}>{p}</p>
+                <p className="text-muted-foreground" key={i}>
+                  {p}
+                </p>
               ))}
               <div className="flex flex-col gap-4 pt-4 justify-center items-center w-full">
-                <button
-                  className="star-button w-full"
-                  onClick={() => scrollToSection("contact")}
-                  type="button"
-                >
+                <button className="star-button w-full" onClick={() => scrollToSection("contact")} type="button">
                   {texts.about.cta}
                 </button>
                 <a
@@ -109,7 +112,16 @@ const AboutSection: React.FC<SectionProps> = ({ id }) => {
               </div>
             </div>
           </div>
-          <div style={{ width: "100vw", minWidth: 0, boxSizing: "border-box", display: "flex", justifyContent: "center", padding: "0 20px" }}>
+          <div
+            style={{
+              width: "100vw",
+              minWidth: 0,
+              boxSizing: "border-box",
+              display: "flex",
+              justifyContent: "center",
+              padding: "0 20px",
+            }}
+          >
             <div className="grid grid-cols-1 gap-6" style={{ width: "100%", maxWidth: 400 }}>
               <FeatureCard
                 icon={Code}

@@ -1,6 +1,2 @@
-{
-  "extends": [
-    "next/core-web-vitals",
-    "next/typescript"
-  ]
-}
+
+// This file is now obsolete. ESLint v9+ uses eslint.config.js (ESM) in your root.

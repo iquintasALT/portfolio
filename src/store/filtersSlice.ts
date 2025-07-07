@@ -1,4 +1,4 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 export interface FiltersState {
   search: string;
@@ -6,12 +6,12 @@ export interface FiltersState {
 }
 
 const initialState: FiltersState = {
-  search: '',
+  search: "",
   tags: [],
 };
 
 const filtersSlice = createSlice({
-  name: 'filters',
+  name: "filters",
   initialState,
   reducers: {
     setSearch(state, action: PayloadAction<string>) {
@@ -21,7 +21,7 @@ const filtersSlice = createSlice({
       state.tags = action.payload;
     },
     clearFilters(state) {
-      state.search = '';
+      state.search = "";
       state.tags = [];
     },
   },

@@ -11,10 +11,7 @@ const Footer = () => {
         &copy; {new Date().getFullYear()} Made by Iago. All rights reserved.
       </p>
 
-      <a
-        href="#me"
-        className="p-2 rounded-full bg-primary/10 hover:bg_primary transition-colors"
-      >
+      <a href="#me" className="p-2 rounded-full bg-primary/10 hover:bg_primary transition-colors">
         <ChevronUp></ChevronUp>
       </a>
     </footer>

@@ -1,11 +1,12 @@
-'use client';
+"use client";
+
+import { Provider } from "react-redux";
 
 import ThemeToggle from "../components/ThemeToggle";
 import Navbar from "../components/ui/Navbar/Navbar";
 import StarBackground from "../components/ui/StarBackground";
-import { Provider } from 'react-redux';
-import { store } from '../store/store';
-import RadixToastProvider from '../components/ui/ToastProvider';
+import RadixToastProvider from "../components/ui/ToastProvider";
+import { store } from "../store/store";
 
 export default function ClientRoot({ children }: { children: React.ReactNode }) {
   return (

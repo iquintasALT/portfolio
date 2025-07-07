@@ -5,13 +5,11 @@ module.exports = {
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
     "^#app/(.*)$": "<rootDir>/pages/$1",
-    "^.+\\.(css|scss|sass)$": "identity-obj-proxy"
+    "^.+\\.(css|scss|sass)$": "identity-obj-proxy",
   },
   testPathIgnorePatterns: ["/node_modules/", "/.next/"],
   transform: {
-    "^.+\\.(ts|tsx)$": "ts-jest"
+    "^.+\\.(ts|tsx)$": "ts-jest",
   },
-  transformIgnorePatterns: [
-    "/node_modules/"
-  ],
+  transformIgnorePatterns: ["/node_modules/"],
 };

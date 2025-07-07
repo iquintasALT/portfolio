@@ -1,12 +1,12 @@
 "use client";
-import React, { useState, useMemo } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useSectionTransition } from "../ui/SectionTransitionWrapper";
+
+import React, { useMemo, useState } from "react";
+import { Filter, LayoutGrid, PanelRight } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+
 import { FiltersPanel } from "../FiltersPanel";
-import { LayoutGrid, PanelRight, Filter } from "lucide-react";
 import { Carousel } from "../ui/Projects/Carousel";
 import { SidePanel } from "../ui/Projects/SidePanel";
-
 import type { Project } from "./ProjectsSectionServer";
 
 interface SectionProps {
@@ -15,9 +15,8 @@ interface SectionProps {
 }
 
 const ProjectsSectionClient: React.FC<SectionProps> = ({ id, projects }) => {
-  const { scrollToSection } = useSectionTransition();
   const dispatch = useDispatch();
-  const [layout, setLayout] = useState<'carousel' | 'sidepanel'>('carousel');
+  const [layout, setLayout] = useState<"carousel" | "sidepanel">("carousel");
   const [selected, setSelected] = useState<any>(null);
   const [carouselIndex, setCarouselIndex] = useState(0);
 
@@ -35,14 +34,15 @@ const ProjectsSectionClient: React.FC<SectionProps> = ({ id, projects }) => {
     () =>
       (projectList || []).filter((project) => {
         const matchesSearch = project.title.toLowerCase().includes((search || "").toLowerCase());
-        const matchesTags = (tags || []).length === 0 || (tags || []).every((tag: string) => project.libraries.includes(tag));
+        const matchesTags =
+          (tags || []).length === 0 || (tags || []).every((tag: string) => project.libraries.includes(tag));
         const matchesCategory = !selectedCategory || project.libraries.includes(selectedCategory);
         const matchesLanguage = !selectedLanguage || project.language === selectedLanguage;
         return matchesSearch && matchesTags && matchesCategory && matchesLanguage;
       }),
     [search, tags, selectedCategory, selectedLanguage, projectList]
   );
-  const visibleProjects = filteredProjects.length > 0 ? filteredProjects : (projectList || []);
+  const visibleProjects = filteredProjects.length > 0 ? filteredProjects : projectList || [];
   const currentProject = selected || visibleProjects[carouselIndex] || null;
 
   const handleSelect = (project: any, idx: number) => {
@@ -59,7 +59,11 @@ const ProjectsSectionClient: React.FC<SectionProps> = ({ id, projects }) => {
     setCarouselIndex(newIndex);
     setSelected(visibleProjects[newIndex]);
   };
-  const slugify = (str: string) => str.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  const slugify = (str: string) =>
+    str
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)/g, "");
 
   let LayoutComponent = null;
   switch (layout) {
@@ -106,7 +110,7 @@ const ProjectsSectionClient: React.FC<SectionProps> = ({ id, projects }) => {
           </button>
           <button
             className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-full p-2 shadow-lg flex items-center justify-center border-none transition-all relative z-20 hover:from-indigo-400 hover:to-purple-500 hover:scale-105 hover:shadow-xl focus:outline-none"
-            onClick={() => dispatch({ type: 'projectUi/setFiltersOpen', payload: !filtersOpen })}
+            onClick={() => dispatch({ type: "projectUi/setFiltersOpen", payload: !filtersOpen })}
             aria-label="Show filters"
             id="filters-toggle-btn"
           >
@@ -115,10 +119,7 @@ const ProjectsSectionClient: React.FC<SectionProps> = ({ id, projects }) => {
         </div>
       </div>
       <div className="w-full max-w-6xl mx-auto flex flex-col justify-center items-center gap-8">
-        <FiltersPanel
-          allLanguages={allLanguages}
-          allTags={allTags}
-        />
+        <FiltersPanel allLanguages={allLanguages} allTags={allTags} />
         {LayoutComponent}
       </div>
     </section>

@@ -1,7 +1,9 @@
-'use client'
-import { useSectionTransition } from "../ui/SectionTransitionWrapper";
-import { Typewriter } from "react-simple-typewriter";
+"use client";
+
 import texts from "@content/texts.json";
+import { Typewriter } from "react-simple-typewriter";
+
+import { useSectionTransition } from "../ui/SectionTransitionWrapper";
 
 interface SectionProps {
   id: string;
@@ -10,22 +12,13 @@ interface SectionProps {
 const HeroSection: React.FC<SectionProps> = ({ id }) => {
   const { scrollToSection } = useSectionTransition();
   return (
-    <section
-      id={id}
-      className="relative min-h-screen flex flex-col items-center justify-center px-4"
-    >
+    <section id={id} className="relative min-h-screen flex flex-col items-center justify-center px-4">
       <div className="container max-w-4xl mx-auto text-center z-10">
         <div className="space-y-6">
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
             <span className="opacity-0 animate-fade-in"> {texts.hero.greeting}</span>
-            <span className="text-primary opacity-0 animate-fade-in-delay-1">
-              {" "}
-              {texts.hero.firstName}
-            </span>
-            <span className="ml-2 opacity-0 animate-fade-in-delay-1">
-              {" "}
-              {texts.hero.lastName}
-            </span>
+            <span className="text-primary opacity-0 animate-fade-in-delay-1"> {texts.hero.firstName}</span>
+            <span className="ml-2 opacity-0 animate-fade-in-delay-1"> {texts.hero.lastName}</span>
           </h1>
 
           <h2 className="text-2xl md:text-3xl font-semibold mt-4 opacity-0 animate-fade-in-delay-2">
@@ -48,11 +41,7 @@ const HeroSection: React.FC<SectionProps> = ({ id }) => {
           </p>
 
           <div className="pt-4 opacity-0 animate-fade-in-delay-4">
-            <button
-              className="star-button"
-              onClick={() => scrollToSection("projects")}
-              type="button"
-            >
+            <button className="star-button" onClick={() => scrollToSection("projects")} type="button">
               {texts.hero.cta}
             </button>
           </div>

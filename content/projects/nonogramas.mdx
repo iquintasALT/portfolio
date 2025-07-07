@@ -1,0 +1,48 @@
+---
+title: "Nonogramas"
+image: "/nonogramas_screenshot.png"
+libraries:
+  - Android
+  - Java
+  - Custom Game Engine
+description: "A feature-rich Nonogram puzzle game for Android, built with a custom engine and modern mobile practices."
+language: "Java"
+---
+
+## About the Project
+
+Nonogramas is a mobile puzzle game for Android, inspired by classic nonogram (picross) logic puzzles. The app is built in Java using Android Studio and a custom game engine abstraction, providing a smooth and interactive experience for mobile users.
+
+## Game Design & Features
+
+- **Classic Nonogram Gameplay:** Solve grid-based logic puzzles by filling in cells according to numeric clues.
+- **Multiple Game States:** Includes main menu, game, shop, story, and selection screens, each managed by a robust state system.
+- **Custom Board Logic:** The `Board` and `Cell` classes handle puzzle logic, solution checking, and dynamic rendering.
+- **Progression & Rewards:** Tracks solved levels, unlocks new puzzles and palettes, and manages coins and lives.
+- **Persistence:** Uses serialization to save and load player progress and settings.
+- **Ads Integration:** Includes AdMob banner support for monetization.
+- **Sensor Integration:** (If present) Uses device sensors for enhanced gameplay or UI effects.
+
+## Technologies & Architecture
+
+- **Java & Android Studio:** Core development platform.
+- **Custom Engine Layer:** Abstracts graphics, input, and state management for modularity and reusability.
+- **MVC-like Structure:** Separates game logic (`gamelogic`), UI (`res/layout`), and state management (`states`).
+- **XML Layouts:** Defines responsive UI for main screens and menus.
+- **Resource Management:** Organized assets, layouts, and values for scalable development.
+
+## Challenges & Lessons Learned
+
+- **State Management:** Implemented a flexible state system for seamless transitions between menus and gameplay.
+- **Persistence:** Learned to serialize/deserialize game data for robust save/load functionality.
+- **UI/UX:** Designed intuitive layouts and touch controls for mobile play.
+- **Android Lifecycle:** Managed activity lifecycle, configuration changes, and resource cleanup.
+- **Testing & Debugging:** Gained experience with Android debugging tools and emulator/device testing.
+
+## Gallery
+
+<!-- Pending. -->
+
+## Conclusion
+
+Nonogramas was a comprehensive introduction to mobile game development, Android best practices, and custom engine design. The project strengthened my skills in Java, UI/UX, state management, and mobile app architecture.

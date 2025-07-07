@@ -36,7 +36,7 @@ export default function ProjectDetail({ project, children }: ProjectDetailProps)
                 {project.description}
               </p>
               <div className="flex flex-wrap gap-2 mb-2 justify-center">
-                {project.libraries.map((lib: string) => (
+                {(Array.isArray(project.libraries) ? project.libraries : []).map((lib: string) => (
                   <span
                     key={lib}
                     className="bg-zinc-800/80 text-zinc-200 px-3 py-1 rounded-full text-xs shadow border border-zinc-700"

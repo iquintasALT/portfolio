@@ -21,6 +21,8 @@
       { "name": "Redux", "icon": "/icons/redux.svg", "description": "State management for complex apps." },
       { "name": "Next.js", "icon": "/icons/nextjs.svg", "description": "SSR, SSG, and API routes." },
       { "name": "Phaser", "icon": "/icons/phaser.svg", "description": "2D game framework for the web." },
+      { "name": "Unity", "icon": "/icons/unity.svg", "description": "Cross-platform game engine for 2D and 3D experiences." },
+      { "name": "Unreal Engine", "icon": "/icons/unrealengine.svg", "description": "AAA-quality real-time 3D creation tool for games and more." },
       { "name": "PyTorch", "icon": "/icons/pytorch.svg", "description": "Deep learning and AI research." },
       { "name": "OpenCV", "icon": "/icons/opencv.svg", "description": "Computer vision and image processing." },
       { "name": "Selenium", "icon": "/icons/selenium.svg", "description": "Automated browser testing." },

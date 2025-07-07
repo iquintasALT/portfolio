@@ -1,4 +1,6 @@
 ---
+live: "https://dome-live.example.com"
+github: "https://github.com/iquintasALT/dome"
 title: "Dome"
 image: "/dome.png"
 libraries:
@@ -7,57 +9,51 @@ description: "Chilling horror—every shadow hides a secret."
 language: "C++"
 ---
 
-## Introduction
 
-Dome is a chilling horror experience where every shadow hides a secret. Built for the RGB LED matrix, it brings a unique low-res aesthetic to life.
+## About the Project
 
-## Features
+Dome is a 2D survival shooter set on the frozen planet Aurora, where players must manage resources, survive hostile nights, and escape before their shelter succumbs to the cold. The game was developed in C++ using SDL2, with a strong focus on pixel-art aesthetics and immersive survival mechanics.
 
-- Real-time stats and notifications
-- Pixel art and video game rendering
-- Unique low-resolution style
+## Game Design & Mechanics
 
-## Hardware Used
+The core gameplay revolves around a day-night cycle. By day, players scavenge for supplies, manage their inventory, and prepare for the dangers of the night. At night, the temperature drops, and players must return to their shelter to rest and heal. The health system is unique: instead of a simple health bar, Dome uses a wound/status effect model, where each injury or debuff impacts gameplay in different ways.
 
-- Raspberry Pi 4 Model B
-- 64x64 RGB LED Matrix Panel
-- Electrodragon Active-3 Breakout Board
+Combat is tactical, with three distinct weapons (gas carbine, mining laser, and polymeric gun), each requiring its own ammunition and offering different strategic advantages. Players must also contend with hunger, fatigue, and a variety of enemy types, all of which require careful planning and adaptation.
 
-## How it Works
+## Technologies & Development
 
-The project streams a canvas to the LED matrix using Node.js and the `node-pixel-pusher` library. The rendering loop draws to a virtual canvas, then sends the pixel data to the LEDs in real time.
+Developing Dome was a deep dive into C++ and SDL2, including:
 
-```js
-const PixelPusher = require('node-pixel-pusher')
-const nodeCanvas = require('canvas')
+- **Game architecture:** Implemented a modular state machine for handling menus, gameplay, and transitions.
+- **Custom UI/UX:** Designed inventory Tetris, wound tracking, and contextual tooltips for player feedback.
+- **Pixel-art rendering:** Created a consistent 64-bit pixel-art style, with custom shaders and effects for cold, wounds, and nightfall.
+- **Resource management:** Built systems for inventory, crafting, and time/resource balancing.
+- **Team collaboration:** Worked with a multi-disciplinary team, using Git, UML diagrams, and agile tools.
 
-const MAX_FPS = 30
+## Challenges & Lessons Learned
 
-const service = new PixelPusher.Service()
+One of the biggest challenges was designing a health system that felt both punishing and fair, encouraging players to learn from failure. Balancing the day-night cycle and resource scarcity required extensive playtesting and iteration. Implementing the inventory and crafting systems in C++/SDL2, with drag-and-drop and rotation mechanics, was a significant technical achievement.
 
-service.on('discover', (device) => {
-  createRenderer(device)
-})
+Through Dome, I gained hands-on experience with:
 
-function createRenderer(device) {
-  const width = device.deviceData.pixelsPerStrip
-  const height = device.deviceData.numberStrips
-  const canvas = nodeCanvas.createCanvas(width, height)
-  const ctx = canvas.getContext('2d')
+- Advanced C++ (OOP, memory management, modular design)
+- SDL2 for graphics, input, and audio
+- Game state machines and event-driven programming
+- UI/UX for games (custom tooltips, inventory, status effects)
+- Team-based development and code reviews
 
-  device.startRendering(() => {
-    ctx.fillStyle = 'green'
-    ctx.fillRect(0, 0, width, height)
-    const ImageData = ctx.getImageData(0, 0, width, height)
-    device.setRGBABuffer(ImageData.data)
-  }, MAX_FPS)
-}
-```
+
 
 ## Gallery
 
-![Dome LED Matrix](https://cdn.sanity.io/images/kecg41hi/production/9a8ac4b44e89c8a9acb80379472915bdf7f01923-3840x2160.png?w=828&q=85&fit=max&auto=format)
+![In-game Day/Night Cycle](https://github.com/iquintasALT/DOME/blob/main/docs/images/infogfx_daycycle.png?raw=true)
+
+![Combat and Inventory](https://github.com/iquintasALT/DOME/blob/main/docs/images/CapturaInGame.png?raw=true)
+
+![Shelter/Refuge UI](https://github.com/iquintasALT/DOME/blob/main/docs/images/CapturaCasa.PNG?raw=true)
+
+![Keybinds and Controls](https://github.com/iquintasALT/DOME/blob/main/docs/images/infogfx_keybinds.png?raw=true)
 
 ## Conclusion
 
-Dome demonstrates how you can bring web technologies and hardware together for creative, real-time LED displays.
+Dome was an ambitious project that brought together game design, programming, and art. It taught me how to architect complex systems in C++, collaborate effectively, and create a cohesive player experience from concept to release.

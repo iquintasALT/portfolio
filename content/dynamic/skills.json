@@ -53,7 +53,11 @@
       },
       { "name": "SDL", "icon": "/icons/sdl.svg", "description": "Cross-platform multimedia/game dev." },
       { "name": "OGRE", "icon": "/icons/ogre.svg", "description": "3D rendering engine." },
-      { "name": "FMOD", "icon": "/icons/fmod.svg", "description": "Audio engine for games and apps." },
+      {
+        "name": "Vercel",
+        "icon": "/icons/vercel.svg",
+        "description": "Serverless hosting and dynamic file storage (Blob)."
+      },
       {
         "name": "OpenGL",
         "icon": "/icons/opengl.svg",

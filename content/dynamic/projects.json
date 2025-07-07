@@ -21,7 +21,7 @@
     "description": "State-of-the-art portfolio using React best practices.",
     "image": "/portfolio.png",
     "language": "TypeScript",
-    "libraries": ["Frontend"]
+    "libraries": ["Frontend", "Backend"]
   },
   {
     "id": 4,
@@ -29,30 +29,24 @@
     "description": "Fast engine for pixelated chaos and creativity.",
     "image": "/triturados_game.gif",
     "language": "C++, Lua",
-    "libraries": ["Backend"]
-  },
-  {
-    "id": 5,
-    "title": "Veiled",
-    "description": "Browser RPG where mystery and magic collide.",
-    "image": "/veiled.gif",
-    "language": "JavaScript",
     "libraries": ["Videogame"]
   },
   {
-    "id": 6,
-    "title": "Veiled",
-    "description": "Browser RPG where mystery and magic collide.",
-    "image": "/veiled.gif",
-    "language": "JavaScript",
+    "id": 8,
+    "title": "Nonogramas",
+    "description": "A simple Nonogram puzzle game for Android, built with a custom engine and modern mobile practices.",
+    "image": "/nonogramas.png",
+    "language": "Java",
     "libraries": ["Videogame"]
   },
   {
-    "id": 7,
-    "title": "Veiled",
-    "description": "Browser RPG where mystery and magic collide.",
-    "image": "/veiled.gif",
+    "id": 9,
+    "title": "Booking React Mook",
+    "description": "A modern booking platform client built with React, Tailwind, Vite and Axios with a mock backend.",
+    "image": "/project-react-screenshot.png",
     "language": "JavaScript",
-    "libraries": ["Videogame"]
+    "libraries": [
+      "Frontend"
+    ]
   }
 ]

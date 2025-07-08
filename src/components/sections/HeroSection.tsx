@@ -4,7 +4,7 @@ import Link from "next/link";
 import texts from "@content/texts.json";
 import { Typewriter } from "react-simple-typewriter";
 
-import { useSectionTransition } from "../ui/SectionTransitionWrapper";
+import { useSectionTransition } from "../ui/SectionTransition";
 
 interface SectionProps {
   id: string;
@@ -41,9 +41,13 @@ const HeroSection: React.FC<SectionProps> = ({ id }) => {
             {texts.hero.description}
           </p>
 
-          {/* WIP Warning Box */}
+          {/* WIP Warning Box as Button */}
           <div className="mt-6 flex flex-col items-center">
-            <div className="relative w-full max-w-xl rounded-xl border border-yellow-300 bg-yellow-50/90 dark:bg-yellow-900/40 px-6 py-4 shadow-lg flex items-center gap-3 animate-fade-in-delay-4">
+            <Link
+              href="/projects/portfolio-website"
+              className="relative w-full max-w-xl rounded-xl border border-yellow-300 bg-yellow-50/90 dark:bg-yellow-900/40 px-6 py-4 shadow-lg flex items-center gap-3 animate-fade-in-delay-4 transition hover:bg-yellow-100/90 dark:hover:bg-yellow-900/60 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              style={{ textDecoration: "none" }}
+            >
               <svg
                 className="w-6 h-6 text-yellow-500 shrink-0"
                 fill="none"
@@ -58,12 +62,12 @@ const HeroSection: React.FC<SectionProps> = ({ id }) => {
               <div className="flex-1 text-left">
                 <span className="font-semibold text-yellow-800 dark:text-yellow-200">Work in Progress:</span>
                 <span className="ml-2 text-yellow-900 dark:text-yellow-100">
-                  This site is under active development. Not all features are implemented yet.
+                  This site is under active development. Some features may be missing.
                 </span>
               </div>
-            </div>
-            <Link href="/projects/portfolio-website" className="star-button mt-4 text-base px-6 py-2">
-              Learn more about development & future steps
+              <span className="ml-4 font-semibold text-yellow-900 dark:text-yellow-100 bg-yellow-200/70 dark:bg-yellow-800/60 rounded px-3 py-1 text-sm whitespace-nowrap">
+                See Roadmap
+              </span>
             </Link>
           </div>
 
@@ -74,8 +78,6 @@ const HeroSection: React.FC<SectionProps> = ({ id }) => {
           </div>
         </div>
       </div>
-
-      {/* Removed the old arrow/label, now handled by SectionTransitionWrapper */}
     </section>
   );
 };

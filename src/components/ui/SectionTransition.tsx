@@ -15,11 +15,11 @@ const SectionTransitionContext = createContext<SectionTransitionContextType | un
 
 export function useSectionTransition() {
   const ctx = useContext(SectionTransitionContext);
-  if (!ctx) throw new Error("useSectionTransition must be used within SectionTransitionWrapper");
+  if (!ctx) throw new Error("useSectionTransition must be used within SectionTransition");
   return ctx;
 }
 
-interface SectionTransitionWrapperProps {
+interface SectionTransitionProps {
   children: ReactNode[];
   initialSection?: number;
 }
@@ -29,15 +29,15 @@ interface SectionTransitionWrapperProps {
  * Provides animated transitions between full-page sections (like slides). Supports navigation via scroll, keyboard, touch, and programmatic control.
  *
  * Usage:
- * <SectionTransitionWrapper initialSection={0}>
+ * <SectionTransition initialSection={0}>
  *   <Section1 id="section1" />
  *   <Section2 id="section2" />
  *   ...
- * </SectionTransitionWrapper>
+ * </SectionTransition>
  *
  * Use the useSectionTransition() hook in child components to programmatically change sections.
  */
-export const SectionTransitionWrapper: React.FC<SectionTransitionWrapperProps> = ({ children, initialSection = 0 }) => {
+export const SectionTransition: React.FC<SectionTransitionProps> = ({ children, initialSection = 0 }) => {
   const [activeSectionRaw, setActiveSectionRaw] = useState(initialSection);
   useEffect(() => {}, []);
   const sectionRefs = useRef<(HTMLElement | null)[]>([]);
@@ -135,7 +135,7 @@ export const SectionTransitionWrapper: React.FC<SectionTransitionWrapperProps> =
 
   // 2. Runtime check for children array
   if (!Array.isArray(children) || children.length < 2) {
-    throw new Error("SectionTransitionWrapper requires at least two children (sections) as an array.");
+    throw new Error("SectionTransition requires at least two children (sections) as an array.");
   }
 
   // 3. Make throttleDuration and swipe threshold configurable via props
@@ -369,14 +369,3 @@ export const SectionTransitionWrapper: React.FC<SectionTransitionWrapperProps> =
     </SectionTransitionContext.Provider>
   );
 };
-
-// Usage:
-// <SectionTransitionWrapper>
-//   <HeroSection />
-//   <AboutSection />
-//   ...
-// </SectionTransitionWrapper>
-//
-// To programmatically change section (e.g., from Navbar):
-// const { setActiveSection } = useSectionTransition();
-// setActiveSection(idx);

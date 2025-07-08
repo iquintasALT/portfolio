@@ -3,7 +3,7 @@ import ContactSection from "../components/sections/ContactSection";
 import HeroSection from "../components/sections/HeroSection";
 import ProjectsSection from "../components/sections/ProjectsSectionServer";
 import SkillsSection from "../components/sections/SkillsSectionServer";
-import SectionTransitionWrapper from "../components/ui/SectionTransitionWrapperClient";
+import SectionTransition from "../components/ui/SectionTransitionClient";
 
 // import PetCompanion from "../components/PetCompanion";
 // import Footer from "../components/Footer";
@@ -11,7 +11,7 @@ import SectionTransitionWrapper from "../components/ui/SectionTransitionWrapperC
 export default function Page() {
   return (
     <main>
-      <SectionTransitionWrapper>
+      <SectionTransition>
         <HeroSection id="me" />
         <AboutSection id="about" />
         <section id="skills">
@@ -21,7 +21,7 @@ export default function Page() {
           <ProjectsSection id="projects" />
         </section>
         <ContactSection id="contact" />
-      </SectionTransitionWrapper>
+      </SectionTransition>
       {/* Pet Companion */}
       {/* <PetCompanion route="home" /> */}
       {/* <Footer /> */}

@@ -6,7 +6,7 @@ import FeatureCard from "~/components/ui/FeatureCard";
 import { cn } from "~/lib/helpers";
 import { Code, User } from "lucide-react";
 
-import { useSectionTransition } from "../ui/SectionTransitionWrapper";
+import { useSectionTransition } from "../ui/SectionTransition";
 import { SwipeIndicator, useSwipeableCarousel } from "../ui/useSwipeableCarousel";
 
 interface SectionProps {

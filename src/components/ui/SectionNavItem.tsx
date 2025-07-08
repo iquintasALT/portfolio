@@ -8,9 +8,10 @@ export interface Section {
 interface SectionNavItemProps {
   section: Section;
   activeId: string;
+  isSubSection?: boolean;
 }
 
-const SectionNavItem: React.FC<SectionNavItemProps> = ({ section, activeId }) => {
+const SectionNavItem: React.FC<SectionNavItemProps> = ({ section, activeId, isSubSection }) => {
   const [hovered, setHovered] = useState(false);
   const [fading, setFading] = useState(false);
   const fadeTimeout = useRef<NodeJS.Timeout | null>(null);
@@ -44,7 +45,7 @@ const SectionNavItem: React.FC<SectionNavItemProps> = ({ section, activeId }) =>
   const isFading = fading;
 
   return (
-    <li className="relative group">
+    <>
       {/* Arrow indicator */}
       <svg
         className={`absolute -left-4 top-1/2 -translate-y-1/2 text-indigo-400 transition-opacity duration-75
@@ -55,6 +56,7 @@ const SectionNavItem: React.FC<SectionNavItemProps> = ({ section, activeId }) =>
         viewBox="0 0 18 18"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        style={{ pointerEvents: "none", position: "absolute" }}
       >
         <path
           d="M4 9h8m0 0-3-3m3 3-3 3"
@@ -66,10 +68,11 @@ const SectionNavItem: React.FC<SectionNavItemProps> = ({ section, activeId }) =>
       </svg>
       <a
         href={`#${section.id}`}
-        className={`block text-sm px-2 py-1 rounded transition-colors
+        className={`relative block text-sm px-2 py-1 rounded transition-colors
           ${isHovered ? "bg-zinc-800/70" : ""}
           ${isActive ? "text-indigo-400 font-bold bg-zinc-800/60" : "text-zinc-400"}
           ${isHovered ? "transition-[filter,background-color,color] duration-75" : isFading ? "transition-[filter,background-color,color] duration-600" : "transition-[filter,background-color,color] duration-200"}
+          ${isSubSection ? "pl-5 border-l-2 border-indigo-400/40 text-xs opacity-80" : ""}
         `}
         style={{
           filter: isHovered
@@ -93,7 +96,7 @@ const SectionNavItem: React.FC<SectionNavItemProps> = ({ section, activeId }) =>
       >
         {section.title}
       </a>
-    </li>
+    </>
   );
 };
 

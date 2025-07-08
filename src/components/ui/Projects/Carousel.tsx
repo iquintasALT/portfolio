@@ -139,13 +139,17 @@ export function Carousel({ projects, selected, carouselIndex, onSelect, onPrev, 
   // Render project card
   const renderProjectCard = (project: any) => (
     <div className="flex flex-col items-center w-full">
-      <Image
-        src={project.image}
-        alt={project.title}
-        className="object-cover rounded-2xl shadow-xl border-2 border-indigo-500 mx-8 w-72 h-72 max-w-[80vw] max-h-[40vh] mb-4"
-        width={300}
-        height={300}
-      />
+      <div className="w-full flex justify-center">
+        <Image
+          src={project.image}
+          alt={project.title}
+          className="object-cover rounded-2xl shadow-xl border-2 border-indigo-500 mb-4 w-1/2 max-w-[200px] lg:max-w-[250px] xl:max-w-[400px] h-auto aspect-[1/1]"
+          sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 300px"
+          width={400}
+          height={400}
+          priority={true}
+        />
+      </div>
       <div className="flex flex-row flex-wrap items-center justify-center gap-2 w-full mb-2">
         <h2 className="text-2xl sm:text-3xl font-bold text-zinc-100 text-center m-0">{project.title}</h2>
         {project.libraries.map((lib: string) => (

@@ -115,7 +115,10 @@ const ContactSection: React.FC<SectionProps> = ({ id }) => {
               padding: "0 20px",
             }}
           >
-            <div className="space-y-8" style={{ width: "100%", maxWidth: 400 }}>
+            <div
+              className="space-y-8 flex flex-col items-center justify-center mx-auto"
+              style={{ width: "100%", maxWidth: 400 }}
+            >
               <h3 className="text-2xl font-semibold mb-6">{texts.contact.infoTitle}</h3>
               <div className="space-y-6 justify-center">
                 <ContactInfoItem

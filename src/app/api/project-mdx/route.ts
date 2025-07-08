@@ -11,7 +11,7 @@ export async function GET(req: NextRequest) {
   }
   const useBlob = process.env.NEXT_PUBLIC_USE_BLOB === "true";
   if (useBlob) {
-    const blobBaseUrl = process.env.BLOB_BASE_URL;
+    const blobBaseUrl = process.env.NEXT_BLOB_BASE_URL;
     const blobUrl = `${blobBaseUrl}/projects/${slug}.mdx`;
     try {
       const res = await fetch(blobUrl);

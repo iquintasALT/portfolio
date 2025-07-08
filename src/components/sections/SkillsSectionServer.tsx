@@ -21,7 +21,9 @@ async function getSkills(): Promise<SkillCategory[]> {
     const h = await headers();
     const host = h.get("host");
     const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
-    const res = await fetch(`${protocol}://${host}/api/skills`, { next: { revalidate: 180 } });
+    const useBlob = process.env.NEXT_PUBLIC_USE_BLOB === "true";
+    const apiPath = useBlob ? "/api/blob/dynamic/skills.json" : "/api/skills";
+    const res = await fetch(`${protocol}://${host}${apiPath}`, { next: { revalidate: 180 } });
     if (!res.ok) {
       return [];
     }

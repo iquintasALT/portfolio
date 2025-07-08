@@ -38,15 +38,16 @@ const HeroSection: React.FC<SectionProps> = ({ id }) => {
           </h2>
 
           <p className="text-lg md:text-xl text-muted-foreground max-2-2xl mx-auto opacity-0 animate-fade-in-delay-3">
-            {texts.hero.description}
+            {texts.hero.description1}
+            <span className="hidden sm:inline"> {texts.hero.description2}</span>
           </p>
 
           {/* WIP Warning Box as Button */}
           <div className="mt-6 flex flex-col items-center">
             <Link
               href="/projects/portfolio-website"
-              className="relative w-full max-w-xl rounded-xl border border-yellow-300 bg-yellow-50/90 dark:bg-yellow-900/40 px-6 py-4 shadow-lg flex items-center gap-3 animate-fade-in-delay-4 transition hover:bg-yellow-100/90 dark:hover:bg-yellow-900/60 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-              style={{ textDecoration: "none" }}
+              className="relative rounded-xl border border-yellow-300 bg-yellow-50/90 dark:bg-yellow-900/40 px-6 py-4 shadow-lg flex flex-wrap items-center gap-3 animate-fade-in-delay-4 transition hover:bg-yellow-100/90 dark:hover:bg-yellow-900/60 focus:outline-none focus:ring-2 focus:ring-yellow-400 w-auto max-w-xl"
+              style={{ textDecoration: "none", width: "fit-content", minWidth: 0 }}
             >
               <svg
                 className="w-6 h-6 text-yellow-500 shrink-0"
@@ -61,11 +62,16 @@ const HeroSection: React.FC<SectionProps> = ({ id }) => {
               </svg>
               <div className="flex-1 text-left">
                 <span className="font-semibold text-yellow-800 dark:text-yellow-200">Work in Progress:</span>
-                <span className="ml-2 text-yellow-900 dark:text-yellow-100">
+                <span className="ml-2 text-yellow-900 dark:text-yellow-100 hidden sm:inline">
                   This site is under active development. Some features may be missing.
                 </span>
+                {/* Show See Roadmap below on small screens */}
+                <span className="block sm:hidden mt-2 font-semibold text-yellow-900 dark:text-yellow-100 bg-yellow-200/70 dark:bg-yellow-800/60 rounded px-3 py-1 text-sm whitespace-nowrap w-max">
+                  See Roadmap
+                </span>
               </div>
-              <span className="ml-4 font-semibold text-yellow-900 dark:text-yellow-100 bg-yellow-200/70 dark:bg-yellow-800/60 rounded px-3 py-1 text-sm whitespace-nowrap">
+              {/* Show See Roadmap inline on sm+ screens */}
+              <span className="ml-4 font-semibold text-yellow-900 dark:text-yellow-100 bg-yellow-200/70 dark:bg-yellow-800/60 rounded px-3 py-1 text-sm whitespace-nowrap hidden sm:inline">
                 See Roadmap
               </span>
             </Link>

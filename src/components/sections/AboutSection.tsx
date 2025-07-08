@@ -6,6 +6,7 @@ import FeatureCard from "~/components/ui/FeatureCard";
 import { cn } from "~/lib/helpers";
 import { Code, User } from "lucide-react";
 
+import CVDownloadButton from "../ui/CVDownloadButton";
 import { useSectionTransition } from "../ui/SectionTransition";
 import { SwipeIndicator, useSwipeableCarousel } from "../ui/useSwipeableCarousel";
 
@@ -38,21 +39,12 @@ const AboutSection: React.FC<SectionProps> = ({ id }) => {
               <button className="star-button" onClick={() => scrollToSection("contact")} type="button">
                 {texts.about.cta}
               </button>
-              <a
-                href={
-                  process.env.NEXT_PUBLIC_USE_BLOB === "true"
-                    ? process.env.NEXT_PUBLIC_CV_BLOB_URL
-                    : "/content/iago_quintas_diz_cv.pdf"
-                }
-                target="_blank"
-                rel="noopener noreferrer"
+              <CVDownloadButton
                 className={cn(
                   "px-6 py-2 rounded-full border border-primary text-primary",
                   "hover:bg-primary/50 transition-colors duration-300"
                 )}
-              >
-                {texts.about.cv}
-              </a>
+              />
             </div>
           </div>
           <div className="grid grid-cols-1 gap-6">
@@ -105,32 +97,13 @@ const AboutSection: React.FC<SectionProps> = ({ id }) => {
                 <button className="star-button w-full" onClick={() => scrollToSection("contact")} type="button">
                   {texts.about.cta}
                 </button>
-                {process.env.NEXT_PUBLIC_USE_BLOB === "true" ? (
-                  <a
-                    href={process.env.NEXT_PUBLIC_CV_BLOB_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={cn(
-                      "px-6 py-2 rounded-full border border-primary text-primary w-full",
-                      "hover:bg-primary/50 transition-colors duration-300"
-                    )}
-                    style={{ textAlign: "center" }}
-                  >
-                    {texts.about.cv}
-                  </a>
-                ) : (
-                  <a
-                    href="/content/iago_quintas_diz_cv.pdf"
-                    download
-                    className={cn(
-                      "px-6 py-2 rounded-full border border-primary text-primary w-full",
-                      "hover:bg-primary/50 transition-colors duration-300"
-                    )}
-                    style={{ textAlign: "center" }}
-                  >
-                    {texts.about.cv}
-                  </a>
-                )}
+                <CVDownloadButton
+                  className={cn(
+                    "px-6 py-2 rounded-full border border-primary text-primary w-full",
+                    "hover:bg-primary/50 transition-colors duration-300"
+                  )}
+                  style={{ textAlign: "center" }}
+                />
               </div>
             </div>
           </div>

@@ -90,7 +90,8 @@
     "lastName": "Quintas",
     "subtitlePrefix": "I build",
     "subtitleWords": ["Websites", "Games", "APIs", "Experiences", "Tools", "Apps"],
-    "description": "Lorelei ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "description1": "Turning ideas into reality through code.",
+    "description2": "Specializing in web development, game creation, and user-focused solutions.",
     "cta": "View my work"
   },
   "notFound": {

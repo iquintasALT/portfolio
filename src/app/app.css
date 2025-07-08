@@ -216,3 +216,57 @@
 :target {
   scroll-margin-top: 6rem;
 }
+/* rehype-pretty-code styles (minimal, based on one-dark-pro theme) */
+pre[data-theme],
+code[data-theme] {
+  color: #abb2bf;
+  background: #282c34;
+  font-family: 'Fira Mono', 'Menlo', 'Consolas', 'Liberation Mono', monospace;
+  font-size: 1em;
+  border-radius: 0.5rem;
+  padding: 1em;
+  overflow-x: auto;
+  line-height: 1.6;
+}
+pre[data-theme] {
+  margin: 2em 0;
+}
+code[data-theme] {
+  padding: 0.2em 0.4em;
+}
+.code-highlight {
+  background: rgba(255, 255, 255, 0.07);
+  display: block;
+  margin: 0 -1em;
+  padding: 0 1em;
+}
+.line {
+  display: block;
+  min-height: 1.2em;
+  padding-right: 1em;
+  padding-left: 0.5em;
+}
+.word {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 0.2em;
+  padding: 0.1em 0.2em;
+  margin: 0 0.1em;
+}
+
+/* rehype-pretty-code filename label styles */
+pre[data-theme] > code[data-filename]::before {
+  content: attr(data-filename);
+  display: block;
+  background: #21252b;
+  color: #e06c75;
+  font-size: 0.85em;
+  font-family: inherit;
+  padding: 0.3em 1em;
+  border-top-left-radius: 0.5em;
+  border-top-right-radius: 0.5em;
+  margin-bottom: -0.5em;
+  margin-top: -1.3em;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
+}

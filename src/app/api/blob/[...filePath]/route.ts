@@ -5,9 +5,10 @@ import fs from "fs/promises";
 import path from "path";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest, { params }: { params: { filePath: string[] } }) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ filePath: string[] }> }) {
   const useBlob = process.env.NEXT_PUBLIC_USE_BLOB === "true";
-  const filePathArr = params.filePath;
+  const { filePath } = await params;
+  const filePathArr = filePath;
   if (!filePathArr || filePathArr.length === 0) {
     return NextResponse.json({ error: "No file specified." }, { status: 400 });
   }

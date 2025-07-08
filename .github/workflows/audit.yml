@@ -1,0 +1,18 @@
+name: Audit Dependencies
+
+on:
+  schedule:
+    - cron: '0 3 * * 0' # every Sunday at 03:00 UTC
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4 # Checkout repository code
+      - uses: actions/setup-node@v4 # Set up Node.js environment
+        with:
+          node-version: 20
+      - run: npm ci # Install dependencies cleanly
+      - run: npm audit fix || true # Attempt to auto-fix vulnerabilities (ignore errors)
+      - run: npm audit # Run audit and report remaining vulnerabilities

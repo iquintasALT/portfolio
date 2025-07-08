@@ -1,0 +1,19 @@
+name: Jest Unit Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4 # Checkout repository code
+      - uses: actions/setup-node@v4 # Set up Node.js environment
+        with:
+          node-version: 20
+      - run: npm ci # Install dependencies cleanly
+      - name: Run Jest (no tests yet)
+        run: echo "No unit tests defined yet." # Placeholder for Jest tests

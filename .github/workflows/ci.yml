@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4 # Checkout repository code
+      - uses: actions/setup-node@v4 # Set up Node.js environment
+        with:
+          node-version: 20
+      - run: npm ci # Install dependencies cleanly
+      - name: Prettier
+        run: npm run prettier -- --check # Check code formatting
+      - name: Lint
+        run: npm run lint # Run ESLint for code quality
+      - name: Build
+        run: npm run build # Build the project

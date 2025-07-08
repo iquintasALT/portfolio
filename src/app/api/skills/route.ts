@@ -3,7 +3,7 @@ import path from "path";
 import { NextResponse } from "next/server";
 
 export async function GET() {
-  const useBlob = process.env.USE_BLOB === "true";
+  const useBlob = process.env.NEXT_PUBLIC_USE_BLOB === "true";
   if (useBlob) {
     const blobBaseUrl = process.env.BLOB_BASE_URL;
     const blobUrl = `${blobBaseUrl}/dynamic/skills.json`;

@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
   if (!slug) {
     return NextResponse.json({ error: "Missing slug" }, { status: 400 });
   }
-  const useBlob = process.env.USE_BLOB === "true";
+  const useBlob = process.env.NEXT_PUBLIC_USE_BLOB === "true";
   if (useBlob) {
     const blobBaseUrl = process.env.BLOB_BASE_URL;
     const blobUrl = `${blobBaseUrl}/projects/${slug}.mdx`;

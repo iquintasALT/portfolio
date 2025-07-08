@@ -39,7 +39,13 @@ const AboutSection: React.FC<SectionProps> = ({ id }) => {
                 {texts.about.cta}
               </button>
               <a
-                href=""
+                href={
+                  process.env.NEXT_PUBLIC_USE_BLOB === "true"
+                    ? process.env.NEXT_PUBLIC_CV_BLOB_URL
+                    : "/content/iago_quintas_diz_cv.pdf"
+                }
+                target="_blank"
+                rel="noopener noreferrer"
                 className={cn(
                   "px-6 py-2 rounded-full border border-primary text-primary",
                   "hover:bg-primary/50 transition-colors duration-300"
@@ -99,16 +105,32 @@ const AboutSection: React.FC<SectionProps> = ({ id }) => {
                 <button className="star-button w-full" onClick={() => scrollToSection("contact")} type="button">
                   {texts.about.cta}
                 </button>
-                <a
-                  href=""
-                  className={cn(
-                    "px-6 py-2 rounded-full border border-primary text-primary w-full",
-                    "hover:bg-primary/50 transition-colors duration-300"
-                  )}
-                  style={{ textAlign: "center" }}
-                >
-                  {texts.about.cv}
-                </a>
+                {process.env.NEXT_PUBLIC_USE_BLOB === "true" ? (
+                  <a
+                    href={process.env.NEXT_PUBLIC_CV_BLOB_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={cn(
+                      "px-6 py-2 rounded-full border border-primary text-primary w-full",
+                      "hover:bg-primary/50 transition-colors duration-300"
+                    )}
+                    style={{ textAlign: "center" }}
+                  >
+                    {texts.about.cv}
+                  </a>
+                ) : (
+                  <a
+                    href="/content/iago_quintas_diz_cv.pdf"
+                    download
+                    className={cn(
+                      "px-6 py-2 rounded-full border border-primary text-primary w-full",
+                      "hover:bg-primary/50 transition-colors duration-300"
+                    )}
+                    style={{ textAlign: "center" }}
+                  >
+                    {texts.about.cv}
+                  </a>
+                )}
               </div>
             </div>
           </div>

@@ -99,19 +99,6 @@ const StarBackground = () => {
     };
   }, []);
 
-  useEffect(() => {
-    // Prevent pull-to-refresh on mobile when at top
-    const maybePrevent = (e: TouchEvent) => {
-      if (window.scrollY === 0 && e.touches[0].clientY > 0) {
-        e.preventDefault();
-      }
-    };
-    document.addEventListener("touchmove", maybePrevent, { passive: false });
-    return () => {
-      document.removeEventListener("touchmove", maybePrevent);
-    };
-  }, []);
-
   return (
     <canvas
       ref={canvasRef}

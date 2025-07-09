@@ -43,6 +43,32 @@ export const SectionTransition: React.FC<SectionTransitionProps> = ({ children, 
   const sectionRefs = useRef<(HTMLElement | null)[]>([]);
   const isThrottled = useRef(false);
 
+  // Prevent pull-to-refresh on mobile ONLY when swiping down at the top (for full-page section transitions)
+  useEffect(() => {
+    let lastY = 0;
+    const maybePrevent = (e: TouchEvent) => {
+      if (window.scrollY === 0 && e.touches.length === 1) {
+        const currentY = e.touches[0].clientY;
+        // Only prevent if swiping down (currentY > lastY)
+        if (currentY > lastY) {
+          e.preventDefault();
+        }
+        lastY = currentY;
+      }
+    };
+    const handleTouchStart = (e: TouchEvent) => {
+      if (e.touches.length === 1) {
+        lastY = e.touches[0].clientY;
+      }
+    };
+    window.addEventListener("touchstart", handleTouchStart, { passive: false });
+    window.addEventListener("touchmove", maybePrevent, { passive: false });
+    return () => {
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", maybePrevent);
+    };
+  }, []);
+
   const throttleDuration = 800; // ms, should match animation duration
   const maxSection = children.length - 1;
 

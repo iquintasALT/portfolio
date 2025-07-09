@@ -4,8 +4,8 @@
     "titleHighlight": "Me",
     "subtitle": "Passionate Web & Game Developer",
     "paragraphs": [
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      "I've always been really into testing and videogames, but lately I've found working with web apps surprisingly fun and refreshing.",
+      "Very eager to start working to continue developing my skills. Check my CV or scroll down to know me better."
     ],
     "cta": "Get In Touch",
     "cv": "Download CV",
@@ -34,13 +34,13 @@
     "info": [
       {
         "label": "Email",
-        "value": "dummymail@gmail.com",
-        "href": "mailto:dummymail@gmail.com"
+        "value": "iquintasdiz@gmail.com",
+        "href": "mailto:iquintasdiz@gmail.com"
       },
       {
         "label": "Phone",
-        "value": "+34 000 000 000",
-        "href": "tel:1234567890"
+        "value": "+34 622 20 47 00",
+        "href": "tel:622204700"
       },
       {
         "label": "Location",
@@ -51,11 +51,11 @@
     "links": [
       {
         "label": "LinkedIn",
-        "href": "dummylink"
+        "href": "https://www.linkedin.com/in/iagoq/"
       },
       {
         "label": "GitHub",
-        "href": "dummylink"
+        "href": "https://github.com/iquintasALT"
       }
     ]
   },

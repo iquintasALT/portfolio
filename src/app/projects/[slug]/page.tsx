@@ -10,12 +10,13 @@ import MdxSectionNav from "@/components/ui/MdxSectionNav";
 
 interface ProjectMeta {
   title: string;
-  image: string;
+  image: string; // Can be image or video
   libraries: string[];
   description: string;
   language: string;
   github?: string;
   live?: string;
+  imageType?: "image" | "video";
 }
 
 interface ProjectData {
@@ -33,18 +34,36 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   if (!res.ok) return notFound();
   const data: ProjectData = await res.json();
 
+  // Blob logic for image (can be image or video) in meta, with HEAD check like ProjectsSectionServer
+  const meta = { ...data.meta };
+  const useBlob = process.env.NEXT_PUBLIC_USE_BLOB === "true";
+  const blobBase = process.env.NEXT_BLOB_BASE_URL?.replace(/\/$/, "");
+  if (useBlob && blobBase && meta.image && meta.image.startsWith("/media/projects/")) {
+    const imagePath = meta.image.replace(/^\//, "");
+    const blobUrl = `${blobBase}/${imagePath}`;
+    try {
+      const headRes = await fetch(blobUrl, { method: "HEAD" });
+      if (headRes.ok) {
+        meta.image = blobUrl;
+      }
+    } catch {
+      // fallback: keep original path
+    }
+  }
+
   return (
     <div className="flex flex-col lg:flex-row gap-8 w-full max-w-7xl mx-auto">
       {/* Main content */}
       <div className="flex-1 min-w-0">
         <div className="mt-8 ml-[-10vw]">
-          <ProjectDetail project={data.meta}>
+          {/* Detect if the image is a video or image and pass type info to ProjectDetail */}
+          <ProjectDetail project={meta}>
             {/* Action buttons under main image/fields, above MDX */}
-            {(data.meta.github || data.meta.live) && (
+            {(meta.github || meta.live) && (
               <div className="flex justify-center gap-4 mt-6 mb-8">
-                {data.meta.github && (
+                {meta.github && (
                   <a
-                    href={data.meta.github}
+                    href={meta.github}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-indigo-300 border border-zinc-700 shadow transition-colors group"
@@ -66,9 +85,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                     <span className="font-semibold">GitHub</span>
                   </a>
                 )}
-                {data.meta.live && (
+                {meta.live && (
                   <a
-                    href={data.meta.live}
+                    href={meta.live}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-700 hover:bg-indigo-600 text-white border border-indigo-700 shadow transition-colors group"

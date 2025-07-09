@@ -13,6 +13,8 @@ interface ProjectDetailProps {
 
 // Server Component: Only for static content (image, title, description, meta, and MDX children)
 export default function ProjectDetail({ project, children }: ProjectDetailProps) {
+  // Detect if the image is a video or image by extension
+  const isVideo = /\.(mp4|webm)$/i.test(project.image);
   return (
     <div className="relative flex flex-col w-[75%] max-w-4xl mx-auto py-0 sm:py-12 px-0 sm:px-4">
       <div className="rounded-3xl bg-zinc-950/80 dark:bg-zinc-900/80 border border-zinc-800 shadow-2xl backdrop-blur-md p-0 sm:p-8">
@@ -20,14 +22,28 @@ export default function ProjectDetail({ project, children }: ProjectDetailProps)
         <div className="relative flex flex-col items-center mb-12">
           <div className="w-full flex justify-center">
             <div className="relative w-full max-w-2xl aspect-[2.2/1] rounded-3xl overflow-hidden shadow-2xl border-4 border-indigo-500">
-              <Image
-                src={project.image}
-                alt={project.title}
-                className="absolute inset-0 w-full h-full object-cover object-center"
-                style={{ filter: "brightness(1.4) contrast(1.08)" }}
-                fill
-                priority
-              />
+              {isVideo ? (
+                <video
+                  src={project.image}
+                  className="absolute inset-0 w-full h-full object-cover object-center"
+                  style={{ filter: "brightness(1.4) contrast(1.08)" }}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="auto"
+                  poster=""
+                />
+              ) : (
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  className="absolute inset-0 w-full h-full object-cover object-center"
+                  style={{ filter: "brightness(1.4) contrast(1.08)" }}
+                  fill
+                  priority
+                />
+              )}
               <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/30 to-zinc-950/70" />
             </div>
           </div>

@@ -29,13 +29,31 @@ export const SidePanel: React.FC<SidePanelProps> = ({ filteredProjects, selected
               )}
               onClick={() => setSelected(project)}
             >
-              <Image
-                src={project.image}
-                alt={project.title}
-                className="w-full h-28 object-cover rounded mb-2 border border-zinc-700"
-                width={200}
-                height={112}
-              />
+            {/.mp4$/i.test(project.image)
+              ? (
+                  <video
+                    src={project.image}
+                    className="w-full h-28 object-cover rounded mb-2 border border-zinc-700 bg-black select-none pointer-events-none"
+                    width={200}
+                    height={112}
+                    muted
+                    loop
+                    playsInline
+                    autoPlay
+                    controls={false}
+                    tabIndex={-1}
+                  />
+                )
+              : (
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-28 object-cover rounded mb-2 border border-zinc-700"
+                    width={200}
+                    height={112}
+                  />
+                )
+            }
               <h3 className="text-base font-semibold text-zinc-100 mb-1 line-clamp-1">{project.title}</h3>
               <p className="text-xs text-zinc-400 mb-2 line-clamp-2">{project.description}</p>
               <div className="flex flex-wrap gap-1 mb-1">
@@ -57,13 +75,31 @@ export const SidePanel: React.FC<SidePanelProps> = ({ filteredProjects, selected
       <div className="w-1/3 flex flex-col items-center justify-center p-8 relative">
         {selected ? (
           <>
-            <Image
-              src={selected.image}
-              alt={selected.title}
-              className="w-64 h-64 sm:w-80 sm:h-80 object-cover rounded-2xl shadow-xl mb-6 border-2 border-indigo-500"
-              width={300}
-              height={300}
-            />
+            {/.mp4$/i.test(selected.image)
+              ? (
+                  <video
+                    src={selected.image}
+                    className="w-64 h-64 sm:w-80 sm:h-80 object-cover rounded-2xl shadow-xl mb-6 border-2 border-indigo-500 bg-black select-none pointer-events-none"
+                    width={300}
+                    height={300}
+                    muted
+                    loop
+                    playsInline
+                    autoPlay
+                    controls={false}
+                    tabIndex={-1}
+                  />
+                )
+              : (
+                  <Image
+                    src={selected.image}
+                    alt={selected.title}
+                    className="w-64 h-64 sm:w-80 sm:h-80 object-cover rounded-2xl shadow-xl mb-6 border-2 border-indigo-500"
+                    width={300}
+                    height={300}
+                  />
+                )
+            }
             <h2 className="text-3xl font-bold text-zinc-100 mb-2 text-center">{selected.title}</h2>
             <p className="text-zinc-300 text-lg mb-4 text-center">{selected.description}</p>
             <div className="flex flex-wrap gap-2 mb-6 justify-center">

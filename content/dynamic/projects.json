@@ -3,7 +3,7 @@
     "id": 1,
     "title": "Dome",
     "description": "Chilling horror—every shadow hides a secret.",
-    "image": "/dome.png",
+    "image": "/media/projects/dome.png",
     "language": "C++",
     "libraries": ["Videogame"]
   },
@@ -11,7 +11,7 @@
     "id": 2,
     "title": "Gungcho",
     "description": "Platformer where speed is of the essence.",
-    "image": "/gungcho.jpg",
+    "image": "/media/projects/gungcho.jpg",
     "language": "C#",
     "libraries": ["Videogame"]
   },
@@ -19,7 +19,7 @@
     "id": 3,
     "title": "Portfolio Website",
     "description": "State-of-the-art portfolio using React best practices.",
-    "image": "/portfolio.png",
+    "image": "/media/projects/portfolio.png",
     "language": "TypeScript",
     "libraries": ["Frontend", "Backend"]
   },
@@ -27,15 +27,23 @@
     "id": 4,
     "title": "Triturados Engine",
     "description": "Fast engine for pixelated chaos and creativity.",
-    "image": "/triturados_game.gif",
+    "image": "/media/projects/triturados_game.mp4",
     "language": "C++, Lua",
+    "libraries": ["Videogame"]
+  },
+  {
+    "id": 5,
+    "title": "Veiled",
+    "description": "Browser RPG where mystery and magic collide.",
+    "image": "/media/projects/veiled.mp4",
+    "language": "JavaScript",
     "libraries": ["Videogame"]
   },
   {
     "id": 8,
     "title": "Nonogramas",
     "description": "A simple Nonogram puzzle game for Android, built with a custom engine and modern mobile practices.",
-    "image": "/nonogramas.png",
+    "image": "/media/projects/nonogramas.png",
     "language": "Java",
     "libraries": ["Videogame"]
   },
@@ -43,7 +51,7 @@
     "id": 9,
     "title": "Booking React Mook",
     "description": "A modern booking platform client built with React, Tailwind, Vite and Axios with a mock backend.",
-    "image": "/project-react-screenshot.png",
+    "image": "/media/projects/project-react-screenshot.png",
     "language": "JavaScript",
     "libraries": ["Frontend"]
   }

@@ -136,19 +136,38 @@ export function Carousel({ projects, selected, carouselIndex, onSelect, onPrev, 
     }
   }, [carouselIndex, visibleThumbs.length, isMobile, projects.length, thumbStart]);
 
+  // Helper to check if file is a video
+  const isVideo = (src: string) => /\.mp4$/i.test(src);
+
   // Render project card
   const renderProjectCard = (project: any) => (
     <div className="flex flex-col items-center w-full">
       <div className="w-full flex justify-center">
-        <Image
-          src={project.image}
-          alt={project.title}
-          className="object-cover rounded-2xl shadow-xl border-2 border-indigo-500 mb-4 w-1/2 max-w-[200px] lg:max-w-[250px] xl:max-w-[400px] h-auto aspect-[1/1]"
-          sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 300px"
-          width={400}
-          height={400}
-          priority={true}
-        />
+        {isVideo(project.image) ? (
+          <video
+            src={project.image}
+            autoPlay
+            loop
+            muted
+            playsInline
+            controls={false}
+            className="object-cover rounded-2xl shadow-xl border-2 border-indigo-500 mb-4 w-1/2 max-w-[200px] lg:max-w-[250px] xl:max-w-[400px] h-auto aspect-[1/1] bg-black select-none pointer-events-none"
+            style={{ background: "#000" }}
+            width={400}
+            height={400}
+            tabIndex={-1}
+          />
+        ) : (
+          <Image
+            src={project.image}
+            alt={project.title}
+            className="object-cover rounded-2xl shadow-xl border-2 border-indigo-500 mb-4 w-1/2 max-w-[200px] lg:max-w-[250px] xl:max-w-[400px] h-auto aspect-[1/1]"
+            sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 300px"
+            width={400}
+            height={400}
+            priority={true}
+          />
+        )}
       </div>
       <div className="flex flex-row flex-wrap items-center justify-center gap-2 w-full mb-2">
         <h2 className="text-2xl sm:text-3xl font-bold text-zinc-100 text-center m-0">{project.title}</h2>
@@ -184,18 +203,40 @@ export function Carousel({ projects, selected, carouselIndex, onSelect, onPrev, 
       </div>
     </div>
   );
-  const renderProjectThumb = (project: any, isActive: boolean) => (
-    <Image
-      src={project.image}
-      alt={project.title}
-      className={clsx(
-        "w-16 h-16 sm:w-20 sm:h-20 md:w-28 md:h-28 object-cover rounded-xl shadow border-2 transition-all duration-300",
-        isActive ? "border-indigo-500 scale-110 z-10" : "border-zinc-700 opacity-60 hover:opacity-100 z-0"
-      )}
-      width={64}
-      height={64}
-    />
-  );
+  function renderProjectThumb(project: any, isActive: boolean) {
+    if (isVideo(project.image)) {
+      return (
+        <video
+          src={project.image}
+          className={clsx(
+            "w-16 h-16 sm:w-20 sm:h-20 md:w-28 md:h-28 object-cover rounded-xl shadow border-2 transition-all duration-300 bg-black select-none pointer-events-none",
+            isActive ? "border-indigo-500 scale-110 z-10" : "border-zinc-700 opacity-60 hover:opacity-100 z-0"
+          )}
+          width={64}
+          height={64}
+          muted
+          loop
+          playsInline
+          autoPlay
+          controls={false}
+          tabIndex={-1}
+        />
+      );
+    } else {
+      return (
+        <Image
+          src={project.image}
+          alt={project.title}
+          className={clsx(
+            "w-16 h-16 sm:w-20 sm:h-20 md:w-28 md:h-28 object-cover rounded-xl shadow border-2 transition-all duration-300",
+            isActive ? "border-indigo-500 scale-110 z-10" : "border-zinc-700 opacity-60 hover:opacity-100 z-0"
+          )}
+          width={64}
+          height={64}
+        />
+      );
+    }
+  }
 
   if (!visibleProjects || visibleProjects.length === 0) return null;
 

@@ -23,7 +23,28 @@ async function getProjects(): Promise<Project[]> {
   const apiPath = useBlob ? "/api/blob/dynamic/projects.json" : "/api/projects";
   const res = await fetch(`${protocol}://${host}${apiPath}`, { next: { revalidate: 180 } });
   if (!res.ok) return [];
-  return res.json();
+  const projects: Project[] = await res.json();
+
+  if (useBlob) {
+    const blobBase = process.env.NEXT_BLOB_BASE_URL?.replace(/\/$/, "") || "";
+    await Promise.all(
+      projects.map(async (project) => {
+        if (project.image && project.image.startsWith("/media/projects/")) {
+          const imagePath = project.image.replace(/^\//, "");
+          const blobUrl = `${blobBase}/${imagePath}`;
+          try {
+            const res = await fetch(blobUrl, { method: "HEAD" });
+            if (res.ok) {
+              project.image = blobUrl;
+            }
+          } catch {
+            // fallback: keep original path
+          }
+        }
+      })
+    );
+  }
+  return projects;
 }
 
 const ProjectsSection = async ({ id }: SectionProps) => {

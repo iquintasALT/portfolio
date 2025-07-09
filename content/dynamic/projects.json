@@ -42,17 +42,41 @@
   {
     "id": 8,
     "title": "Nonogramas",
-    "description": "A simple Nonogram puzzle game for Android, built with a custom engine and modern mobile practices.",
-    "image": "/media/projects/nonogramas.png",
+    "description": "Simple Nonogram puzzle game for Android, built with a custom engine and modern mobile practices.",
+    "image": "/media/projects/nonogramas.mp4",
     "language": "Java",
     "libraries": ["Videogame"]
   },
   {
     "id": 9,
     "title": "Booking React Mook",
-    "description": "A modern booking platform client built with React, Tailwind, Vite and Axios with a mock backend.",
-    "image": "/media/projects/project-react-screenshot.png",
+    "description": "Demo booking platform, CSR, built with React, Vite, and Axios, featuring a mock backend and authentication.",
+    "image": "/media/projects/react_booking.mp4",
     "language": "JavaScript",
     "libraries": ["Frontend"]
+  },
+  {
+    "id": 10,
+    "title": "OpenGL Shaders",
+    "description": "A collection of real-time OpenGL shaders for visual effects and game prototyping.",
+    "image": "/media/projects/opengl_shaders.png",
+    "language": "GLSL, C++",
+    "libraries": ["Videogame"]
+  },
+  {
+    "id": 11,
+    "title": "OpenCV Visual Testing Tool",
+    "description": "A visual testing tool leveraging OpenCV for automated image comparison.",
+    "image": "/media/projects/opencv_testing.png",
+    "language": "Python, C++",
+    "libraries": ["Tool"]
+  },
+  {
+    "id": 12,
+    "title": "Telemetry System",
+    "description": "A modular telemetry system for real-time data collection, for Unity videogames.",
+    "image": "/media/projects/telemetry_system.png",
+    "language": "C#",
+    "libraries": ["Tool"]
   }
 ]

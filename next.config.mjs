@@ -34,6 +34,7 @@ const nextConfig = {
       },
       // Add more patterns here if you need to support other GitHub image URLs
     ],
+    domains: [...(process.env.NEXT_BLOB_BASE_URL ? [new URL(process.env.NEXT_BLOB_BASE_URL).hostname] : [])],
   },
 };
 

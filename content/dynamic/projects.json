@@ -2,7 +2,7 @@
   {
     "id": 1,
     "title": "Dome",
-    "description": "Chilling horror—every shadow hides a secret.",
+    "description": "Survival horror game with tetris inventory.",
     "image": "/media/projects/dome.png",
     "language": "C++",
     "libraries": ["Videogame"]
@@ -26,7 +26,7 @@
   {
     "id": 4,
     "title": "Triturados Engine",
-    "description": "Fast engine for pixelated chaos and creativity.",
+    "description": "Custom C++ engine based on the OGRE library with Lua scripts.",
     "image": "/media/projects/triturados_game.mp4",
     "language": "C++, Lua",
     "libraries": ["Videogame"]
@@ -34,7 +34,7 @@
   {
     "id": 5,
     "title": "Veiled",
-    "description": "Browser RPG where mystery and magic collide.",
+    "description": "Browser RPG based on \"La Venda\" from Miguel de Unamuno",
     "image": "/media/projects/veiled.mp4",
     "language": "JavaScript",
     "libraries": ["Videogame"]

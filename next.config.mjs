@@ -32,9 +32,18 @@ const nextConfig = {
         port: "",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "github.io",
+        port: "",
+        pathname: "/Veiled/**",
+      },
       // Add more patterns here if you need to support other GitHub image URLs
     ],
-    domains: [...(process.env.NEXT_BLOB_BASE_URL ? [new URL(process.env.NEXT_BLOB_BASE_URL).hostname] : [])],
+    domains: [
+      ...(process.env.NEXT_BLOB_BASE_URL ? [new URL(process.env.NEXT_BLOB_BASE_URL).hostname] : []),
+      "aarmor01.github.io",
+    ],
   },
 };
 

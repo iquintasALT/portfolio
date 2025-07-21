@@ -5,6 +5,7 @@ import { FlatCompat } from "@eslint/eslintrc";
 import js from "@eslint/js";
 import typescriptEslintEslintPlugin from "@typescript-eslint/eslint-plugin";
 import tsParser from "@typescript-eslint/parser";
+import checkFilePlugin from "eslint-plugin-check-file";
 import prettier from "eslint-plugin-prettier";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -20,6 +21,8 @@ export default [
   {
     plugins: {
       prettier,
+      // Add check-file plugin for naming conventions
+      "check-file": checkFilePlugin,
     },
     rules: {
       "prettier/prettier": "error",
@@ -38,6 +41,92 @@ export default [
           tsx: "never",
           js: "never",
           jsx: "never",
+        },
+      ],
+      // Enforce kebab-case for file and folder names
+      "check-file/filename-naming-convention": [
+        "error",
+        {
+          "**/*.{ts,tsx}": "KEBAB_CASE",
+        },
+        {
+          ignoreMiddleExtensions: true,
+        },
+      ],
+      "check-file/folder-naming-convention": [
+        "error",
+        {
+          "src/**/!(__tests__)": "KEBAB_CASE",
+        },
+      ],
+      // Restrict cross-feature imports in src/features
+      "import/no-restricted-paths": [
+        "error",
+        {
+          zones: [
+            {
+              target: "./src/features/projects",
+              from: "./src/features",
+              except: ["./projects"],
+            },
+            {
+              target: "./src/features/skills",
+              from: "./src/features",
+              except: ["./skills"],
+            },
+            {
+              target: "./src/features/mdx",
+              from: "./src/features",
+              except: ["./mdx"],
+            },
+            {
+              target: "./src/features/cv",
+              from: "./src/features",
+              except: ["./cv"],
+            },
+            {
+              target: "./src/features/media",
+              from: "./src/features",
+              except: ["./media"],
+            },
+            {
+              target: "./src/features/navigation",
+              from: "./src/features",
+              except: ["./navigation"],
+            },
+            {
+              target: "./src/features/about",
+              from: "./src/features",
+              except: ["./about"],
+            },
+            {
+              target: "./src/features/i18n",
+              from: "./src/features",
+              except: ["./i18n"],
+            },
+            {
+              target: "./src/features/theme",
+              from: "./src/features",
+              except: ["./theme"],
+            },
+            // Enforce unidirectional codebase: src/app can import from features, not the other way
+            {
+              target: "./src/features",
+              from: "./src/app",
+            },
+            // Shared modules: features/app can import from shared, but not the other way
+            {
+              target: ["./src/components", "./src/hooks", "./src/lib", "./src/types", "./src/utils"],
+              from: ["./src/features", "./src/app"],
+            },
+          ],
+        },
+      ],
+      // Disallow any import path containing ./ or ../
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: ["*./*", "*../*"],
         },
       ],
     },

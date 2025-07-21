@@ -1,12 +1,12 @@
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
-import ProjectDetail from "~/components/ui/ProjectDetail";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
 
-import CustomMDXComponents from "@/components/mdx/CustomMDXComponents";
-import MdxSectionNav from "@/components/ui/MdxSectionNav";
+import CustomMDX from "@/features/blog/components/custom-mdx";
+import ProjectDetail from "@/features/blog/components/project-detail";
+import MdxSectionNav from "@/features/blog/components/section-nav";
 
 interface ProjectMeta {
   title: string;
@@ -116,7 +116,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             <div id="mdx-content">
               <MDXRemote
                 source={data.content}
-                components={CustomMDXComponents()}
+                components={CustomMDX()}
                 options={{
                   mdxOptions: {
                     rehypePlugins: [rehypeSlug, [rehypePrettyCode, { theme: "one-dark-pro" }]],

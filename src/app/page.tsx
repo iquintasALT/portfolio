@@ -1,12 +1,9 @@
-import AboutSection from "../components/sections/AboutSection";
-import ContactSection from "../components/sections/ContactSection";
-import HeroSection from "../components/sections/HeroSection";
-import ProjectsSection from "../components/sections/ProjectsSectionServer";
-import SkillsSection from "../components/sections/SkillsSectionServer";
-import SectionTransition from "../components/ui/SectionTransitionClient";
-
-// import PetCompanion from "../components/PetCompanion";
-// import Footer from "../components/Footer";
+import AboutSection from "@/components/sections/about-section";
+import ContactSection from "@/components/sections/contact-section";
+import HeroSection from "@/components/sections/hero-section";
+import SectionTransition from "@/components/sections/section-transition-client";
+import ProjectsSection from "@/features/projects/components/projects-section-server";
+import SkillsSection from "@/features/skills/components/skills-section-server";
 
 export default function Page() {
   return (
@@ -22,9 +19,6 @@ export default function Page() {
         </section>
         <ContactSection id="contact" />
       </SectionTransition>
-      {/* Pet Companion */}
-      {/* <PetCompanion route="home" /> */}
-      {/* <Footer /> */}
     </main>
   );
 }

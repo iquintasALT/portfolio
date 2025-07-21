@@ -1,7 +1,7 @@
-import "./app.css";
+import "@/app/app.css";
 
-import ClientRoot from "./ClientRoot";
-import ReactQueryProvider from "./ReactQueryProvider";
+import ClientRoot from "@/app/client-root";
+import ReactQueryProvider from "@/components/providers/react-query-provider";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

@@ -2,6 +2,12 @@
   "name": "iquintasalt",
   "private": true,
   "type": "module",
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ]
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -68,8 +74,10 @@
     "eslint-plugin-check-file": "^3.3.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react-refresh": "^0.4.20",
+    "husky": "^9.1.7",
     "jest": "^30.0.4",
     "jest-environment-jsdom": "^30.0.4",
+    "lint-staged": "^16.1.2",
     "postcss": "^8.5.6",
     "prettier": "^3.4.2",
     "prettier-plugin-sort-json": "^4.1.1",
